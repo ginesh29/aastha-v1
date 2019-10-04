@@ -1,0 +1,17 @@
+D:\Projects\AASTHA\Site\AASTHA\obj\Release\AASTHA.csprojResolveAssemblyReference.cache
+D:\Projects\AASTHA\Site\AASTHA\bin\AASTHA.dll.config
+D:\Projects\AASTHA\Site\AASTHA\bin\AASTHA.dll
+D:\Projects\AASTHA\Site\AASTHA\bin\AASTHA.pdb
+D:\Projects\AASTHA\Site\AASTHA\obj\Release\AASTHA.dll
+D:\Projects\AASTHA\Site\AASTHA\obj\Release\AASTHA.pdb
+E:\Projects\AASTHA\Site\AASTHA\bin\AASTHA.dll.config
+E:\Projects\AASTHA\Site\AASTHA\bin\AASTHA.dll
+E:\Projects\AASTHA\Site\AASTHA\bin\AASTHA.pdb
+E:\Projects\AASTHA\Site\AASTHA\obj\Release\AASTHA.csprojAssemblyReference.cache
+E:\Projects\AASTHA\Site\AASTHA\obj\Release\AASTHA.csproj.CoreCompileInputs.cache
+E:\Projects\AASTHA\Site\AASTHA\obj\Release\AASTHA.csproj.CopyComplete
+E:\Projects\AASTHA\Site\AASTHA\obj\Release\AASTHA.dll
+E:\Projects\AASTHA\Site\AASTHA\obj\Release\AASTHA.pdb
+E:\Projects\AASTHA\Site\AASTHA\bin\itextsharp.dll
+E:\Projects\AASTHA\Site\AASTHA\bin\itextsharp.xmlworker.dll
+E:\Projects\AASTHA\Site\AASTHA\bin\itextsharp.xml

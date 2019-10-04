@@ -1,0 +1,108 @@
+﻿
+<link href="~/Content/ui.jqgrid-bootstrap.css" rel="stylesheet" />
+
+<div class="form-group">
+    <button class="btn btn-primary" onclick="edit(null)"> <i class="entypo-plus"></i> Add New</button>
+</div>
+
+<table id="list2"></table>
+<div id="pager2"></div>
+
+@Html.Partial("Modal_Edit")
+@Html.Partial("Modal_Delete")
+<script src="~/Scripts/jquery.inputmask.bundle.min.js"></script>
+<script src="~/Scripts/JqGrid/jquery.jqGrid.min.js"></script>
+<script src="~/Scripts/JqGrid/grid.locale-en.js"></script>
+<script src="~/Content/js/toastr.js" id="script-resource-8"></script>
+<script>
+    $(document).ready(function () {
+        $('#list2').jqGrid({
+            styleUI: 'Bootstrap',
+            colNames: ['Id', 'Patient Name', 'Age', 'Mobile', 'Address', 'Action'],
+            colModel: [
+           { name: 'patient_id', width: 20, key: true, searchoptions: JQ_sopt_int },
+           { name: 'full_name', width: 90, searchoptions: JQ_sopt_string },
+           { name: 'age', width: 20, sortable: false, search: false },
+           { name: 'mobile', width: 40, sortable: false, searchoptions: JQ_sopt_int },
+           { name: 'address', width: 40, stype: "select", searchoptions: { classes: 'select2', value: fillAddress(), defaultValue: 'All' } },
+           { name: 'action', width: 40, formatter: editdelete, sortable: false, search: false },
+            ],
+            pager: jQuery('#pager2'),
+            sortname: 'patient_id',
+            rowNum: 10,
+            rowList: [10, 20, 30],
+            autowidth: true,
+            height: '100%',
+            datatype: 'json',
+            viewrecords: true,
+            mtype: 'GET',
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                userdata: "userdata"
+            },
+            url: '@Url.Action("Getall_Patient")'
+        }).navGrid('#pager2', { view: false, del: false, add: false, edit: false, search: false, referesh: true },
+                {}, // default settings for edit
+                {}, // default settings for add
+                {}, // delete instead that del:false we need this
+                 // search options
+                {} /* view parameters*/
+              ).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+        $("#Age").inputmask("99");
+    });
+    function editdelete(cellvalue, options, rowObject) {
+        return '<button class="btn btn-default btn-sm btn-icon icon-left edit" onclick="edit(' + cellvalue + ')"> <i class="entypo-pencil"></i> Edit </button> <button class="btn btn-danger btn-sm btn-icon icon-left delete" onclick="delete_patient(' + cellvalue + ')"> <i class="entypo-cancel"></i> Delete </button>';
+    }
+
+    function edit(patient_id) {
+        if (patient_id != null) {
+            $("#Get_View").val("Edit");
+            var data = { "patient_id": patient_id };
+            $("#Patient_Id_Edit").val(patient_id);
+            $.post('@Url.Action("Fetch_Patient_Details")', data,
+            function (data) {
+                var splitname = data.split(' ');
+                var splitdetail = splitname[2].split(',');
+                $("#Firstname").val(splitname[0]);
+                $("#Middlename").val(splitname[1]);
+                $("#Lastname").val(splitdetail[0]);
+                $("#Age").val(splitdetail[1]);
+                $("#Mobile").val(splitdetail[2]);
+                $("#Address").val(splitdetail[3]);
+            })
+        }
+        else {
+            $("#Get_View").val("Add");
+        }
+        $("#edit-modal").modal('show');
+        blockui_div();
+    }
+    function delete_patient(patient_id) {
+        var data = { "patient_id": patient_id }
+        $.post('@Url.Action("Fetch_Patient_Details")', data,
+        function (data) {
+            var split = data.split(',');
+            $("#Patient_Id_Delete").val(patient_id);
+            $("#fullname").html(split[0]);
+            $("#delete-modal").modal('show');
+        })
+    }    
+
+    function fillAddress() {
+        var result = "";
+        $.ajax({
+
+            url: '@Url.Action("AddressList")',
+            async: false,
+            success: function (data) {
+                result = data;
+                result = result.toString().split(',').join(';');
+            }
+        });
+        return result;
+    }
+</script>

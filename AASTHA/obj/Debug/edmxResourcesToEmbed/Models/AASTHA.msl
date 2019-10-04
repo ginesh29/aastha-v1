@@ -1,0 +1,862 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AASTHAModelStoreContainer" CdmEntityContainer="AASTHAEntities">
+    <FunctionImportMapping FunctionImportName="Add_Appointment" FunctionName="AASTHAModel.Store.Add_Appointment" />
+    <FunctionImportMapping FunctionImportName="Add_Shift" FunctionName="AASTHAModel.Store.Add_Shift" />
+    <FunctionImportMapping FunctionImportName="Biometric_Report" FunctionName="AASTHAModel.Store.Biometric_Report">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.Biometric_Report_Result">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="EnNo" ColumnName="EnNo" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Dynamic_Pivot" FunctionName="AASTHAModel.Store.Dynamic_Pivot" />
+    <FunctionImportMapping FunctionImportName="Get_IPD_Monthwise_Collection" FunctionName="AASTHAModel.Store.Get_IPD_Monthwise_Collection">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.Get_IPD_Monthwise_Collection_Result">
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="Dates" ColumnName="Dates" />
+          <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+          <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_Monthwise_Collection" FunctionName="AASTHAModel.Store.Get_Monthwise_Collection">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.Get_Monthwise_Collection_Result">
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="Dates" ColumnName="Dates" />
+          <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+          <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_OPD_Monthwise_Collection" FunctionName="AASTHAModel.Store.Get_OPD_Monthwise_Collection">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.Get_OPD_Monthwise_Collection_Result">
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="Dates" ColumnName="Dates" />
+          <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+          <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllMedicineWithType" FunctionName="AASTHAModel.Store.GetAllMedicineWithType">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.GetAllMedicineWithType_Result">
+          <ScalarProperty Name="medicine_typeId" ColumnName="medicine_typeId" />
+          <ScalarProperty Name="medicine_name" ColumnName="medicine_name" />
+          <ScalarProperty Name="medicine_type" ColumnName="medicine_type" />
+          <ScalarProperty Name="MedicineType" ColumnName="MedicineType" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetDashBoardCount" FunctionName="AASTHAModel.Store.GetDashBoardCount" />
+    <FunctionImportMapping FunctionImportName="GetYearTab" FunctionName="AASTHAModel.Store.GetYearTab">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.GetYearTab_Result">
+          <ScalarProperty Name="Years" ColumnName="Years" />
+          <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+          <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetYearTabs" FunctionName="AASTHAModel.Store.GetYearTabs">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.GetYearTabs_Result">
+          <ScalarProperty Name="Years" ColumnName="Years" />
+          <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+          <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="IsAppointed" FunctionName="AASTHAModel.Store.IsAppointed">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.IsAppointed_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Patient_Id" ColumnName="Patient_Id" />
+          <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Monthly_AttendanceReport" FunctionName="AASTHAModel.Store.Monthly_AttendanceReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.Monthly_AttendanceReport_Result">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="C1" ColumnName="1" />
+          <ScalarProperty Name="C2" ColumnName="2" />
+          <ScalarProperty Name="C3" ColumnName="3" />
+          <ScalarProperty Name="C4" ColumnName="4" />
+          <ScalarProperty Name="C5" ColumnName="5" />
+          <ScalarProperty Name="C6" ColumnName="6" />
+          <ScalarProperty Name="C7" ColumnName="7" />
+          <ScalarProperty Name="C8" ColumnName="8" />
+          <ScalarProperty Name="C9" ColumnName="9" />
+          <ScalarProperty Name="C10" ColumnName="10" />
+          <ScalarProperty Name="C11" ColumnName="11" />
+          <ScalarProperty Name="C12" ColumnName="12" />
+          <ScalarProperty Name="C13" ColumnName="13" />
+          <ScalarProperty Name="C14" ColumnName="14" />
+          <ScalarProperty Name="C15" ColumnName="15" />
+          <ScalarProperty Name="C16" ColumnName="16" />
+          <ScalarProperty Name="C17" ColumnName="17" />
+          <ScalarProperty Name="C18" ColumnName="18" />
+          <ScalarProperty Name="C19" ColumnName="19" />
+          <ScalarProperty Name="C20" ColumnName="20" />
+          <ScalarProperty Name="C21" ColumnName="21" />
+          <ScalarProperty Name="C22" ColumnName="22" />
+          <ScalarProperty Name="C23" ColumnName="23" />
+          <ScalarProperty Name="C24" ColumnName="24" />
+          <ScalarProperty Name="C25" ColumnName="25" />
+          <ScalarProperty Name="C26" ColumnName="26" />
+          <ScalarProperty Name="C27" ColumnName="27" />
+          <ScalarProperty Name="C28" ColumnName="28" />
+          <ScalarProperty Name="C29" ColumnName="29" />
+          <ScalarProperty Name="C30" ColumnName="30" />
+          <ScalarProperty Name="C31" ColumnName="31" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="OPDReport" FunctionName="AASTHAModel.Store.OPDReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.OPDReport_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="Consult_Charge" ColumnName="Consult_Charge" />
+          <ScalarProperty Name="USG_Charge" ColumnName="USG_Charge" />
+          <ScalarProperty Name="UPT_Charge" ColumnName="UPT_Charge" />
+          <ScalarProperty Name="Inj_Charge" ColumnName="Inj_Charge" />
+          <ScalarProperty Name="Other_Charge" ColumnName="Other_Charge" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Add_OPD_Entry" FunctionName="AASTHAModel.Store.Add_OPD_Entry" />
+    <FunctionImportMapping FunctionImportName="Add_OPD_Record" FunctionName="AASTHAModel.Store.Add_OPD_Record" />
+    <FunctionImportMapping FunctionImportName="admin_panel" FunctionName="AASTHAModel.Store.admin_panel" />
+    <FunctionImportMapping FunctionImportName="Delete_Ipd_Charge" FunctionName="AASTHAModel.Store.Delete_Ipd_Charge" />
+    <FunctionImportMapping FunctionImportName="delete_ipd_entry" FunctionName="AASTHAModel.Store.delete_ipd_entry" />
+    <FunctionImportMapping FunctionImportName="delete_opd_entry" FunctionName="AASTHAModel.Store.delete_opd_entry" />
+    <FunctionImportMapping FunctionImportName="delete_patient_entry" FunctionName="AASTHAModel.Store.delete_patient_entry" />
+    <FunctionImportMapping FunctionImportName="edit_delivery_entry" FunctionName="AASTHAModel.Store.edit_delivery_entry" />
+    <FunctionImportMapping FunctionImportName="edit_general_entry" FunctionName="AASTHAModel.Store.edit_general_entry" />
+    <FunctionImportMapping FunctionImportName="Edit_IPD_Charge_Table" FunctionName="AASTHAModel.Store.Edit_IPD_Charge_Table" />
+    <FunctionImportMapping FunctionImportName="Edit_OPD_Entry" FunctionName="AASTHAModel.Store.Edit_OPD_Entry" />
+    <FunctionImportMapping FunctionImportName="Edit_OPD_Record" FunctionName="AASTHAModel.Store.Edit_OPD_Record" />
+    <FunctionImportMapping FunctionImportName="edit_operation_entry" FunctionName="AASTHAModel.Store.edit_operation_entry" />
+    <FunctionImportMapping FunctionImportName="ge_ipd_id" FunctionName="AASTHAModel.Store.ge_ipd_id">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.ge_ipd_id_Result">
+          <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+          <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+          <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="room_type" ColumnName="room_type" />
+          <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+          <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+          <ScalarProperty Name="bill" ColumnName="bill" />
+          <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+          <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_All_IPD_Entry" FunctionName="AASTHAModel.Store.Get_All_IPD_Entry">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.Get_All_IPD_Entry_Result">
+          <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+          <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+          <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="room_type" ColumnName="room_type" />
+          <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+          <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+          <ScalarProperty Name="bill" ColumnName="bill" />
+          <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_All_OPD_Entry" FunctionName="AASTHAModel.Store.Get_All_OPD_Entry">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.Get_All_OPD_Entry_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="Consult_Charge" ColumnName="Consult_Charge" />
+          <ScalarProperty Name="USG_Charge" ColumnName="USG_Charge" />
+          <ScalarProperty Name="UPT_Charge" ColumnName="UPT_Charge" />
+          <ScalarProperty Name="Inj_Charge" ColumnName="Inj_Charge" />
+          <ScalarProperty Name="Other_Charge" ColumnName="Other_Charge" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_fullname" FunctionName="AASTHAModel.Store.get_fullname">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.get_fullname_Result">
+          <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_id_manage_opd" FunctionName="AASTHAModel.Store.get_id_manage_opd">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.get_id_manage_opd_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+          <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+          <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+          <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+          <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+          <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+          <ScalarProperty Name="patient_id2" ColumnName="patient_id2" />
+          <ScalarProperty Name="opd_Id1" ColumnName="opd_Id1" />
+          <ScalarProperty Name="opd_date" ColumnName="opd_date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_IPD_Charge_Tabele" FunctionName="AASTHAModel.Store.Get_IPD_Charge_Tabele">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.Get_IPD_Charge_Tabele_Result">
+          <ScalarProperty Name="IPD_Id" ColumnName="IPD_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Charge_Id" ColumnName="Charge_Id" />
+          <ScalarProperty Name="Days" ColumnName="Days" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Charge_Title" ColumnName="Charge_Title" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_last_fulname" FunctionName="AASTHAModel.Store.get_last_fulname">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.get_last_fulname_Result">
+          <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_lastreg_name" FunctionName="AASTHAModel.Store.get_lastreg_name">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.get_lastreg_name_Result">
+          <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_receipt_id" FunctionName="AASTHAModel.Store.get_receipt_id">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.get_receipt_id_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+          <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+          <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+          <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+          <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+          <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetIPD_Charges_Table" FunctionName="AASTHAModel.Store.GetIPD_Charges_Table">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.GetIPD_Charges_Table_Result">
+          <ScalarProperty Name="Charge_Title" ColumnName="Charge_Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IPD_Id" ColumnName="IPD_Id" />
+          <ScalarProperty Name="Charge_Id" ColumnName="Charge_Id" />
+          <ScalarProperty Name="Days" ColumnName="Days" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="insert_delivery_entry" FunctionName="AASTHAModel.Store.insert_delivery_entry" />
+    <FunctionImportMapping FunctionImportName="insert_ipd_entry" FunctionName="AASTHAModel.Store.insert_ipd_entry" />
+    <FunctionImportMapping FunctionImportName="Insert_IPDCharge_Table" FunctionName="AASTHAModel.Store.Insert_IPDCharge_Table" />
+    <FunctionImportMapping FunctionImportName="insert_medicine" FunctionName="AASTHAModel.Store.insert_medicine" />
+    <FunctionImportMapping FunctionImportName="Insert_OPD_Entry" FunctionName="AASTHAModel.Store.Insert_OPD_Entry" />
+    <FunctionImportMapping FunctionImportName="inset_medicine" FunctionName="AASTHAModel.Store.inset_medicine" />
+    <FunctionImportMapping FunctionImportName="ipd_invoice" FunctionName="AASTHAModel.Store.ipd_invoice">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.ipd_invoice_Result">
+          <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+          <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+          <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="room_type" ColumnName="room_type" />
+          <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+          <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+          <ScalarProperty Name="bill" ColumnName="bill" />
+          <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+          <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="IPD_Report" FunctionName="AASTHAModel.Store.IPD_Report">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.IPD_Report_Result">
+          <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+          <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+          <ScalarProperty Name="room_type" ColumnName="room_type" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+          <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+          <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+          <ScalarProperty Name="Bill" ColumnName="Bill" />
+          <ScalarProperty Name="Final_Total" ColumnName="Final_Total" />
+          <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+          <ScalarProperty Name="C1" ColumnName="1" />
+          <ScalarProperty Name="C2" ColumnName="2" />
+          <ScalarProperty Name="C3" ColumnName="3" />
+          <ScalarProperty Name="C4" ColumnName="4" />
+          <ScalarProperty Name="C5" ColumnName="5" />
+          <ScalarProperty Name="C6" ColumnName="6" />
+          <ScalarProperty Name="C7" ColumnName="7" />
+          <ScalarProperty Name="C8" ColumnName="8" />
+          <ScalarProperty Name="C9" ColumnName="9" />
+          <ScalarProperty Name="C10" ColumnName="10" />
+          <ScalarProperty Name="C11" ColumnName="11" />
+          <ScalarProperty Name="C12" ColumnName="12" />
+          <ScalarProperty Name="C13" ColumnName="13" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="login" FunctionName="AASTHAModel.Store.login">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.login_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="Layout" ColumnName="Layout" />
+          <ScalarProperty Name="Biometric_Id" ColumnName="Biometric_Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="manage_ipd_entry" FunctionName="AASTHAModel.Store.manage_ipd_entry">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.manage_ipd_entry_Result">
+          <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+          <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+          <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="room_type" ColumnName="room_type" />
+          <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+          <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+          <ScalarProperty Name="bill" ColumnName="bill" />
+          <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+          <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+          <ScalarProperty Name="patient_id2" ColumnName="patient_id2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="manage_opd_entry" FunctionName="AASTHAModel.Store.manage_opd_entry">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.manage_opd_entry_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+          <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+          <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+          <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+          <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+          <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+          <ScalarProperty Name="patient_id2" ColumnName="patient_id2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="OPD_Report" FunctionName="AASTHAModel.Store.OPD_Report">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.OPD_Report_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="Consult_Charge" ColumnName="Consult_Charge" />
+          <ScalarProperty Name="USG_Charge" ColumnName="USG_Charge" />
+          <ScalarProperty Name="UPT_Charge" ColumnName="UPT_Charge" />
+          <ScalarProperty Name="Inj_Charge" ColumnName="Inj_Charge" />
+          <ScalarProperty Name="Other_Charge" ColumnName="Other_Charge" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="opd_report_collection_monthly" FunctionName="AASTHAModel.Store.opd_report_collection_monthly">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.opd_report_collection_monthly_Result">
+          <ScalarProperty Name="total_consult" ColumnName="total_consult" />
+          <ScalarProperty Name="total_usg" ColumnName="total_usg" />
+          <ScalarProperty Name="total_upt" ColumnName="total_upt" />
+          <ScalarProperty Name="total_inj" ColumnName="total_inj" />
+          <ScalarProperty Name="toatal_other" ColumnName="toatal_other" />
+          <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="opd_report_collection_monthly1" FunctionName="AASTHAModel.Store.opd_report_collection_monthly1">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.opd_report_collection_monthly1_Result">
+          <ScalarProperty Name="total_consult" ColumnName="total_consult" />
+          <ScalarProperty Name="total_usg" ColumnName="total_usg" />
+          <ScalarProperty Name="total_upt" ColumnName="total_upt" />
+          <ScalarProperty Name="total_inj" ColumnName="total_inj" />
+          <ScalarProperty Name="toatal_other" ColumnName="toatal_other" />
+          <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="opd_report_colletion" FunctionName="AASTHAModel.Store.opd_report_colletion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.opd_report_colletion_Result">
+          <ScalarProperty Name="total_consult" ColumnName="total_consult" />
+          <ScalarProperty Name="total_usg" ColumnName="total_usg" />
+          <ScalarProperty Name="total_upt" ColumnName="total_upt" />
+          <ScalarProperty Name="total_inj" ColumnName="total_inj" />
+          <ScalarProperty Name="toatal_other" ColumnName="toatal_other" />
+          <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="opd_report_colletion_daily" FunctionName="AASTHAModel.Store.opd_report_colletion_daily">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.opd_report_colletion_daily_Result">
+          <ScalarProperty Name="total_consult" ColumnName="total_consult" />
+          <ScalarProperty Name="total_usg" ColumnName="total_usg" />
+          <ScalarProperty Name="total_upt" ColumnName="total_upt" />
+          <ScalarProperty Name="total_inj" ColumnName="total_inj" />
+          <ScalarProperty Name="toatal_other" ColumnName="toatal_other" />
+          <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="opd_report_datewise" FunctionName="AASTHAModel.Store.opd_report_datewise">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.opd_report_datewise_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+          <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+          <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+          <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+          <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+          <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+          <ScalarProperty Name="opd_id1231" ColumnName="opd_id1231" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="OPD_Report_Monthly" FunctionName="AASTHAModel.Store.OPD_Report_Monthly">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.OPD_Report_Monthly_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+          <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+          <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+          <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+          <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="opd_report_monthwise" FunctionName="AASTHAModel.Store.opd_report_monthwise">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.opd_report_monthwise_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+          <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+          <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+          <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+          <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+          <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+          <ScalarProperty Name="opd_id1231" ColumnName="opd_id1231" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="opd_report_monthwise1" FunctionName="AASTHAModel.Store.opd_report_monthwise1">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.opd_report_monthwise1_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+          <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+          <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+          <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+          <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+          <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="patient_reg" FunctionName="AASTHAModel.Store.patient_reg" />
+    <FunctionImportMapping FunctionImportName="Procedure" FunctionName="AASTHAModel.Store.Procedure" />
+    <FunctionImportMapping FunctionImportName="Procedure1" FunctionName="AASTHAModel.Store.Procedure1">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.Procedure1_Result">
+          <ScalarProperty Name="total_consult" ColumnName="total_consult" />
+          <ScalarProperty Name="total_usg" ColumnName="total_usg" />
+          <ScalarProperty Name="total_upt" ColumnName="total_upt" />
+          <ScalarProperty Name="total_inj" ColumnName="total_inj" />
+          <ScalarProperty Name="toatal_other" ColumnName="toatal_other" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Search_In_OPDGrid" FunctionName="AASTHAModel.Store.Search_In_OPDGrid">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.Search_In_OPDGrid_Result">
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+          <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+          <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+          <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+          <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="t" FunctionName="AASTHAModel.Store.t" />
+    <FunctionImportMapping FunctionImportName="utility" FunctionName="AASTHAModel.Store.utility">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.utility_Result">
+          <ScalarProperty Name="est_duedate" ColumnName="est_duedate" />
+          <ScalarProperty Name="gest_age" ColumnName="gest_age" />
+          <ScalarProperty Name="gest_age1" ColumnName="gest_age1" />
+          <ScalarProperty Name="gest_age2" ColumnName="gest_age2" />
+          <ScalarProperty Name="gest_age3" ColumnName="gest_age3" />
+          <ScalarProperty Name="best_time" ColumnName="best_time" />
+          <ScalarProperty Name="best_time1" ColumnName="best_time1" />
+          <ScalarProperty Name="rest_duedate" ColumnName="rest_duedate" />
+          <ScalarProperty Name="rgest_age" ColumnName="rgest_age" />
+          <ScalarProperty Name="rgest_age1" ColumnName="rgest_age1" />
+          <ScalarProperty Name="rgest_age2" ColumnName="rgest_age2" />
+          <ScalarProperty Name="rgest_age3" ColumnName="rgest_age3" />
+          <ScalarProperty Name="rbest_time" ColumnName="rbest_time" />
+          <ScalarProperty Name="rbest_time1" ColumnName="rbest_time1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="view_all_patient" FunctionName="AASTHAModel.Store.view_all_patient">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.view_all_patient_Result">
+          <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DateWiseIPD_Collection" FunctionName="AASTHAModel.Store.DateWiseIPD_Collection">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.DateWiseIPD_Collection_Result">
+          <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+          <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+          <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DateWiseOPD_Collection" FunctionName="AASTHAModel.Store.DateWiseOPD_Collection">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AASTHAModel.DateWiseOPD_Collection_Result">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+          <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tbl_appointment">
+      <EntityTypeMapping TypeName="AASTHAModel.tbl_appointment">
+        <MappingFragment StoreEntitySet="tbl_appointment">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+          <ScalarProperty Name="Patient_Id" ColumnName="Patient_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_shift">
+      <EntityTypeMapping TypeName="AASTHAModel.tbl_shift">
+        <MappingFragment StoreEntitySet="tbl_shift">
+          <ScalarProperty Name="Shift" ColumnName="Shift" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="delivery_master">
+      <EntityTypeMapping TypeName="AASTHAModel.delivery_master">
+        <MappingFragment StoreEntitySet="delivery_master">
+          <ScalarProperty Name="delivery" ColumnName="delivery" />
+          <ScalarProperty Name="delivery_typeId" ColumnName="delivery_typeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="diagnosis_master">
+      <EntityTypeMapping TypeName="AASTHAModel.diagnosis_master">
+        <MappingFragment StoreEntitySet="diagnosis_master">
+          <ScalarProperty Name="diagnosis_type" ColumnName="diagnosis_type" />
+          <ScalarProperty Name="digagnosis_typeId" ColumnName="digagnosis_typeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="general_diagnosis">
+      <EntityTypeMapping TypeName="AASTHAModel.general_diagnosis">
+        <MappingFragment StoreEntitySet="general_diagnosis">
+          <ScalarProperty Name="general_diagnosis_name" ColumnName="general_diagnosis_name" />
+          <ScalarProperty Name="general_diagnosis_Id" ColumnName="general_diagnosis_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPD_Charge_Details">
+      <EntityTypeMapping TypeName="AASTHAModel.IPD_Charge_Details">
+        <MappingFragment StoreEntitySet="IPD_Charge_Details">
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="Days" ColumnName="Days" />
+          <ScalarProperty Name="Charge_Id" ColumnName="Charge_Id" />
+          <ScalarProperty Name="IPD_Id" ColumnName="IPD_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IPD_Charges_Master">
+      <EntityTypeMapping TypeName="AASTHAModel.IPD_Charges_Master">
+        <MappingFragment StoreEntitySet="IPD_Charges_Master">
+          <ScalarProperty Name="Charge_Title" ColumnName="Charge_Title" />
+          <ScalarProperty Name="Charge_Id" ColumnName="Charge_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="medicine_master">
+      <EntityTypeMapping TypeName="AASTHAModel.medicine_master">
+        <MappingFragment StoreEntitySet="medicine_master">
+          <ScalarProperty Name="medicine_type" ColumnName="medicine_type" />
+          <ScalarProperty Name="medicine_name" ColumnName="medicine_name" />
+          <ScalarProperty Name="medicine_typeId" ColumnName="medicine_typeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="operation_master">
+      <EntityTypeMapping TypeName="AASTHAModel.operation_master">
+        <MappingFragment StoreEntitySet="operation_master">
+          <ScalarProperty Name="operation_type" ColumnName="operation_type" />
+          <ScalarProperty Name="operation_typeId" ColumnName="operation_typeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_delivery">
+      <EntityTypeMapping TypeName="AASTHAModel.tbl_delivery">
+        <MappingFragment StoreEntitySet="tbl_delivery">
+          <ScalarProperty Name="diagnosis" ColumnName="diagnosis" />
+          <ScalarProperty Name="baby_weight" ColumnName="baby_weight" />
+          <ScalarProperty Name="baby_gender" ColumnName="baby_gender" />
+          <ScalarProperty Name="delivery_time" ColumnName="delivery_time" />
+          <ScalarProperty Name="delivery_date" ColumnName="delivery_date" />
+          <ScalarProperty Name="delivery_typeId" ColumnName="delivery_typeId" />
+          <ScalarProperty Name="Ipd_Id" ColumnName="Ipd_Id" />
+          <ScalarProperty Name="delivery_Id" ColumnName="delivery_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_general">
+      <EntityTypeMapping TypeName="AASTHAModel.tbl_general">
+        <MappingFragment StoreEntitySet="tbl_general">
+          <ScalarProperty Name="general_diagnosis" ColumnName="general_diagnosis" />
+          <ScalarProperty Name="Ipd_Id" ColumnName="Ipd_Id" />
+          <ScalarProperty Name="general_Id" ColumnName="general_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Ipd">
+      <EntityTypeMapping TypeName="AASTHAModel.tbl_Ipd">
+        <MappingFragment StoreEntitySet="tbl_Ipd">
+          <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+          <ScalarProperty Name="bill" ColumnName="bill" />
+          <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+          <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+          <ScalarProperty Name="room_type" ColumnName="room_type" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+          <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+          <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_medicine_type">
+      <EntityTypeMapping TypeName="AASTHAModel.tbl_medicine_type">
+        <MappingFragment StoreEntitySet="tbl_medicine_type">
+          <ScalarProperty Name="medicine_type" ColumnName="medicine_type" />
+          <ScalarProperty Name="medicine_Id" ColumnName="medicine_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_opd">
+      <EntityTypeMapping TypeName="AASTHAModel.tbl_opd">
+        <MappingFragment StoreEntitySet="tbl_opd">
+          <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+          <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+          <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+          <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+          <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+          <ScalarProperty Name="case_type" ColumnName="case_type" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+          <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_operation">
+      <EntityTypeMapping TypeName="AASTHAModel.tbl_operation">
+        <MappingFragment StoreEntitySet="tbl_operation">
+          <ScalarProperty Name="operation_type" ColumnName="operation_type" />
+          <ScalarProperty Name="operation_date" ColumnName="operation_date" />
+          <ScalarProperty Name="diagnosis" ColumnName="diagnosis" />
+          <ScalarProperty Name="Ipd_Id" ColumnName="Ipd_Id" />
+          <ScalarProperty Name="operation_Id" ColumnName="operation_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_patient">
+      <EntityTypeMapping TypeName="AASTHAModel.tbl_patient">
+        <MappingFragment StoreEntitySet="tbl_patient">
+          <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_user">
+      <EntityTypeMapping TypeName="AASTHAModel.tbl_user">
+        <MappingFragment StoreEntitySet="tbl_user">
+          <ScalarProperty Name="Biometric_Id" ColumnName="Biometric_Id" />
+          <ScalarProperty Name="Layout" ColumnName="Layout" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tran_MachineRawPunch">
+      <EntityTypeMapping TypeName="AASTHAModel.Tran_MachineRawPunch">
+        <MappingFragment StoreEntitySet="Tran_MachineRawPunch">
+          <ScalarProperty Name="MachineNo" ColumnName="MachineNo" />
+          <ScalarProperty Name="PayCode" ColumnName="PayCode" />
+          <ScalarProperty Name="ISManual" ColumnName="ISManual" />
+          <ScalarProperty Name="P_Day" ColumnName="P_Day" />
+          <ScalarProperty Name="PunchDatetime" ColumnName="PunchDatetime" />
+          <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+          <ScalarProperty Name="Tran_MachineRawPunchId" ColumnName="Tran_MachineRawPunchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

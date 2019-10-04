@@ -1,0 +1,250 @@
+﻿<link rel="stylesheet" href="~/Content/js/icheck/skins/square/_all.css" id="style-resource-2">
+
+<div ng-app="mainApp" ng-controller="MainController" data-ng-init="getreport()">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="field-4" class="control-label">Report Type</label>
+                <ul class="icheck-list">
+                    <li>
+                        <input class="icheck-11" type="radio" name="report" value="Daily" checked>
+                        <label for="minimal-radio-1-11">Daily Report</label>
+                    </li>
+                    <li>
+                        <input tabindex="8" class="icheck-11" name="report" type="radio" value="Range">
+                        <label for="minimal-radio-2-11">Date Range Report</label>
+                    </li>
+                    <li>
+                        <input tabindex="8" class="icheck-11" name="report" type="radio" value="Monthly" />
+                        <label for="minimal-radio-2-11">Monthly Report</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-1 pull-right" ng-if="patients.length != 0">
+            <div class="form-group" style="margin-top:25px;">
+                <input type="button" class="btn btn-info" value="Print" id="btnprint" ng-click="print()" />
+            </div>
+        </div>
+        <div class="col-md-1 pull-right">
+            <div class="form-group" style="margin-top:25px;">
+                <input type="button" class="btn btn-primary" value="Submit" id="btnreport" ng-click="getreport()" />
+            </div>
+        </div>
+
+        <div id="daily">
+            <div class="col-md-3 pull-right">
+                <div class="form-group">
+                    <label for="field-4" class="control-label">OPD Date</label>
+                    <input type="text" class="form-control datepicker" id="opddate">
+                </div>
+            </div>
+        </div>
+
+        <div id="range">
+            <div class="col-md-2 pull">
+                <div class="form-group">
+                    <label for="field-4" class="control-label">From OPD Date</label>
+                    <input type="text" class="form-control datepicker" id="fromdate">
+                </div>
+            </div>
+            <div class="col-md-2 pull">
+                <div class="form-group">
+                    <label for="field-4" class="control-label">To OPD Date</label>
+                    <input type="text" class="form-control datepicker" id="todate">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="printable">
+        <h3 style="text-align:center">OPD Report</h3>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Invoice No</th>
+                    <th>OPD Id</th>
+                    <th>Patient's Name</th>
+                    <th>Type</th>
+                    <th>Cons</th>
+                    <th>USG</th>
+                    <th>UPT</th>
+                    <th>Inj</th>
+                    <th>Other</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="(grpkey, value) in patients | groupBy: 'date'">
+                <tr class="tabletitle">
+                    <td colspan="4" style="text-align:center">Date: {{ grpkey }}</td>
+                    <td colspan="6" style="text-align:center">{{groupcount(grpkey)}} Patients</td>
+                </tr>
+                <tr ng-repeat="item in value">
+                    <td>{{ item.opd_Id }}</td>
+                    <td>{{ item.opd_receipt_id }}</td>
+                    <td>{{ item.full_name }}</td>
+                    <td>{{ item.case_type }}</td>
+                    <td>{{ item.Consult_Charge }}</td>
+                    <td>{{ item.USG_Charge }}</td>
+                    <td>{{ item.UPT_Charge }}</td>
+                    <td>{{ item.Inj_Charge }}</td>
+                    <td>{{ item.Other_Charge }}</td>
+                    <td>{{ item.Total }}</td>
+                </tr>
+                <tr class="tabletitle">
+                    <td colspan="3"></td>
+                    <td style="text-align:right">Total</td>
+                    <td>{{grouptotal(grpkey,'Consult_Charge')}}</td>
+                    <td>{{grouptotal(grpkey,'USG_Charge')}}</td>
+                    <td>{{grouptotal(grpkey,'UPT_Charge')}}</td>
+                    <td>{{grouptotal(grpkey,'Inj_Charge')}}</td>
+                    <td>{{grouptotal(grpkey,'Other_Charge')}}</td>
+                    <td>{{grouptotal(grpkey,'Total')}}</td>
+                </tr>
+            </tbody>
+            <tr ng-if="patients.length == 0">
+                <td colspan="11" style="text-align:left">No Record Found</td>
+            </tr>
+            <tfoot ng-if="patients.length != 0" class="tablefooter">
+                <tr>
+                    <td colspan="3">{{patients.length}} Patients</td>
+                    <td style="text-align:right">Grand Total</td>
+                    <td>{{total(grpkey,'Consult_Charge')}}</td>
+                    <td>{{total(grpkey,'USG_Charge')}}</td>
+                    <td>{{total(grpkey,'UPT_Charge')}}</td>
+                    <td>{{total(grpkey,'Inj_Charge')}}</td>
+                    <td>{{total(grpkey,'Other_Charge')}}</td>
+                    <td>{{total(grpkey,'Total')}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/angular-filter.js"></script>
+<script src="~/Content/js/bootstrap-datepicker.js"></script>
+<script src="~/Scripts/jQuery.print.js"></script>
+<script src="~/Content/js/icheck/icheck.min.js"></script>
+
+<script>
+    $('input.icheck-11').iCheck({
+        radioClass: 'iradio_square-blue'
+    });
+
+    $("#range").hide();
+    $('input').on('ifClicked', function (ev) {
+        if (this.value == 'Daily') {
+            $("#range").hide();
+            $("#daily").show();
+        }
+        else if (this.value == 'Range') {
+            $("#daily").hide();
+            $("#range").show();
+        }
+        else {
+            $("#range").hide();
+            $("#daily").show();
+        }
+    });
+    angular.module('mainApp', ['angular.filter'])
+    .controller('MainController', function ($scope, $http) {
+        $scope.getreport = function () {
+            blockui();
+            var opddate = $("#opddate").val();
+            var fromdate = $("#fromdate").val();
+            var todate = $("#todate").val();
+            var reporttype = $("input[name='report']:checked").val();
+            $http.get(
+            "/Report/GetOPD_Report",
+            { params: { opddate: opddate, fromdate: fromdate, todate: todate, report: reporttype } })
+             .success(function (response) {
+                 unblockui();
+                 $scope.patients = response;
+
+                 $scope.groupcount = function (group) {
+                     var total = 0;
+                     for (var i = 0; i < $scope.patients.length; i++) {
+                         var opd = $scope.patients[i];
+                         if (opd.date == group) {
+                             total += 1;
+                         }
+                     }
+                     return total;
+                 }
+                 $scope.total = function (group, key) {
+                     var total = 0;
+                     for (var i = 0; i < $scope.patients.length; i++) {
+                         var opd = $scope.patients[i];
+                         total += (opd[key]);
+                     }
+                     return total;
+                 }
+                 $scope.grouptotal = function (group, key) {
+                     var total = 0;
+                     for (var i = 0; i < $scope.patients.length; i++) {
+                         var opd = $scope.patients[i];
+                         if (opd.date == group) {
+                             total += (opd[key]);
+                         }
+                     }
+                     return total;
+                 }
+             });
+        }
+        $scope.print = function () {
+            $(".printable").print();
+        }
+    });
+</script>
+<style>
+    .icheck-list > li {
+        display: inline;
+        margin-bottom: 10px;
+    }
+
+    #prt-container table {
+        border-collapse: collapse;
+    }
+
+    #prt-container th,
+    #prt-container td {
+        border: 1px solid black;
+    }
+
+    .datatable_loader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('../Content/loader.gif') 50% 50% no-repeat rgba(249,249,249,.7);
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 4px;
+    }
+
+    table thead tr th {
+        font-size: 12px;
+    }
+
+    td {
+        font-size: 12px;
+    }
+
+    .copyButton {
+        background: #ff0000;
+    }
+
+    .tabletitle {
+        font-weight: bold;
+    }
+
+    .tablefooter {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+</style>

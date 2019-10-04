@@ -1,0 +1,389 @@
+﻿<link rel="stylesheet" href="~/Content/js/icheck/skins/square/_all.css" id="style-resource-2">
+
+<div ng-app="mainApp" ng-controller="MainController" data-ng-init="getreport()">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="field-4" class="control-label">Report Type</label>
+                <ul class="icheck-list">
+                    <li>
+                        <input class="icheck-11" type="radio" name="report" value="Daily" checked>
+                        <label for="minimal-radio-1-11">Daily Report</label>
+                    </li>
+                    <li>
+                        <input tabindex="8" class="icheck-11" name="report" type="radio" value="Range">
+                        <label for="minimal-radio-2-11">Date Range Report</label>
+                    </li>
+                    <li>
+                        <input tabindex="8" class="icheck-11" name="report" type="radio" value="Monthly" />
+                        <label for="minimal-radio-2-11">Monthly Report</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2 pull-right" ng-if="patients.length != 0">
+            <div class="form-group" style="margin-top:25px;">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                        Print <span class="caret"></span>
+                    </button> <ul class="dropdown-menu dropdown-blue">
+                        <li><a href="#" ng-click="print()">Report</a></li>
+                        <li><a href="#" ng-click="printtable()">Charge Table</a></li>
+                    </ul>
+                </div>
+                @*<input type="button" class="btn btn-info" value="Print" id="btnprint" ng-click="print()" />*@
+            </div>
+        </div>
+
+
+        <div class="col-md-1 pull-right">
+            <div class="form-group" style="margin-top:25px;">
+                <input type="button" class="btn btn-primary" value="Submit" id="btnreport" ng-click="getreport()" />
+            </div>
+        </div>
+
+        <div id="daily">
+            <div class="col-md-3 pull-right">
+                <div class="form-group">
+                    <label for="field-4" class="control-label">IPD Date</label>
+                    <input type="text" class="form-control datepicker" id="ipddate">
+                </div>
+            </div>
+        </div>
+
+        <div id="range">
+            <div class="col-md-2 pull">
+                <div class="form-group">
+                    <label for="field-4" class="control-label">From IPD Date</label>
+                    <input type="text" class="form-control datepicker" id="fromdate">
+                </div>
+            </div>
+            <div class="col-md-2 pull">
+                <div class="form-group">
+                    <label for="field-4" class="control-label">To IPD Date</label>
+                    <input type="text" class="form-control datepicker" id="todate">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#summary">IPD Summary</a></li>
+        <li><a data-toggle="tab" href="#report">IPD Report</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="summary" class="tab-pane fade in active">
+            <h3 style="text-align:center">IPD Report</h3>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:10px;">Id</th>
+                        <th>Patient's Name</th>
+                        <th>IPD Type</th>
+                        <th>Adm.&nbsp;Date</th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>C</th>
+                        <th>D</th>
+                        <th>E</th>
+                        <th>F</th>
+                        <th>G</th>
+                        <th>H</th>
+                        <th>I</th>
+                        <th>J</th>
+                        <th>K</th>
+                        <th>L</th>
+                        <th>M</th>
+                        <th>Total</th>
+                        <th>Final Total</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="(grpkey, value) in patients | groupBy: 'discharge_date'">
+                    <tr class="tabletitle">
+                        <td colspan="10" style="text-align:center">Discharge & Billing Date: {{ grpkey }}</td>
+                        <td colspan="10" style="text-align:center">{{groupcount(grpkey)}} Patients</td>
+                    </tr>
+
+                    <tr ng-repeat="item in value">
+                        <td>{{ item.ipd_Id }}</td>
+                        <td>{{ item.full_name }}</td>
+                        <td>{{ item.dept_name }}</td>
+                        <td>{{ item.addmission_date }}</td>
+                        <td>{{ item.C1 }}</td>
+                        <td>{{ item.C2 }}</td>
+                        <td>{{ item.C3 }}</td>
+                        <td>{{ item.C4 }}</td>
+                        <td>{{ item.C5 }}</td>
+                        <td>{{ item.C6 }}</td>
+                        <td>{{ item.C7 }}</td>
+                        <td>{{ item.C8 }}</td>
+                        <td>{{ item.C9 }}</td>
+                        <td>{{ item.C10 }}</td>
+                        <td>{{ item.C11 }}</td>
+                        <td>{{ item.C12 }}</td>
+                        <td>{{ item.C13 }}</td>
+                        <td>{{ item.Bill }}</td>
+                        <td>{{ item.Final_Total }}</td>
+                    </tr>
+                    <tr class="tabletitle">
+                        <td colspan="2"></td>
+                        <td colspan="2" style="text-align:right">Total</td>
+                        <td>{{grouptotal(grpkey,'C1')}}</td>
+                        <td>{{grouptotal(grpkey,'C2')}}</td>
+                        <td>{{grouptotal(grpkey,'C3')}}</td>
+                        <td>{{grouptotal(grpkey,'C4')}}</td>
+                        <td>{{grouptotal(grpkey,'C5')}}</td>
+                        <td>{{grouptotal(grpkey,'C6')}}</td>
+                        <td>{{grouptotal(grpkey,'C7')}}</td>
+                        <td>{{grouptotal(grpkey,'C8')}}</td>
+                        <td>{{grouptotal(grpkey,'C9')}}</td>
+                        <td>{{grouptotal(grpkey,'C10')}}</td>
+                        <td>{{grouptotal(grpkey,'C11')}}</td>
+                        <td>{{grouptotal(grpkey,'C12')}}</td>
+                        <td>{{grouptotal(grpkey,'C13')}}</td>
+                        <td>{{grouptotal(grpkey,'Bill')}}</td>
+                        <td>{{grouptotal(grpkey,'Final_Total')}}</td>
+                    </tr>
+                </tbody>
+                <tr ng-if="patients.length == 0">
+                    <td colspan="20" style="text-align:left">No Record Found</td>
+                </tr>
+                <tfoot ng-if="patients.length != 0" class="tablefooter">
+                    <tr>
+                        <td colspan="2">{{patients.length}} Patients</td>
+                        <td colspan="2" style="text-align:right">Grand Total</td>
+                        <td>{{total(grpkey,'C1')}}</td>
+                        <td>{{total(grpkey,'C2')}}</td>
+                        <td>{{total(grpkey,'C3')}}</td>
+                        <td>{{total(grpkey,'C4')}}</td>
+                        <td>{{total(grpkey,'C5')}}</td>
+                        <td>{{total(grpkey,'C6')}}</td>
+                        <td>{{total(grpkey,'C7')}}</td>
+                        <td>{{total(grpkey,'C8')}}</td>
+                        <td>{{total(grpkey,'C9')}}</td>
+                        <td>{{total(grpkey,'C10')}}</td>
+                        <td>{{total(grpkey,'C11')}}</td>
+                        <td>{{total(grpkey,'C12')}}</td>
+                        <td>{{total(grpkey,'C13')}}</td>
+                        <td>{{total(grpkey,'Bill')}}</td>
+                        <td>{{total(grpkey,'Final_Total')}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div id="report" class="tab-pane fade">
+            <h3 style="text-align:center">IPD Report Summary</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>No of Patients</th>
+                        <th>Total Collection</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in summary">
+                        <td>{{item.discharge_date}}</td>
+                        <td>{{item.No_of_Patients}}</td>
+                        <td>{{item.Total_Collection}}</td>
+                    </tr>
+                </tbody>
+                <tr ng-if="summary.length == 0">
+                    <td colspan="3" style="text-align:left">No Record Found</td>
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+<div class="printdesctable" style="display:none">
+    <table class="table table-bordered">
+        <tr>
+            <th>Sr. No.</th>
+            <th>Charge Code</th>
+            <th>Charge Title</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>A</td>
+            <td>Addmission Charges</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>B</td>
+            <td>Consulting Charges</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>C</td>
+            <td>Delivery/Operation Charges</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>D</td>
+            <td>Labour/Operation Room Charges</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>E</td>
+            <td>Room Charges</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>F</td>
+            <td>Doctor Visting Charges</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>G</td>
+            <td>Nursing Charges</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>H</td>
+            <td>Bio-Medical Waste Charges</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>I</td>
+            <td>Oxygen Charges</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>J</td>
+            <td>Baby Care Charges</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>K</td>
+            <td>Dressing Charges</td>
+        <tr>
+            <td>12</td>
+            <td>L</td>
+            <td>Paediatrician Charges</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>M</td>
+            <td>Other Charges</td>
+        </tr>
+    </table>
+
+</div>
+
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/angular-filter.js"></script>
+<script src="~/Content/js/bootstrap-datepicker.js"></script>
+<script src="~/Scripts/jQuery.print.js"></script>
+<script src="~/Content/js/icheck/icheck.min.js"></script>
+<script>
+    $('input.icheck-11').iCheck({
+        radioClass: 'iradio_square-blue'
+    });
+    var activeTab = "#summary";
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        activeTab = $(e.target).attr('href');
+    });
+    $("#range").hide();
+    $('input').on('ifClicked', function (ev) {
+        if (this.value == 'Daily') {
+            $("#range").hide();
+            $("#daily").show();
+        }
+        else if (this.value == 'Range') {
+            $("#daily").hide();
+            $("#range").show();
+        }
+        else {
+            $("#range").hide();
+            $("#daily").show();
+        }
+    });
+    angular.module('mainApp', ['angular.filter'])
+        .controller('MainController', function ($scope, $http) {
+            $scope.getreport = function () {
+                blockui();
+                var ipddate = $("#ipddate").val();
+                var fromdate = $("#fromdate").val();
+                var todate = $("#todate").val();
+                var reporttype = $("input[name='report']:checked").val();
+                $http.get(
+                    "GetIPD_Report/Report",
+                    {
+                        params: { ipddate: ipddate, fromdate: fromdate, todate: todate, report: reporttype }
+                    }).success(function (response) {
+                        unblockui();
+                        $scope.patients = response.data;
+                        $scope.summary = response.summary;
+                        console.log(response.summary)
+                        $scope.groupcount = function (group) {
+                            var total = 0;
+                            for (var i = 0; i < $scope.patients.length; i++) {
+                                var ipd = $scope.patients[i];
+                                if (ipd.discharge_date == group) {
+                                    total += 1;
+                                }
+                            }
+                            return total;
+                        }
+                        $scope.total = function (group, key) {
+                            var total = 0;
+                            for (var i = 0; i < $scope.patients.length; i++) {
+                                var ipd = $scope.patients[i];
+                                total += (ipd[key]);
+                            }
+                            return total;
+                        }
+                        $scope.grouptotal = function (group, key) {
+                            var total = 0;
+                            for (var i = 0; i < $scope.patients.length; i++) {
+                                var ipd = $scope.patients[i];
+                                if (ipd.discharge_date == group) {
+                                    total += (ipd[key]);
+                                }
+                            }
+                            return total;
+                        }
+                    });
+            }
+            $scope.print = function () {
+                 $(activeTab).print();
+            }
+            $scope.printtable = function () {
+                $(".printdesctable").show();
+                $(".printdesctable").print();
+                $(".printdesctable").hide();
+            }
+        });
+</script>
+<style>
+    .icheck-list > li {
+        display: inline;
+        margin-bottom: 10px;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 4px;
+    }
+
+    table thead tr th {
+        font-size: 12px;
+    }
+
+    td {
+        font-size: 12px;
+    }
+
+    .tabletitle {
+        font-weight: bold;
+    }
+
+    .tablefooter {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+</style>
+

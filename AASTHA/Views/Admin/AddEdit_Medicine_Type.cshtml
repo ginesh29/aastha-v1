@@ -1,0 +1,21 @@
+﻿@model AASTHA.Models.AdminModel
+@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("AddEdit_Medicine_Type", "Admin", new AjaxOptions { UpdateTargetId = "Grid", OnBegin = "blockui_leftgrid", OnComplete = "unblockui_leftgrid", OnSuccess = "OnSuccess" }))
+{
+    @Html.HiddenFor(m => m.page)
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="input-group"> @Html.TextBoxFor(model => model.Medicine_Type, new { @class = "form-control Capitalize", placeholder = "Enter Medicine Type" }) <span class="input-group-btn"> <input class="btn btn-primary btnadd" type="submit" value="Save Changes"></span> </div>
+                @Html.ValidationMessageFor(m => m.Medicine_Type)
+                @Html.HiddenFor(m => m.ViewOperation)
+            </div>
+        </div>
+    </div>
+}
+
+

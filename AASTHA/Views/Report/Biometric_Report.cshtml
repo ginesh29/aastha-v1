@@ -1,0 +1,141 @@
+﻿<link rel="stylesheet" href="~/Content/js/icheck/skins/square/_all.css" id="style-resource-2">
+
+<div ng-app="mainApp" ng-controller="MainController" data-ng-init="getreport()">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="field-4" class="control-label">Report Type</label>
+                <ul class="icheck-list">
+                    <li>
+                        <input class="icheck-11" type="radio" name="report" value="Daily" checked>
+                        <label for="minimal-radio-1-11">Daily Report</label>
+                    </li>
+                   
+                    <li>
+                        <input tabindex="8" class="icheck-11" name="report" type="radio" value="Monthly" />
+                        <label for="minimal-radio-2-11">Monthly Report</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-1 pull-right" ng-if="patients.length != 0">
+            <div class="form-group" style="margin-top:25px;">
+                <input type="button" class="btn btn-info" value="Print" id="btnprint" ng-click="print()" />
+            </div>
+        </div>
+        <div class="col-md-1 pull-right">
+            <div class="form-group" style="margin-top:25px;">
+                <input type="button" class="btn btn-primary" value="Submit" id="btnreport" ng-click="getreport()" />
+            </div>
+        </div>
+
+        <div id="daily">
+            <div class="col-md-3 pull-right">
+                <div class="form-group">
+                    <label for="field-4" class="control-label">Date</label>
+                    <input type="text" class="form-control datepicker" id="reportdate">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="printable">
+        <h3 style="text-align:center">Biometric Report</h3>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Trans. Id</th>
+                    <th>Staff Name</th>
+                    <th>Punching Date</th>
+                    <th>Punching Time</th>
+                    @*
+                    <th>Punching In Time</th>
+                    <th>Punching Out Time</th>*@
+                </tr>
+            </thead>
+            @*<tbody ng-repeat="patient in patients">*@
+            <tbody ng-repeat="(grpkey, value) in patients | groupBy: 'PunchDate'">
+                <tr class="tabletitle">
+                    <td colspan="4" style="text-align:center">Date : {{ grpkey }}</td>
+
+                </tr>
+                <tr ng-repeat="item in value">
+                    <td>{{ $index+1 }}</td>
+                    <td>{{ item.username }}</td>
+                    <td>{{ item.PunchDate }}</td>
+                    <td>{{ item.PunchTime }}</td>
+                    @*
+                    <td>{{ item.PunchInTime }}</td>
+                    <td>{{ item.PunchOutTime }}</td>*@
+                </tr>
+
+            </tbody>
+            <tr ng-if="patients.length == 0">
+                <td colspan="11" style="text-align:left">No Record Found</td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/angular-filter.js"></script>
+<script src="~/Content/js/bootstrap-datepicker.js"></script>
+<script src="~/Scripts/jQuery.print.js"></script>
+<script src="~/Content/js/icheck/icheck.min.js"></script>
+
+<script>
+    $('input.icheck-11').iCheck({
+        radioClass: 'iradio_square-blue'
+    });
+
+    $("#range").hide();
+    $('input').on('ifClicked', function (ev) {
+        if (this.value == 'Daily') {
+            $("#range").hide();
+            $("#daily").show();
+        }
+        else if (this.value == 'Range') {
+            $("#daily").hide();
+            $("#range").show();
+        }
+        else {
+            $("#range").hide();
+            $("#daily").show();
+        }
+    });
+    angular.module('mainApp', ['angular.filter'])
+    .controller('MainController', function ($scope, $http) {
+        $scope.getreport = function () {
+            blockui();
+            var reportdate = $("#reportdate").val();
+            var reporttype = $("input[name='report']:checked").val();
+            $http.get(
+            "Get_BiometricReport/Report",
+             { params: { date: reportdate, report: reporttype } })
+             .success(function (response) {
+                 unblockui();
+                 $scope.patients = response;
+             });
+        }
+        $scope.print = function () {
+            $(".printable").print();
+        }
+    });
+</script>
+<style>
+    .icheck-list > li {
+        display: inline;
+        margin-bottom: 10px;
+    }
+
+    #prt-container table {
+        border-collapse: collapse;
+    }
+
+    #prt-container th,
+    #prt-container td {
+        border: 1px solid black;
+    }
+</style>

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<AASTHA.Models.Get_IPD_Charge_Tabele_Result>
+@{
+    ViewBag.Title = "Charges_Table";
+    Layout = null;
+}
+
+<table class=" table table-bordered" id="IPD_Charge_Table">
+    <tr>
+        <th rowspan="2">Sr No.</th>
+        <th rowspan="2">Charge Title</th>
+        <th colspan="3">Charges</th>
+    </tr>
+    <tr>
+        <th width="100px">Rate</th>
+        <th width="100px">Day</th>
+
+        <th width="100px">Amount</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Charge_Id</td>
+            <td style="display:none"><input type="text" class="form-control" name="Charge_Id" value="@item.Charge_Id" /> </td>
+            <td>@item.Charge_Title</td>
+            <td><input type="number" class="form-control input-sm rate" name="rate" value="@item.Rate" /></td>
+            <td><input type="number" class="form-control input-sm day" name="day" value="@item.Days" /></td>
+            <td><input type="text" class="form-control input-sm amt" name="amt" value="@item.Amount" readonly /></td>
+        </tr>
+    }
+
+    <tr>
+        <td colspan="2">Grand Total</td>
+        <td colspan="3">
+
+            <div class="col8">
+                <input type="text" class="form-control input-sm Grand_Total" id="Grand_Total" name="total" value="@ViewBag.total" readonly />
+            </div>
+            <div class="col2">
+                <a style="font-size:15px"><i class="glyphicon glyphicon-minus"></i></a>
+            </div>
+            <div class="col8">
+                <input type="text" class="form-control input-sm Concession" id="Concession" name="Concession" value="@ViewBag.conssesion" />
+            </div>
+
+
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Amount Paid</td>
+        <td colspan="3"><input type="text" class="form-control input-sm" id="Paid" name="Paid" readonly value="@ViewBag.Final_Amount" /></td>
+    </tr>
+</table>
+
+
+<script>
+    $(function () {
+        $('#IPD_Charge_Table input').keyup(function () {
+            var row = $(this).closest("tr");
+
+            var day = row.find('.day').val();
+            var rate = row.find(".rate").val();
+            var amt = day * rate;
+            row.find('.amt').val(amt);
+
+            var temp, total = 0;
+            $(".amt").each(function () {
+                temp = parseFloat($(this).val());
+                if (!isNaN(temp))
+                    total = total + temp;
+            });
+            $(".Grand_Total").val(total);
+            conssesion();
+        })
+
+        function conssesion() {
+            var total = $("#Grand_Total").val();
+            var conssesion = $("#Concession").val();
+            var paid = total - conssesion;
+            $("#Paid").val(paid);
+        }
+    });
+</script>
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .day, .rate {
+        text-align: right;
+        padding-right: 30px;
+    }
+
+    .col8 {
+        width: 45%;
+        float: left;
+    }
+
+    .col2 {
+        width: 10%;
+        float: left;
+    }
+</style>

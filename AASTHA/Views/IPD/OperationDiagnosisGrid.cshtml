@@ -1,0 +1,42 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<AASTHA.Models.diagnosis_master>
+
+@{
+    Layout = null;
+}
+<div class="blockui_leftgrid">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    No.
+                </th>
+                <th>
+                    Operation Diagnosis Title
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i }))
+        {
+            <tr>
+                <td>
+                    @(item.Index + ((Model.PageNumber - 1) * Model.PageSize) + 1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data.diagnosis_type)
+                </td>
+                <td>
+                    @Ajax.ActionLink("Edit", "AddEdit_OperationDiagnosis", "IPD", new { id = item.Data.digagnosis_typeId, page = Request.QueryString["page"] }, new AjaxOptions { UpdateTargetId = "AddEdit_Operation", }, new { @class = "btn btn-info btn-sm" })
+                    @Ajax.ActionLink("Delete", "Delete_OperationDiagnosis", "IPD", new { id = item.Data.digagnosis_typeId, page = Request.QueryString["page"] }, new AjaxOptions { UpdateTargetId = "Grid_Operation", OnBegin = "blockui_leftgrid", OnComplete = "unblockui_leftgrid", Confirm = "Are you sure to delete" }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@if (Model.PageCount > 1)
+{
+    @Html.PagedListPager(Model, page => Url.Action("OperationDiagnosisGrid", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId = "Grid_Operation", OnBegin = "blockui_leftgrid", OnComplete = "unblockui_leftgrid", OnSuccess = "OnSuccess" }))
+}

@@ -1,0 +1,948 @@
+﻿@model AASTHA.Models.AdminModel
+@{
+    ViewBag.Title = "Patient_Entry";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/js/select2/select2-bootstrap.css" id="style-resource-1">
+<link rel="stylesheet" href="~/Content/js/selectboxit/jquery.selectBoxIt.css" id="style-resource-3">
+<link rel="stylesheet" href="~/Content/js/select2/select2.css" id="style-resource-2">
+<link href="~/Content/css/Gujarati_Invoice_Style.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Content/js/icheck/skins/square/_all.css" id="style-resource-2">
+
+<div class="row">
+    <form id="form">
+        <div class="col-lg-6">
+            <div class="panel panel-primary" data-collapsed="0">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Prescription
+                    </div>
+                    <div class="panel-options">
+                        <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a> <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a> <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a> <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-xs-6 selectbox">
+                            <div class="form-group">
+                                @Html.HiddenFor(m => m.Get_View)
+                                <label class="control-label" for="full_name">Full Name</label>
+                                <input id="Patient_Id" name="Patient_Id" required>
+                                @Html.ValidationMessageFor(m => m.Patient_Id)
+                            </div>
+                        </div>
+                        <div class="col-xs-6 selectContainer">
+                            <div class="form-group">
+                                <label for="field-4" class="control-label">Date</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" placeholder="Enter Date" id="opd_date" name="Appointment_Date" required />
+                                    <div class="input-group-addon"> <a href="#"><i class="entypo-calendar"></i></a> </div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Appointment_Date)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Clinical Detail : </label>
+                                <textarea placeholder='Enter Clinical Detail' class="form-control" data-autoresize rows="1" id="complaint"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <button class="btn btn-primary" id="btn-add" type="button"> <i class="entypo-plus"></i> Add Medicine</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table ">
+                        <tr>
+                            <td> Advice :</td>
+                            <td>
+
+                                <div id="advice">
+
+                                    <ul class="icheck-list">
+                                        <li>
+                                            <input type="checkbox" class="icheck-12" value="Plenty of liquids orally" id="advice1">
+                                            <label for="advice1">Plenty of liquids orally</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" class="icheck-12" value="USG Pelvis (SOS)" id="advice2">
+                                            <label for="advice2">USG Pelvis (SOS)</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" class="icheck-12" value="ANC Profile" id="advice3">
+                                            <label for="advice3">ANC Profile</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" class="icheck-12" value="Timed Intercourse on Date" id="advice4">
+                                            <label for="advice4">Timed Intercourse on Date</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" class="icheck-12" value="Abstinece/Condom use for next 7 days" id="advice5">
+                                            <label for="advice5">Abstinece/Condom use for next 7 days</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" class="icheck-12" value="Infertility work-up" id="advice6">
+                                            <label for="advice6">Infertility work-up</label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 5%; ">
+                                Follow&nbsp;up&nbsp;:
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <ul class="icheck-list" id="followup">
+                                            @Html.HiddenFor(m => m.IsSonography)
+                                            <li>
+                                                @Html.RadioButtonFor(m => m.Appointment_Type, "Date", new { @class = "icheck-11" }) Date
+                                            </li>
+
+                                            <li>
+                                                @Html.RadioButtonFor(m => m.Appointment_Type, "Cycle", new { @class = "icheck-11" }) Cycle Day
+                                            </li>
+
+                                            <li>
+                                                @Html.RadioButtonFor(m => m.Appointment_Type, "Sonography", new { @class = "icheck-11" }) Sonography
+                                            </li>
+
+                                            <li>
+                                                @Html.RadioButtonFor(m => m.Appointment_Type, "Anomaly", new { @class = "icheck-11" }) Anomaly Scan
+                                            </li>
+
+                                            <li>
+                                                @Html.RadioButtonFor(m => m.Appointment_Type, "Ovulation", new { @class = "icheck-11" }) Ovulation
+                                            </li>
+
+                                            <li>
+                                                @Html.RadioButtonFor(m => m.Appointment_Type, "", new { @class = "icheck-11", @checked = "checked" }) None
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-lg-10">
+                                        @Html.HiddenFor(m => m.Appoint_Date)
+                                        <label id="date_followup" hidden> ફરી @Html.TextBoxFor(m => m.Followup_date, new { @class = "form-control input-sm" })  @Html.ValidationMessageFor(m => m.Followup_date)<br />ના રોજ બતાવવા આવવું</label>
+                                        <label id="cycle_followup" hidden> માસિકના બીજા/ત્રીજા/પાંચમા દિવસે બતાવવા આવવું</label>
+                                        <label id="sonography_followup" hidden> ફરી @Html.TextBoxFor(m => m.Sonography_date, new { @class = "form-control input-sm" })@Html.ValidationMessageFor(m => m.Sonography_date)<br />ના રોજ સોનોગ્રાફી માટે આવવું</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <form id="modalform">
+        <div class="modal fade" id="edit-modal">
+            <div class="modal-dialog" style="width:1000px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Add Medicine</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label" for="about">Medicine Type</label>
+                                                @Html.DropDownListFor(m => m.Medicine_Type, Model.Medicine_Type_List, "Select", new { @class = "select2" })
+                                                @Html.ValidationMessageFor(m => m.Medicine_Type)
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Medicine Name</label><i id="spinner" class=""></i>
+                                                <select class="select2" data-allow-clear="true" data-placeholder="Select Medicine Name" id="Medicine_name" name="Medicine_Name" required>
+                                                    <option></option>
+                                                </select>
+                                                @Html.ValidationMessageFor(m => m.Medicine_Name)
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label" for="about">Days</label>
+                                                @Html.TextBoxFor(m => m.day, new { @class = "form-control", id = "days" })
+                                                @Html.ValidationMessageFor(m => m.day)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <ul class="icheck-list" id="medicine">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="1" data-day="૧" name="સવારે">
+                                                                <label for="minimal-checkbox-1-11">૧ સવારે</label>
+                                                            </li>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="1" data-day="૧" name="બપોરે">
+                                                                <label for="minimal-checkbox-2-11">૧ બપોરે</label>
+                                                            </li>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="1" data-day="૧" name="સાંજે">
+                                                                <label for="minimal-checkbox-1-11">૧ સાંજે</label>
+                                                            </li>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="1" data-day="૧" name="રાત્રે">
+                                                                <label for="minimal-checkbox-2-11">૧ રાત્રે</label>
+                                                            </li>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="2" name="સવારે" data-day="૨">
+                                                                <label for="minimal-checkbox-1-11">૨ સવારે</label>
+                                                            </li>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="2" name="બપોરે" data-day="૨">
+                                                                <label for="minimal-checkbox-2-11">૨ બપોરે</label>
+                                                            </li>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="2" name="સાંજે" data-day="૨">
+                                                                <label for="minimal-checkbox-1-11">૨ સાંજે</label>
+                                                            </li>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="2" name="રાત્રે" data-day="૨">
+                                                                <label for="minimal-checkbox-2-11">૨ રાત્રે</label>
+                                                            </li>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="0" name="જમ્યા પહેલા" data-day="">
+                                                                <label for="minimal-checkbox-1-11">જમ્યા પહેલા</label>
+                                                            </li>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="0" name="જમ્યા પછી" data-day="">
+                                                                <label for="minimal-checkbox-2-11">જમ્યા પછી</label>
+                                                            </li>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="0" name="નાસ્તા પહેલા" data-day="">
+                                                                <label for="minimal-checkbox-1-11">નાસ્તા પહેલા</label>
+                                                            </li>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <li>
+                                                                <input type="checkbox" class="medicine" value="0" name="નાસ્તા પછી" data-day="">
+                                                                <label for="minimal-checkbox-2-11">નાસ્તા પછી</label>
+                                                            </li>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <li>
+                                                    <input type="checkbox" class="medicine" value="0" name="૧ ગોળી રોજ રાત્રે સૂતા પહેલા માસિકના ભાગે મૂકવી" data-day="">
+                                                    <label for="minimal-checkbox-1-11">૧ ગોળી રોજ રાત્રે સૂતા પહેલા માસિકના ભાગે મૂકવી</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" class="medicine" value="0" name="ટ્યુબ રોજ રાત્રે સૂતા પહેલા માસિકના અંદરના ભાગે લગાવવી" data-day="">
+                                                    <label for="minimal-checkbox-2-11">ટ્યુબ રોજ રાત્રે સૂતા પહેલા માસિકના અંદરના ભાગે લગાવવી</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" class="medicine" value="0" name="૨ ચમચી અડધા ગ્લાસ પાણીમાં નાખીને દિવસમાં ત્રણવાર જમ્યા પછી પીવુ" data-day="">
+                                                    <label for="minimal-checkbox-1-11">૨ ચમચી અડધા ગ્લાસ પાણીમાં નાખીને દિવસમાં ત્રણવાર જમ્યા પછી પીવુ</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" class="medicine" value="0" name="૨ ચમચી પાઉડર ૧ ગ્લાસ પાણી/દુધમાં નાખીને દિવસમાં બેવાર પીવુ" data-day="">
+                                                    <label for="minimal-checkbox-2-11">૨ ચમચી પાઉડર ૧ ગ્લાસ પાણી/દુધમાં નાખીને દિવસમાં બેવાર પીવુ</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" class="medicine" value="0" name="૧ ગોળી તાવ આવે ત્યારે જ લેવી." data-day="">
+                                                    <label for="minimal-checkbox-2-11">૧ ગોળી તાવ આવે ત્યારે જ લેવી.</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" class="medicine" value="0" name="૧ ગોળી માથુ દુખે  ત્યારે જ લેવી." data-day="">
+                                                    <label for="minimal-checkbox-1-11">૧ ગોળી માથુ દુખે  ત્યારે જ લેવી.</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" class="medicine" value="0" name="૧ ગોળી પેટમાં દુખે ત્યારે જ લેવી." data-day="">
+                                                    <label for="minimal-checkbox-2-11">૧ ગોળી પેટમાં દુખે ત્યારે જ લેવી.</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <table class="table" id="medicine_Table_preview">
+
+                                        <thead>
+                                            <tr>
+                                                <th width="10px">
+
+                                                </th>
+
+                                                <th>
+
+                                                </th>
+                                                <th width="30px" style="text-align:right">
+                                                    Days
+                                                </th>
+                                                <th width="30px" style="text-align:right">
+                                                    Qty
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-info" id="btnsave">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col-lg-6">
+        <div class="panel panel-primary" data-collapsed="0">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    Prescription Preview
+                </div>
+                <div class="panel-options">
+                    <a id="btnprint" style="font-size:20px;" class="bg"><i class="entypo-print"></i></a>
+                    <a id="btnsavepresc" style="font-size:20px;" class="bg"><i class="entypo-floppy"></i></a>
+                    <a id="btngoto" style="font-size:20px;" class="bg"><i class="entypo-forward"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-12" style="background: #FFFCAB;">
+                <br />
+                <div class="note printable">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <label>Patient Name : </label> <span id="PatientName"></span>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <label>Date : </label> <span id="OpdDate"></span>
+                        </div>
+                        <div class="col-xs-8">
+                            <label>Patient Id : </label> <span id="Invoice_Id"></span>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <label>Age : </label> <span id="Age"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <table>
+                        <tr>
+                            <td valign="top" style="width:85px"><label>Clinical Detail :</label></td>
+                            <td style="text-align:justify"><label><span id="complaints"></span></label></td>
+                        </tr>
+                    </table>
+                    <h4>Rx</h4>
+                    <div id="bottom_div">
+                        <table class="table" id="medicine_Table">
+                            <thead>
+                                <tr>
+                                    <th width="50px">
+                                    </th>
+                                    <th>
+                                    </th>
+                                    <th width="30px" style="text-align:right">
+                                        Days
+                                    </th>
+                                    <th width="30px" style="text-align:right">
+                                        Qty
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+
+                        <table class="table tablenew">
+                            <tr id="advice_div" hidden>
+                                <td style="vertical-align:top;"> Advice&nbsp;: </td>
+                                <td class="justList"><ul></ul></td>
+                            </tr>
+                            <tr id="followup_div" hidden>
+                                <td> Follow&nbsp;up&nbsp;:&nbsp;</td>
+                                <td style="vertical-align:bottom"> <span id="follow_instruction"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-5 pull-right" id="drname" style="margin-top:50px;text-align:right">
+                            <strong>Dr. Bhaumik Tandel</strong>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="calender_modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Appointment Calender</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger btn-sm">Date</button>
+                            <button type="button" class="btn btn-success btn-sm">Sonography</button>
+                            <button type="button" class="btn btn-warning btn-sm">Anomaly</button>
+                            <button type="button" class="btn btn-info btn-sm">Ovulation</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="calendar-env">
+                    <div class="calendar-body">
+                        <div class="blockui_div">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jQuery.print.js"></script>
+<script src="~/Content/js/bootstrap-datepicker.js"></script>
+<script src="~/Content/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js" id="script-resource-2"></script>
+<script src="~/Content/js/select2/select2.min.js" id="script-resource-8"></script>
+<script src="~/Content/js/selectboxit/jquery.selectBoxIt.min.js" id="script-resource-11"></script>
+<script src="~/Content/js/toastr.js" id="script-resource-8"></script>
+<script src="~/Content/js/icheck/icheck.min.js" id="script-resource-8"></script>
+<script src="~/Content/js/fullcalendar/fullcalendar.min.js" id="script-resource-8"></script>
+<style>
+    form .selectbox .form-control-feedback {
+        top: 25px;
+        right: 40px;
+    }
+
+    form .selectContainer .form-control-feedback {
+        top: 25px;
+        right: 40px;
+    }
+
+    textarea {
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        resize: none;
+    }
+
+    .table tr td:first-child {
+        width: 30px;
+    }
+
+    compaint_title {
+        width: 20%;
+    }
+
+    hr {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .note h4 {
+        margin-top: 0px;
+        margin-bottom: -5px;
+    }
+
+    .qty {
+        width: 40px;
+        margin-top: -6px;
+        text-align: right;
+    }
+
+    .fc-sun:not(.fc-widget-header) {
+        background-color: #ffefa4 !important;
+    }
+
+    #calendar td {
+        vertical-align: middle !important;
+        border: 1px solid #ebebeb;
+    }
+
+    #complaints {
+        text-align: justify;
+    }
+
+    #bottom_div {
+        width: 90%;
+        margin: 0 20px;
+    }
+</style>
+<script>
+
+    jQuery.each(jQuery('textarea[data-autoresize]'), function (e) {
+        var offset = this.offsetHeight - this.clientHeight;
+        var resizeTextarea = function (el) {
+            jQuery(el).css('height', 'auto').css('height', el.scrollHeight + offset);
+        };
+        jQuery(this).on('keyup input', function () { resizeTextarea(this); }).removeAttr('data-autoresize');
+    });
+
+    jQuery(document).ready(function ($) {
+        $('#Patient_Id').change(function () {
+            var patient = $("#Patient_Id").select2("data").text;
+            $("#PatientName").text(patient);
+            var id = $("#Patient_Id").select2('val');
+            $.ajax({
+                url: '@Url.Action("Fetch_Patient_Details", "Patient")',
+                type: 'POST',
+                data: { "patient_id": id },
+                success: function (data) {
+                    var splitage = data.split(',');
+                    $("#age").val(splitage[1]);
+                    $("#Age").text(splitage[1]);
+                    $("#outdoor_id").val(id);
+                    $("#Invoice_Id").text(id);
+                }
+            })
+        });
+        $('#opd_date').change(function () {
+            var opddate = $("#opd_date").val();
+            $("#OpdDate").text(opddate);
+        });
+        $('#complaint').keyup(function (e) {
+            var complaint = $("#complaint").val();
+            if (complaint == "") {
+                $("#complaint_div").hide();
+            }
+            else {
+                $("#complaint_div").show();
+            }
+            $("#complaints").html(complaint.replace(/\n/g, '<br />'));
+        });
+
+        $('input.icheck-11').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-yellow'
+        });
+
+        $('input.medicine').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-yellow'
+        });
+        $('#advice').on('change', 'input[type="checkbox"]', function () {
+            $('.justList ul').empty();
+            $('#advice input:checked').each(function () {
+                var li = $('<li></li>');
+                li.text($(this).next('label').text());
+                $('.justList ul').append(li);
+            });
+            if ($('input.icheck-12').is(':checked')) {
+                $("#advice_div").show();
+            }
+            else {
+                $("#advice_div").hide();
+            }
+        });
+        $('#Followup_date').focus(function () {
+            $("#calender_modal").modal('show');
+        });
+        $('#Followup_date').change(function () {
+            var followdate = $("#Followup_date").val();
+            var follow = $("#Appointment_Type:checked").val();
+            if (follow == "Date") {
+                $("#follow_instruction").text(' ફરી ' + followdate + ' ના રોજ બતાવવા આવવું');
+            }
+        });
+        $('#Sonography_date').focus(function () {
+            $("#calender_modal").modal('show');
+        });
+        $('#Sonography_date').change(function () {
+            var sonographydate = $("#Sonography_date").val();
+            var sonography = $("#Appointment_Type:checked").val();
+            if (sonography == "Sonography") {
+                $("#follow_instruction").text(' ફરી ' + sonographydate + ' ના રોજ સોનોગ્રાફી માટે આવવું');
+            }
+        });
+
+        $("#btn-add").click(function () {
+            $("#form").valid();
+            if ($("#form").valid()) {
+                $("#edit-modal").modal('show');
+            }
+        })
+
+        $(".datepicker").change(function () {
+            $(this).valid();
+        })
+        $("#Medicine_Name").attr('disabled', 'disabled');
+
+
+        $('input[type=radio]').on('ifClicked', function () {
+            if (this.value == 'Date') {
+                $("#follow_instruction").text(' ફરી .........  ના રોજ બતાવવા આવવું');
+                $("#cycle_followup").hide();
+                $("#sonography_followup").hide();
+                $("#date_followup").show();
+                $("#followup_div").show();
+            }
+
+            if (this.value == 'Cycle') {
+                $("#follow_instruction").text(" માસિકના બીજા/ત્રીજા/પાંચમા દિવસે બતાવવા આવવું");
+                $("#date_followup").hide();
+                $("#sonography_followup").hide();
+                $("#cycle_followup").show();
+                $("#followup_div").show();
+            }
+
+            if (this.value == 'Sonography') {
+                $("#IsSonography").val(true);
+                $("#follow_instruction").text(' ફરી .........  ના રોજ બતાવવા આવવું');
+                $("#date_followup").hide();
+                $("#cycle_followup").hide();
+                $("#sonography_followup").show();
+                $("#followup_div").show();
+            }
+            if (this.value == 'Anomaly') {
+                $("#IsSonography").val(true);
+                $("#follow_instruction").text(' ફરી .........  ના રોજ બતાવવા આવવું');
+                $("#date_followup").hide();
+                $("#cycle_followup").hide();
+                $("#sonography_followup").show();
+                $("#followup_div").show();
+            }
+            if (this.value == 'Ovulation') {
+                $("#IsSonography").val(true);
+                $("#follow_instruction").text(' ફરી .........  ના રોજ બતાવવા આવવું');
+                $("#date_followup").hide();
+                $("#cycle_followup").hide();
+                $("#sonography_followup").show();
+                $("#followup_div").show();
+            }
+
+            if (this.value == '') {
+                $("#followup_div").hide();
+                $("#date_followup").hide();
+                $("#sonography_followup").hide();
+                $("#cycle_followup").hide();
+            }
+        })
+
+        $("#Medicine_name").attr('disabled', 'disabled');
+        $('#Medicine_Type').change(function () {
+            $("#spinner").addClass("fa fa-spinner fa-pulse");
+            var items = '<option></option>';
+            $.ajax({
+                url: "@Url.Action("BindMedicine")",
+                data: { "Id": $('#Medicine_Type').val() },
+                success: function (data) {
+                    $.each(data, function (i, medicine) {
+                        items += "<option value='" + medicine.id + "'>" + medicine.text + "</option>";
+                    });
+                    $('#Medicine_name').html(items);
+                    $("#Medicine_name").removeAttr('disabled');
+                    $("#spinner").removeClass("fa fa-spinner fa-pulse");
+                }
+            })
+        });
+
+        $("#btnsave").click(function () {
+            if ($("#modalform").valid()) {
+                var medicine_type = $("#Medicine_Type").select2("data").text;
+                var medicine_name = $("#Medicine_name").select2("data").text;
+
+                var days_sum = 0;
+                $('input[class="medicine"]:checked').each(function () { // loop through checked inputs
+                    days_sum = parseInt(this.value) + parseInt(days_sum);
+                });
+
+                var days = $("#days").val();
+                if (medicine_type == 'Tab' || medicine_type == 'Cap' || medicine_type == 'Sachet' || medicine_type == 'Supp' || medicine_type == 'Inj') {
+                    var qty = parseInt(days_sum) * parseInt(days);
+                }
+
+                else {
+                    var qty = 1
+                }
+                var medicine_desc = "";
+                var checkboxValues = [];
+                $('input[class=medicine]:checked').map(function () {
+                    var a = $(this).val();
+                    if (a != 0) {
+                        var med_guj = '';
+                        if (medicine_type == 'Tab') {
+                            med_guj = 'ગોળી';
+                        }
+                        else if (medicine_type == 'Cap') {
+                            med_guj = 'કેપ્સુલ';
+                        }
+                        else if (medicine_type == 'Drops') {
+                            med_guj = 'ટીપા';
+                        }
+                        else if (medicine_type == 'Powder' || medicine_type == 'Liq' || medicine_type == 'Syrup') {
+                            med_guj = 'ચમચી';
+                        }
+                        else {
+                            med_guj = '';
+                        }
+                    }
+                    else {
+                        med_guj = '';
+                    }
+
+                    checkboxValues.push($(this).attr('data-day') + " " + med_guj + " " + $(this).attr('name'));
+                });
+
+                $("#medicine_Table_preview tbody").append("<tr>" +
+                      "<td style='vertical-align:top;'>" + medicine_type + "</td>" +
+                      "<td>" + medicine_name + "<br>" + "<label>" + checkboxValues.toString().replace(/,/g, ' -- ') + "</label>" + "</td>" +
+                     "<td align='right'>" + days + "</td>" +
+                       "<td align='right'><input type='text' value=" + qty + " class='qty form-control input-sm'></td>" +
+                      "<td width='1%' class='hidden-print'><a class='delete' onclick='deleterow(this)'><i class='entypo-cancel'></i></a></td>" +
+                      "</tr>");
+
+                $("#medicine_Table tbody").append("<tr>" +
+                      "<td style='vertical-align:top;'>" + medicine_type + "</td>" +
+                      "<td>" + medicine_name + "<br>" + "<label>" + checkboxValues.toString().replace(/,/g, ' -- ') + "</label>" + "</td>" +
+                     "<td align='right'>" + days + "</td>" +
+                       "<td align='right'>" + qty + "</td>" +
+                      "</tr>");
+                $('select.select2:not("#Patient_Id")').select2('val', '');
+                $("#days").val('');
+                $('.medicine').iCheck('uncheck');
+                $("#Medicine_name").attr('disabled', 'disabled');
+            }
+        });
+        $("#btnprint").click(function () {
+            if ($("#form").valid()) {
+                $(".printable").print();
+            }
+        });
+        $("#btngoto").click(function () {
+            if ($("#form").valid()) {
+                var date = $("#opd_date").val();
+                var patient_id = $("#Patient_Id").select2("data").id;
+                var name = $("#Patient_Id").select2("data").text;             
+                window.location.href = '/OPD/OPD_Entry?date=' + date + '&patient_id=' + patient_id+'&name='+name;
+            }
+        });
+        $("#btnsavepresc").click(function () {
+            $("#form").data('validator').element('#date_followup');
+            if ($("#form").valid()) {
+                var complaint = $("#complaint").val();
+                if (complaint == "") {
+                    $("#complaint_div").hide();
+                }
+                else {
+                    $("#complaint_div").show();
+                }
+                var Followup_date = $("#Followup_date").val();
+                var Sonography_date = $("#Sonography_date").val();
+                var date = "";
+                if (Followup_date != "") {
+                    date = Followup_date;
+                }
+                if (Sonography_date != "") {
+                    date = Sonography_date;
+                }
+                var follow = $("#Appointment_Type:checked").val();
+
+                if (follow == 'Date' || follow == 'Sonography' || follow == 'Anomaly' || follow == 'Ovulation') {
+
+                    $.ajax({
+                        type: "post",
+                        url: '@Url.Action("Add_PreceptionAppointment")',
+                        data: $('#form').serialize(),
+                        success: function (data) {
+                            setTimeout(function () {
+                                var opts = {
+                                    "closeButton": true,
+                                    "debug": false,
+                                    "positionClass": rtl() || public_vars.$pageContainer.hasClass('right-sidebar') ? "toast-top-left" : "toast-top-right",
+                                    "toastClass": "black",
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                };
+                                toastr.success(data, "Appointment", opts);
+                            }, 1000);
+                        }
+                    })
+                }
+            }
+        });
+
+        $(document).on("keyup", "#medicine_Table_preview tr td input.qty", function (e) {
+            var row_index = $(this).closest('tr').index() + 1;
+            var current_value = $(this).val();
+            $("#medicine_Table").find('tr:eq(' + row_index + ')').find('td:eq(3)').html(current_value);
+        });
+
+        $('#calendar').fullCalendar({
+            firstDay: 1,
+            height: 410,
+            loading: function (bool) {
+                if (bool) {
+                    blockui_div();
+                } else {
+                    unblockui_div();
+                }
+            },
+            dayClick: function (date, jsEvent, view) {
+                var checkDay = new Date($.fullCalendar.formatDate(date, 'yyyy-MM-dd'));
+                if (checkDay.getDay() == 0) {
+                    alert('Appointment can not be arrange on Sunday');
+                    return false;
+                }
+                else {
+                    var today = date;
+                    var dd = today.getDate();
+                    var mm = today.getMonth() + 1; //January is 0!
+
+                    var yyyy = today.getFullYear();
+                    if (dd < 10) {
+                        dd = '0' + dd
+                    }
+                    if (mm < 10) {
+                        mm = '0' + mm
+                    }
+                    var new_date = dd + '/' + mm + '/' + yyyy;
+                    var follow = $("#Appointment_Type:checked").val();
+                    $("#calender_modal").modal('hide');
+                    if (follow == "Date") {
+                        $("#Followup_date").val(new_date);
+                        $("#Appoint_Date").val(new_date);
+                        $("#follow_instruction").text(' ફરી ' + new_date + ' ના રોજ બતાવવા આવવું');
+                    }
+                    else if (follow == "Sonography" || follow == "Anomaly" || follow == "Ovulation") {
+                        $("#Sonography_date").val(new_date);
+                        $("#Appoint_Date").val(new_date);
+                        $("#follow_instruction").text(' ફરી ' + new_date + ' ના રોજ સોનોગ્રાફી માટે આવવું');
+                    }
+                }
+            },
+            eventSources: [
+           {
+               url: '@Url.Action("Fetch_Appointment")',
+               type: 'POST',
+               data: function () {
+                   var fecha = $('#calendar').fullCalendar('getDate');
+                   return {
+                       month: fecha.getMonth() + 1,
+                       year: fecha.getFullYear()
+                   }
+               }
+           }
+            ],
+            eventAfterRender: function (event, element, view) {
+                if (event.type == "Date") {
+                    element.css('background-color', '#b11b1b');
+                }
+                if (event.type == "Sonography") {
+                    element.css('background-color', '#007d3d');
+                }
+                if (event.type == "Anomaly") {
+                    element.css('background-color', '#fad839');
+                }
+                if (event.type == "Ovulation") {
+                    element.css('background-color', '#21a9e1');
+                }
+            }
+        });
+        $('#calender_modal').on('shown.bs.modal', function () {
+            $("#calendar").fullCalendar('render');
+            $("#calendar").fullCalendar('refetchEvents');
+        });
+
+        $("#Patient_Id").select2(
+                         {
+                             minimumInputLength: 1,
+                             placeholder: "Select a Patient",
+                             allowClear: true,
+                             ajax: {
+                                 url: "@Url.Action("BindPatient", "Patient")",
+                                 dataType: 'json',
+                                 type: "GET",
+                                 quietMillis: 50,
+                                 data: function (term) {
+                                     return {
+                                         term: term
+                                     };
+                                 },
+                                 results: function (data) {
+                                     return {
+                                         results: $.map(data, function (item) {
+                                             return {
+                                                 text: item.full_name,
+                                                 id: item.patient_Id
+                                             }
+                                         })
+                                     };
+                                 }
+                             }
+                         });
+
+    });
+    function deleterow(e) {
+        var rowindex = e.closest('tr').rowIndex;
+        $("#medicine_Table_preview tr").eq(rowindex).remove();
+        $("#medicine_Table tr").eq(rowindex).remove();
+    }
+</script>

@@ -1,0 +1,304 @@
+﻿@model AASTHA.Models.AdminModel
+
+@{
+    ViewBag.Title = "View_Appointment";
+}
+<link rel="stylesheet" href="~/Content/js/select2/select2-bootstrap.css" id="style-resource-1">
+<link rel="stylesheet" href="~/Content/js/selectboxit/jquery.selectBoxIt.css" id="style-resource-3">
+<link rel="stylesheet" href="~/Content/js/select2/select2.css" id="style-resource-2">
+<link href="~/Content/jquery.qtip.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.qtip.min.js"></script>
+
+<div id="calender_div">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" data-collapsed="0">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Appointment Calender
+                        <div class="label label-danger">Date</div>
+                        <div class="label label-success">Sonography</div>
+                        <div class="label label-warning">Anomaly</div>
+                        <div class="label label-info">Ovulation</div>
+                    </div>
+                    <div class="panel-options"> <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a> <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a> <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a> <a href="#" data-rel="close"><i class="entypo-cancel"></i></a> </div>
+                </div>
+                <div class="panel-body">
+                    <div class="calendar-env">
+                        <!-- Calendar Body -->
+                        <div class="calendar-body">
+                            <div class="blockui_div">
+                                <div id="calendar" class="fc fc-ltr">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width:300px">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Appointment</h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Add_Appointment", "Admin", FormMethod.Post, new { id = "modalform" }))
+                {
+                    @Html.HiddenFor(m => m.Appointment_Id)
+                    @Html.HiddenFor(m => m.Get_View)
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="email">Appointment Date</label>
+                                @Html.TextBoxFor(m => m.Appointment_Date, new { @class = "form-control", id = "date", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="col-md-12 selectContainer">
+                            <div class="form-group">
+
+                                <label class="control-label" for="full_name">Full Name</label>
+
+
+
+                                <input id="Patient_Id" name="Patient_Id" required>
+                                @Html.ValidationMessageFor(m => m.Patient_Id)
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="about">Appointment Type</label>
+                                @Html.DropDownListFor(m => m.Appointment_Type, Model.Appointment_List, "Select", new { @class = "selectboxit" })
+                                @Html.ValidationMessageFor(m => m.Appointment_Type)
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-info" id="btnsave">Submit</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+<style>
+    .fc-sun:not(.fc-widget-header) {
+        background-color: #ffefa4 !important;
+    }
+
+    #calendar td {
+        vertical-align: middle !important;
+        border: 1px solid #ebebeb;
+    }
+</style>
+
+<script src="~/Content/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js" id="script-resource-2"></script>
+<script src="~/Content/js/select2/select2.min.js" id="script-resource-8"></script>
+<script src="~/Content/js/fullcalendar/fullcalendar.min.js" id="script-resource-8"></script>
+<script src="~/Content/js/selectboxit/jquery.selectBoxIt.min.js" id="script-resource-11"></script>
+<script src="~/Content/js/toastr.js" id="script-resource-8"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $("#btnsave").click(function () {
+            if ($("#modalform").valid()) {
+                blockui_div();
+                var data = $("#modalform").serialize();
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("Add_Appointment")',
+                    data: data,
+                    success: function (data) {
+                        unblockui_div();
+                        $("#modal").modal('hide');
+                        $('#calendar').fullCalendar('refetchEvents');
+                        setTimeout(function () {
+                            var opts = {
+                                "closeButton": true,
+                                "debug": false,
+                                "positionClass": rtl() || public_vars.$pageContainer.hasClass('right-sidebar') ? "toast-top-left" : "toast-top-right",
+                                "toastClass": "black",
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            };
+                            toastr.success(data, "Appointment", opts);
+                        }, 1000);
+                    }
+                });
+            }
+        });
+
+        $("select").change(function () {
+            $(this).valid();
+        })
+        $('#calendar').fullCalendar({
+            firstDay: 1,
+            height: 450,
+            loading: function (bool) {
+                if (bool) {
+                    blockui_div();
+                } else {                   
+                    unblockui_div();
+                }
+            },
+            dayClick: function (date, jsEvent, view) {
+                var checkDay = new Date($.fullCalendar.formatDate(date, 'yyyy-MM-dd'));
+                if (checkDay.getDay() == 0) {
+                    alert('Appointment can not be arrange on Sunday');
+                    return false;
+                }
+                else {
+                    var today = date;
+                    var dd = today.getDate();
+                    var mm = today.getMonth() + 1; //January is 0!
+
+                    var yyyy = today.getFullYear();
+                    if (dd < 10) {
+                        dd = '0' + dd
+                    }
+                    if (mm < 10) {
+                        mm = '0' + mm
+                    }
+                    var new_date = dd + '/' + mm + '/' + yyyy;
+                    $("#date").val(new_date);
+                    $("#Get_View").val("Add");
+                    $("#Appointment_Id").val(0);
+                    $("#modal").modal('show');
+                }
+            },
+            eventSources: [
+           {
+               url: '@Url.Action("Fetch_Appointment")',
+               type: 'POST',
+               data: function () {
+                   var fecha = $('#calendar').fullCalendar('getDate');
+                   return {
+                       month: fecha.getMonth() + 1,
+                       year: fecha.getFullYear()
+                   }
+               }
+           }
+            ],
+            eventRender: function (event, element) {
+                element.qtip({
+                    content: event.description
+                });
+                element.find(".fc-event-title").after($("<span class=\"fc-event-icons\"></span>").html("<a href='javascript:void(0)' data-rel='close' class='delete'><i class='entypo-cancel pull-right'></i></a><a href='javascript:void(0)' data-rel='close' class='edit'><i class='entypo-pencil pull-right'></i></a>"));
+                element.find(".delete").click(function () {
+                    if (confirm('Are you sure to delete Appointment?')) {
+                        blockui_div();
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("DeleteAppointment")",
+                            data: { Appoint_Id: event.Id },
+                            success: function () {
+                                unblockui_div();
+                                $('#calendar').fullCalendar('removeEvents', event._id);
+                            }
+                        })
+                    }
+                });
+                element.find(".edit").click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("FillAppointment")",
+                        data: { Appoint_Id: event.Id },
+                        success: function (data) {
+                            $("#Get_View").val("Edit");
+                            $("#date").val(data.Id);
+                            var split = data.split(',');
+                            $("#Appointment_Id").val(split[0]);
+                            $("#date").val(split[2]);
+                            $("#Patient_Id").select2('data', { id: split[1], text: split[4] });
+                            $("#Appointment_Type").selectBoxIt().selectBoxIt('selectOption', split[3]);
+                            $("#modal").modal('show');
+                        },
+                        uploadProgress: function (event, position, total, percentComplete) {
+                            console.log(percentComplete);
+                        }
+                    });
+                });
+            },
+            eventAfterRender: function (event, element, view) {
+                $(window).trigger('resize');
+                if (event.type == "Date") {
+                    element.css('background-color', '#b11b1b');
+                    element.css('cursor', 'pointer');
+                }
+                if (event.type == "Sonography") {
+                    element.css('background-color', '#007d3d');
+                    element.css('cursor', 'pointer');
+                }
+                if (event.type == "Anomaly") {
+                    element.css('background-color', '#fad839');
+                    element.css('cursor', 'pointer');
+                }
+                if (event.type == "Ovulation") {
+                    element.css('background-color', '#21a9e1');
+                    element.css('cursor', 'pointer');
+                }
+
+            }
+           
+        });
+        setTimeout(function () {
+            $("#calendar").fullCalendar('render');
+            $("#calendar").fullCalendar('refetchEvents');
+        }, 2000);
+        $('.modal').on('hidden.bs.modal', function () {
+            resetform();
+            resetselect2();
+            resetselectboxit();
+            resetValidation();
+        });
+
+        $('.modal').on('shown.bs.modal', function () {
+            resetValidation();
+        })
+        $("#Patient_Id").select2(
+                       {
+                           minimumInputLength: 1,
+                           placeholder: "Select a Patient",
+                           allowClear: true,
+                           ajax: {
+                               url: "@Url.Action("BindPatient", "Patient")",
+                               dataType: 'json',
+                               type: "GET",
+                               quietMillis: 50,
+                               data: function (term) {
+                                   return {
+                                       term: term
+                                   };
+                               },
+                               results: function (data) {
+                                   return {
+                                       results: $.map(data, function (item) {
+                                           return {
+                                               text: item.full_name,
+                                               id: item.patient_Id
+                                           }
+                                       })
+                                   };
+                               }
+                           }
+                       });
+
+    });
+</script>

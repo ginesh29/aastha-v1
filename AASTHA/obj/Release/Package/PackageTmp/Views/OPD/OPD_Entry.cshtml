@@ -1,0 +1,190 @@
+﻿@model AASTHA.Models.OPDModel
+@{
+    ViewBag.Title = "OPD_Entry";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/js/selectboxit/jquery.selectBoxIt.css" id="style-resource-3">
+<link rel="stylesheet" href="~/Content/js/select2/select2-bootstrap.css" id="style-resource-1">
+<link rel="stylesheet" href="~/Content/js/select2/select2.css" id="style-resource-2">
+@Html.Partial("_ResultMEssage")
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-heading">
+        <div class="panel-title">
+            OPD Entry
+        </div> <div class="panel-options"> <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a> <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a> <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a> <a href="#" data-rel="close"><i class="entypo-cancel"></i></a> </div>
+    </div> <div class="panel-body">
+        @using (Html.BeginForm("Modal_Edit", "OPD", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.OPD_Id_Edit)
+            <div class="row">
+
+                <div class="col-md-4 selectContainer">
+                    <div class="form-group">
+                        <label for="field-4" class="control-label">OPD Date</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.OPD_Date, new { @class = "form-control datepicker", placeholder = "Enter Date", tabindex = 0 })
+                            <div class="input-group-addon"> <a href="#"><i class="entypo-calendar"></i></a> </div>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.OPD_Date)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 selectbox">
+                    <div class="form-group">
+                        <label class="control-label" for="about">Case Type</label>
+                        @Html.DropDownListFor(m => m.Case_Type_Name, (IEnumerable<SelectListItem>)ViewBag.OPD_Case_TypeList, "Select Case Type", new { @class = "selectboxit visible", tabindex = 1 })
+                        @Html.ValidationMessageFor(m => m.Case_Type_Name)
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <label class="control-label" for="full_name">Full Name</label>
+                        @Html.TextBoxFor(m => m.Patient_Id,new { tabindex = 2 })
+                        @*<input id="Patient_Id" name="Patient_Id">*@
+                        @Html.ValidationMessageFor(m => m.Patient_Id)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="field-6" class="control-label">Consulting Charges</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Cons_Charge, new { @class = "form-control Charge", placeholder = "Enter Consulting Charges", tabindex = 3 })
+                            <div class="input-group-addon"> <a href="#"><i class="fa fa-inr"></i></a> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="field-1" class="control-label">USG Charges</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.USG_Charge, new { @class = "form-control Charge", placeholder = "Enter USG Charges", tabindex = 4 })
+                            <div class="input-group-addon"> <a href="#"><i class="fa fa-inr"></i></a> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="field-6" class="control-label">UPT Charges</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.UPT_Charge, new { @class = "form-control Charge", placeholder = "Enter UPT Charges", tabindex = 5})
+                            <div class="input-group-addon"> <a href="#"><i class="fa fa-inr"></i></a> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="field-1" class="control-label">Inj Charges</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Inj_Charge, new { @class = "form-control Charge", placeholder = "Enter Inj Charges", tabindex = 6 })
+                            <div class="input-group-addon"> <a href="#"><i class="fa fa-inr"></i></a> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="field-6" class="control-label">Other Charges</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Other_Charge, new { @class = "form-control Charge", placeholder = "Enter Other Charges", tabindex = 7 })
+                            <div class="input-group-addon"> <a href="#"><i class="fa fa-inr"></i></a> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="field-1" class="control-label">Total Charges</label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Total_Charge, new { @class = "form-control", placeholder = "Your Total Charges", disabled = "disabled" })
+                            <div class="input-group-addon"> <a href="#"><i class="fa fa-inr"></i></a> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnreset">Reset</button>
+                <button type="submit" class="btn btn-info">Save changes</button>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/Scripts/jquery.inputmask.bundle.min.js"></script>
+<script src="~/Content/js/bootstrap-datepicker.js"></script>
+<script src="~/Content/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js" id="script-resource-2"></script>
+<script src="~/Content/js/select2/select2.min.js" id="script-resource-8"></script>
+<script src="~/Content/js/selectboxit/jquery.selectBoxIt.min.js" id="script-resource-11"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.Charge').inputmask('Regex', {
+            regex: "^[0-9]{5}$"
+        });
+        datemask();
+        $(".Charge").keyup(function () {
+            var cons = Number($("#Cons_Charge").val());
+            var usg = Number($("#USG_Charge").val());
+            var upt = Number($("#UPT_Charge").val());
+            var inj = Number($("#Inj_Charge").val());
+            var other = Number($("#Other_Charge").val());
+            $("#Total_Charge").val(cons + usg + upt + inj + other);
+        })
+        $("#btnreset").click(function () {
+            resetform();
+            resetValidation();
+        })
+        $("select").change(function (e) {
+            var a = $("#Case_Type_Name option:selected").val();
+            if (a == "") {
+                e.preventDefault();
+                return false;
+            }
+            $(this).valid();
+        })
+        $(".datepicker").change(function () {
+            $(this).valid();
+        })
+        $("#Patient_Id").select2(
+              {
+                  minimumInputLength: 1,
+                  placeholder: "Select a Patient",
+                  allowClear: true,
+                  ajax: {
+                      url: "@Url.Action("BindPatient", "Patient")",
+                      dataType: 'json',
+                      type: "GET",
+                      quietMillis: 50,
+                      data: function (term) {
+                          return {
+                              term: term
+                          };
+                      },
+                      results: function (data) {
+                          return {
+                              results: $.map(data, function (item) {
+                                  return {
+                                      text: item.full_name,
+                                      id: item.patient_Id
+                                  }
+                              })
+                          };
+                      }
+                  }
+              });
+        $('#Patient_Id').on("select2-selecting", function (e) {
+            $('#Patient_Id').trigger('change');
+        });
+        $("#OPD_Date").val(getUrlParameter('date'));
+        $("#Patient_Id").select2('data', { id: getUrlParameter('patient_id'), text: getUrlParameter('name') });
+    });
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+</script>

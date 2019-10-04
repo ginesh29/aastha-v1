@@ -1,0 +1,80 @@
+﻿@{
+    string URL = Request.Url.ToString();
+}
+<ul id="main-menu" class="main-menu">
+    <li class="@(URL.Contains("Dashboard") ? "active" : "")">
+        <a href="~/Admin/Dashboard"><i class="entypo-gauge"></i><span class="title">Dashboard</span></a>
+    </li>
+    <li class="@(URL.Contains("Patient_Entry") || URL.Contains("OPD/OPD_Entry") || URL.Contains("IPD/IPD_Entry") ? "opened active" : "")">
+        <a href="#"><i class="entypo-plus-squared"></i><span class="title">Add Data Entry</span></a>
+        <ul>
+            <li class="@(URL.Contains("Patient/Patient_Entry") ? "active" : "")">
+                <a href="~/Patient/Patient_Entry"><span class="title">Patient Registration</span></a>
+            </li>
+            <li class="@(URL.Contains("OPD/OPD_Entry") ? "active" : "")">
+                <a href="~/OPD/OPD_Entry"><span class="title">OPD Entry</span></a>
+            </li>
+            <li class="@(URL.Contains("IPD/IPD_Entry") ? "active" : "")">
+                <a href="~/IPD/IPD_Entry"><span class="title">IPD Entry</span></a>
+            </li>
+        </ul>
+    </li>
+    <li class="@(URL.Contains("Manage_Patient") || URL.Contains("OPD/Manage_OPD_Entry") || URL.Contains("IPD/Manage_IPD_Entry") ? "opened active" : "")">
+        <a href="#"><i class="entypo-tools"></i><span class="title">Manage Entry</span></a>
+        <ul>
+            <li class="@(URL.Contains("Patient/Manage_Patient") ? "active" : "")">
+                <a href="~/Patient/Manage_Patient"><span class="title">Manage Patient</span></a>
+            </li>
+            <li class="@(URL.Contains("OPD/Manage_OPD_Entry") ? "active" : "")">
+                <a href="~/OPD/Manage_OPD_Entry"><span class="title">Manage OPD</span></a>
+            </li>
+            <li class="@(URL.Contains("IPD/Manage_IPD_Entry") ? "active" : "")">
+                <a href="~/IPD/Manage_IPD_Entry"><span class="title">Manage IPD</span></a>
+            </li>
+        </ul>
+    </li>
+    <li class="@(URL.Contains("Manage_User") ? "active" : "")">
+        <a href="~/Admin/Manage_User"><i class="entypo-users"></i><span class="title">Manage User</span></a>
+    </li>
+    <li class="@(URL.Contains("Manage_Delivery_Operation_Type") || URL.Contains("Manage_Operation_General_Diagnosis") || URL.Contains("Manage_MedicineAndType") ? "opened active" : "")">
+        <a href="#"><i class="entypo-tools"></i><span class="title">Admin Panel</span></a>
+        <ul>
+            <li class="@(URL.Contains("Manage_Delivery_Operation_Type") ? "active" : "")">
+                <a href="~/IPD/Manage_Delivery_Operation_Type"><span class="title">Manage Delivery & Operation Type</span></a>
+            </li>
+            <li class="@(URL.Contains("Manage_Operation_General_Diagnosis") ? "active" : "")">
+                <a href="~/IPD/Manage_Operation_General_Diagnosis"><span class="title">Manage Operation & General Diagnosis</span></a>
+            </li>
+            <li class="@(URL.Contains("Manage_MedicineAndType") ? "active" : "")">
+                <a href="~/Admin/Manage_MedicineAndType"><span class="title">Manage Medicine Type & Medicine</span></a>
+            </li>
+        </ul>
+    </li>
+    <li class="@(URL.Contains("Prescription") ? "active" : "")">
+        <a href="~/Admin/Prescription"><i class="entypo-doc-text"></i><span class="title">Prescription</span></a>
+    </li>
+    <li class="@(URL.Contains("View_Appointment") ? "active" : "")">
+        <a href="~/Admin/View_Appointment"><i class="entypo-calendar"></i><span class="title">Appointment Calender</span></a>
+    </li>
+    <li class="@(URL.Contains("Statistics") ? "active" : "")">
+        <a href="~/Report/Statistics"><i class="entypo-calendar"></i><span class="title">Statistics</span></a>
+    </li>
+    <li class="@(URL.Contains("OPD_Report") || URL.Contains("IPD_Report")||URL.Contains("InvoicesList") ||URL.Contains("Biometric_Report") ? "opened active" : "")">
+        <a href="#"><i class="entypo-chart-bar"></i><span class="title">Report</span></a>
+        <ul>
+            <li class="@(URL.Contains("OPD_Report") ? "active" : "")">
+                <a href="~/Report/OPD_Report"><span class="title">OPD Report</span></a>
+            </li>
+            <li class="@(URL.Contains("IPD_Report") ? "active" : "")">
+                <a href="~/Report/IPD_Report"><span class="title">IPD Report</span></a>
+            </li>
+            <li class="@(URL.Contains("InvoicesList") ? "active" : "")">
+                <a href="~/Report/InvoicesList"><span class="title">Monthly IPD Invoice</span></a>
+            </li> 
+            @*<li class="@(URL.Contains("Biometric_Report") ? "active" : "")">
+                <a href="~/Report/Biometric_Report"><span class="title">Biometric Report</span></a>
+            </li>*@           
+             
+        </ul>
+    </li>
+</ul>

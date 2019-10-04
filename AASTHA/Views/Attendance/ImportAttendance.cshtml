@@ -1,0 +1,32 @@
+﻿@model AASTHA.Models.PatientModel
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<link href="~/Content/jquery.typeahead.css" rel="stylesheet" />
+@Html.Partial("_ResultMEssage")
+<div class="panel panel-primary col-lg-6" data-collapsed="0">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Attendance Import Wizard
+        </div> <div class="panel-options"> <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a> <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a> <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a> <a href="#" data-rel="close"><i class="entypo-cancel"></i></a> </div>
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm("Import", "Attendance", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="">
+                    <div class="form-group">
+                        <input type="file" name="file" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info">Save changes</button>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="clearfix"></div>

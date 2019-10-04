@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AASTHA.Models.Get_IPD_Charge_Tabele_Result>
+@{
+    ViewBag.Title = "Charges_Table";
+    Layout = null;
+}
+<table class="table table-bordered" id="IPD_Charge_Table">
+    <thead>
+        <tr>
+            <th width="10px">No.</th>
+            <th>Description</th>
+            <th width="50px">Rate</th>
+            <th width="50px">Days</th>
+            <th width="50px">Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Charge_Id</td>
+                <td>@item.Charge_Title</td>                
+                <td class="right">@item.Rate</td>
+                <td class="right">@item.Days</td>
+                <td class="right">@item.Amount</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Grand Total | <span id="amtinword"></span></td>
+            <td colspan="2" style="text-align:right"><strong id="Total">@ViewBag.total</strong></td>
+        </tr>
+    </tfoot>
+    <tr></tr>
+</table>
+
+<style>
+    #IPD_Charge_Table {
+        font-size: 12px;
+    }
+
+    .guj {
+        font-size: 14px;
+    }
+
+    hr {
+        margin-top: 0px;
+    }
+    .table tr td:nth-child(3), .table tr td:nth-child(4), .table tr td:nth-child(5) {
+        text-align: right;
+    }
+
+
+</style>

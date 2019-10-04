@@ -1,0 +1,90 @@
+﻿@model AASTHA.Models.PatientModel
+@{
+    ViewBag.Title = "Patient_Entry";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<link href="~/Content/jquery.typeahead.css" rel="stylesheet" />
+@Html.Partial("_ResultMEssage")
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Patient Registration
+        </div> <div class="panel-options"> <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a> <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a> <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a> <a href="#" data-rel="close"><i class="entypo-cancel"></i></a> </div>
+    </div> <div class="panel-body">
+
+        @using (Html.BeginForm("Modal_Edit", "Patient"))
+        {
+            @Html.HiddenFor(m => m.Patient_Id_Edit)
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="field-4" class="control-label">Firstname</label>
+                        @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control Capitalize", placeholder = "Enter Firstname" })
+                        @Html.ValidationMessageFor(m => m.Firstname)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="field-5" class="control-label">Middlename</label>
+                        @Html.TextBoxFor(m => m.Middlename, new { @class = "form-control Capitalize", placeholder = "Enter Middlename" })
+                        @Html.ValidationMessageFor(m => m.Middlename)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="field-6" class="control-label">Lastname</label>
+                        @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control Capitalize", placeholder = "Enter Lastname" })
+                        @Html.ValidationMessageFor(m => m.Lastname)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="field-1" class="control-label">Age</label>
+                        @Html.TextBoxFor(m => m.Age, new { @class = "form-control", placeholder = "Enter Age" })
+                        @Html.ValidationMessageFor(m => m.Age)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="field-2" class="control-label">Mobile</label>
+                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", placeholder = "Enter Mobile" })
+                        @Html.ValidationMessageFor(m => m.Mobile)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="field-3" class="control-label">Address</label>
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control typeahead Capitalize", placeholder = "Enter Address" })
+                        @Html.ValidationMessageFor(m => m.Address)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-default" data-dismiss="modal" id="btnreset">Reset</button>
+                <button type="submit" class="btn btn-info">Save changes</button>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.inputmask.bundle.min.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Address').typeahead({
+            source: function (term, process) {
+                return $.get('@Url.Action("AutocompleteAddress")', { term: term }, function (data) {
+                    return process(data);
+                });
+            }
+        });
+        $("#Age").inputmask("99");
+    });
+</script>

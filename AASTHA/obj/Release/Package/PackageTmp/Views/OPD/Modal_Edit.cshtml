@@ -1,0 +1,168 @@
+﻿@model AASTHA.Models.OPDModel
+@{
+    ViewBag.Title = "Modal_Edit";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/Content/js/select2/select2-bootstrap.css" id="style-resource-1">
+<link rel="stylesheet" href="~/Content/js/select2/select2.css" id="style-resource-2">
+<link rel="stylesheet" href="~/Content/js/selectboxit/jquery.selectBoxIt.css" id="style-resource-3">
+
+<div class="modal fade" id="edit-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">OPD Patient's Details</h4>
+            </div>
+
+            @using (Ajax.BeginForm("Modal_Edit", "OPD", new AjaxOptions { HttpMethod = "post", OnSuccess = "editsuccess", }))
+            {
+                @Html.HiddenFor(m => m.OPD_Id_Edit)
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 selectContainer">
+                            <div class="form-group">
+                                <label for="field-4" class="control-label">OPD Date</label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(m => m.OPD_Date, new { @class = "form-control datepicker", placeholder = "Enter Date" })
+                                    <div class="input-group-addon"> <a href="#"><i class="entypo-calendar"></i></a> </div>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.OPD_Date)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label" for="about">Case Type</label>
+                                @Html.DropDownListFor(m => m.Case_Type_Name, (IEnumerable<SelectListItem>)ViewBag.OPD_Case_TypeList, "Select", new { @class = "selectboxit" })
+                                @Html.ValidationMessageFor(m => m.Case_Type_Name)
+                            </div>
+                        </div>
+                        <div class="col-md-8 selectContainer">
+                            <div class="form-group">
+
+                                <label class="control-label" for="full_name">Full Name</label>
+                                <input id="Patient_Id" name="Patient_Id" required>
+                                @Html.ValidationMessage("Patient_Id")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-6" class="control-label">Consulting Charges</label>
+                                @Html.TextBoxFor(m => m.Cons_Charge, new { @class = "form-control Charge", placeholder = "Enter Consulting Charges" })
+                                @Html.ValidationMessageFor(m => m.Cons_Charge)
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">USG Charges</label>
+                                @Html.TextBoxFor(m => m.USG_Charge, new { @class = "form-control Charge", placeholder = "Enter USG Charges" })
+                                @Html.ValidationMessageFor(m => m.USG_Charge)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-6" class="control-label">UPT Charges</label>
+                                @Html.TextBoxFor(m => m.UPT_Charge, new { @class = "form-control Charge", placeholder = "Enter UPT Charges" })
+                                @Html.ValidationMessageFor(m => m.UPT_Charge)
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Inj Charges</label>
+                                @Html.TextBoxFor(m => m.Inj_Charge, new { @class = "form-control Charge", placeholder = "Enter Inj Charges" })
+                                @Html.ValidationMessageFor(m => m.Inj_Charge)
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-6" class="control-label">Other Charges</label>
+                                @Html.TextBoxFor(m => m.Other_Charge, new { @class = "form-control Charge", placeholder = "Enter Other Charges" })
+                                @Html.ValidationMessageFor(m => m.Other_Charge)
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Total Charges</label>
+                                @Html.TextBoxFor(m => m.Total_Charge, new { @class = "form-control", placeholder = "Your Total Charges" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info">Save changes</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js" id="script-resource-2"></script>
+<script src="~/Content/js/select2/select2.min.js" id="script-resource-8"></script>
+<script src="~/Content/js/selectboxit/jquery.selectBoxIt.min.js" id="script-resource-11"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("select").change(function () {
+            $(this).valid();
+        });
+        $("#OPD_Date").change(function () {
+            $(this).valid();
+        });
+        $('.modal').on('hidden.bs.modal', function () {
+            resetform();
+            resetselect2();
+            resetselectboxit();
+            resetValidation();
+        });
+       
+        $('.modal').on('shown.bs.modal', function () {
+            resetValidation();
+        })
+        $("#Patient_Id").select2(
+              {
+                  minimumInputLength: 1,
+                  placeholder: "Select a Patient",
+                  allowClear: true,
+                  ajax: {
+                      url: "@Url.Action("BindPatient", "Patient")",
+                      dataType: 'json',
+                      type: "GET",
+                      quietMillis: 50,
+                      data: function (term) {
+                          return {
+                              term: term
+                          };
+                      },
+                      results: function (data) {
+                          return {
+                              results: $.map(data, function (item) {
+                                  return {
+                                      text: item.full_name,
+                                      id: item.patient_Id
+                                  }
+                              })
+                          };
+                      }
+                  }
+              });
+    });
+
+    function editsuccess() {
+        $("#edit-modal").modal('hide');
+        $("#list2").jqGrid().trigger('reloadGrid');
+        savemsg("OPD");
+    }
+</script>

@@ -1,0 +1,31 @@
+﻿@model AASTHA.Models.OPDModel
+@{
+    ViewBag.Title = "Modal_Delete";
+    Layout = null;
+}
+<div class="modal fade" id="delete-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("Modal_Delete", "OPD", new AjaxOptions { OnSuccess = "deletesuccess", }))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirmation</h4>
+                </div>
+                @Html.HiddenFor(m => m.OPD_Id_Delete)
+                <div class="modal-body"> Are you sure to delete : <b id="fullname"></b> </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info">Yes! Delete</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    function deletesuccess() {
+        $("#delete-modal").modal('hide');
+        $("#list2").jqGrid().trigger('reloadGrid');
+        deletemsg("OPD");
+    }
+</script>

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<AASTHA.Models.tbl_opd>
+@{
+    ViewBag.Title = "YearTab";
+    Layout = null;
+}
+<ul class="nav nav-tabs">
+    @foreach (var item in Model)
+    {
+        <li><a data-toggle="tab" href="#@item.case_type">@item.case_type</a></li>
+    }
+</ul>
+<script>
+    $(function () {
+        function activaTab(tab) {
+            $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+        };
+        var year = new Date().getFullYear()
+        activaTab(year);
+    })
+   
+</script>

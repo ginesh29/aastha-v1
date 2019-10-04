@@ -1,0 +1,70 @@
+﻿@model IEnumerable<AASTHA.Models.Get_IPD_Monthwise_Collection_Result>
+
+@{
+    ViewBag.Title = "OPD_Statistics";
+    Layout = null;
+}
+
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-heading">
+        <div class="panel-title">
+            IPD Statistics
+        </div> <div class="panel-options"> <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a> <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a> <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a> <a href="#" data-rel="close"><i class="entypo-cancel"></i></a> </div>
+    </div>
+    <div class="panel-body">
+        @Html.Action("YearTab2", "Report")
+
+        <div class="tab-content">
+
+            @foreach (var group in Model.GroupBy(m => m.Dates))
+            {
+                var id =  Convert.ToInt32(group.Key) + "_" + 2;
+
+                <div id="@id" class="tab-pane fade in">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Month
+                                </th>
+                                <th>
+                                    No of Patients
+                                </th>
+                                <th>
+                                    Total Collection
+                                </th>
+
+                            </tr>
+                        </thead>
+
+
+                        @foreach (var item in group)
+                        {
+                            <tr>
+                                <td>
+
+                                    @Html.DisplayFor(modelItem => item.Months)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.No_of_Patients)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Total_Collection)
+                                </td>
+                            </tr>
+                        }
+                        <tfoot>
+                            <tr>
+                                <td>Total</td>
+                                <td>@group.Select(m => m.No_of_Patients).Sum()</td>
+                                <td>@group.Select(m => m.Total_Collection).Sum()</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Manage_DeliveryType";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        @Html.Action("Manage_DeliveryType", "IPD")
+    </div>
+    <div class="col-lg-6">
+        @Html.Action("Manage_OperationType", "IPD")
+    </div>
+</div>
+
+<script>
+    function OnSuccess() {
+        $("input[type='text']").val("");
+        $("select").val("");        
+    }
+</script>

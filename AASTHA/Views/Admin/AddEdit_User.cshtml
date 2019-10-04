@@ -1,0 +1,43 @@
+﻿@model AASTHA.Models.AdminModel
+@using (Ajax.BeginForm("AddEdit_User", "Admin", new AjaxOptions { UpdateTargetId = "Grid", OnBegin = "blockui_grid", OnComplete = "unblockui_grid", OnSuccess = "OnSuccess" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="field-4" class="control-label">Username</label>
+                @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = "Enter Username" })
+                @Html.ValidationMessageFor(m => m.Username)
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="field-5" class="control-label">Password</label>
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Enter Password" })
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="field-5" class="control-label">Password</label>
+                @Html.TextBoxFor(model => model.Biometric_Id, new { @class = "form-control", placeholder = "Enter Biometric Id" })
+                @Html.ValidationMessageFor(m => m.Biometric_Id)
+            </div>
+        </div>
+        <div class="col-md-12 selectbox">
+            <div class="form-group">
+                <label for="field-6" class="control-label">Role</label>
+
+                @Html.DropDownListFor(model => model.Role, Model.Role_List, "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Role)
+            </div>
+        </div>
+        <div class="col-md-12 selectbox">
+            <div class="form-group">
+                <label for="field-6" class="control-label">Layout</label>
+                @Html.DropDownListFor(model => model.Layout, Model.Layout_List, "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Layout)
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-info">Submit</button>
+}

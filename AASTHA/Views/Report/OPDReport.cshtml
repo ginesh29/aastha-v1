@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "OPD_Report";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<link href="~/Content/ui.jqgrid-bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Content/js/icheck/skins/square/_all.css" id="style-resource-2">
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label for="field-4" class="control-label">Report Type</label>
+            <ul class="icheck-list">
+                <li>
+                    <input class="icheck-11" type="radio" name="report" value="Daily" checked>
+                    <label for="minimal-radio-1-11">Daily Report</label>
+                </li>
+                <li>
+                    <input tabindex="8" class="icheck-11" name="report" type="radio" value="Range">
+                    <label for="minimal-radio-2-11">Date Range Report</label>
+                </li>
+                <li>
+                    <input tabindex="8" class="icheck-11" name="report" type="radio" value="Monthly" />
+                    <label for="minimal-radio-2-11">Monthly Report</label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-1 pull-right">
+        <div class="form-group" style="margin-top:25px;">
+            <input type="button" class="btn btn-info" value="Print" id="btnprint" />
+        </div>
+    </div>
+    <div class="col-md-1 pull-right">
+        <div class="form-group" style="margin-top:25px;">
+            <input type="button" class="btn btn-primary" value="Submit" id="btnreport" />
+        </div>
+    </div>
+
+    <div id="daily">
+        <div class="col-md-3 pull-right">
+            <div class="form-group">
+                <label for="field-4" class="control-label">OPD Date</label>
+                <input type="text" class="form-control datepicker" id="opddate">
+            </div>
+        </div>
+    </div>
+
+    <div id="range">
+        <div class="col-md-2 pull">
+            <div class="form-group">
+                <label for="field-4" class="control-label">From OPD Date</label>
+                <input type="text" class="form-control datepicker" id="fromdate">
+            </div>
+        </div>
+        <div class="col-md-2 pull">
+            <div class="form-group">
+                <label for="field-4" class="control-label">To OPD Date</label>
+                <input type="text" class="form-control datepicker" id="todate">
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="printable">
+    <h3 style="text-align:center">OPD Report</h3>
+    <table id="list"></table>
+</div>
+<script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
+<script src="~/Content/js/icheck/icheck.min.js" id="script-resource-8"></script>
+<script src="~/Content/js/bootstrap-datepicker.js"></script>
+<script src="~/Scripts/JqGrid/jquery.jqGrid.js"></script>
+<script src="~/Scripts/JqGrid/grid.locale-en.js"></script>
+<script src="~/Scripts/jquery.printElement.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var opddate = $("#opddate").val();
+        var reporttype = $("input[name='report']:checked").val();
+        $('#list').jqGrid({
+            url: '/Report/GetOPD_Report/',
+            datatype: "json",
+            styleUI: 'Bootstrap',
+            autowidth: true,
+            cmTemplate: { sortable: false },
+            height: '100%',
+            mtype: 'GET',
+            colNames: ['Invoice Id', 'Outdoor No', "Patient's Name", 'OPD Date', 'Type', 'Cons', 'USG', 'UPT', 'Inj', 'Other', 'Total'],
+            colModel: [
+                 { name: 'opd_Id', width: 20 },
+                { name: 'opd_receipt_id', width: 40 },
+                { name: 'full_name', width: 80 },
+                { name: 'date', width: 30 },
+                { name: 'case_type', width: 30 },
+                { name: 'Consult_Charge', width: 20 },
+                { name: 'USG_Charge', width: 20 },
+                { name: 'UPT_Charge', width: 20 },
+                { name: 'Inj_Charge', width: 20 },
+                { name: 'Other_Charge', width: 20 },
+                { name: 'Total', width: 20, summaryTpl: "{0}", summaryType: "sum" }
+            ],
+            rowNum: -1,
+            loadonce: false,
+            postData: { 'opddate': opddate, 'report': reporttype },
+
+            userDataOnFooter: true,
+            grouping: true,
+            groupingView: {
+                groupField: ["date"],
+                groupColumnShow: [true],
+                groupText: ["<b>{0}</b>"],
+                groupOrder: ["asc"],
+                groupSummary: [true],
+                groupCollapse: false
+            }
+        });
+    })
+
+    $("#btnreport").click(function () {
+        var opddate = $("#opddate").val();
+        var fromdate = $("#fromdate").val();
+        var todate = $("#todate").val();
+        var reporttype = $("input[name='report']:checked").val();
+        jQuery('#list').setGridParam({ postData: { opddate: opddate, fromdate: fromdate, todate: todate, report: reporttype } }).trigger('reloadGrid');
+    })
+    $("#btnprint").click(function () {
+        $('.printable').printElement();
+    });
+    $('input.icheck-11').iCheck({
+        radioClass: 'iradio_square-blue'
+    });
+    $("#range").hide();
+    $('input').on('ifClicked', function (ev) {
+        if (this.value == 'Daily') {
+            $("#range").hide();
+            $("#daily").show();
+        }
+        else if (this.value == 'Range') {
+            $("#daily").hide();
+            $("#range").show();
+        }
+        else {
+            $("#range").hide();
+            $("#daily").show();
+        }
+    })
+
+</script>
+<style>
+    .icheck-list > li {
+        display: inline;
+        margin-bottom: 10px;
+    }
+
+    #prt-container table {
+        border-collapse: collapse;
+    }
+
+    #prt-container th,
+    #prt-container td {
+        border: 1px solid black;
+    }
+
+    .datatable_loader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('../Content/loader.gif') 50% 50% no-repeat rgba(249,249,249,.7);
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 4px;
+    }
+
+    table thead tr th {
+        font-size: 12px;
+    }
+
+    td {
+        font-size: 12px;
+    }
+
+    .copyButton {
+        background: #ff0000;
+    }
+</style>

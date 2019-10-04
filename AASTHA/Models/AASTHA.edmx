@@ -1,0 +1,2742 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AASTHAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Patient_Id" Type="int" />
+          <Property Name="Appointment_Date" Type="date" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_shift">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Shift" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="delivery_master">
+          <Key>
+            <PropertyRef Name="delivery_typeId" />
+          </Key>
+          <Property Name="delivery_typeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="delivery" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="diagnosis_master">
+          <Key>
+            <PropertyRef Name="digagnosis_typeId" />
+          </Key>
+          <Property Name="digagnosis_typeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="diagnosis_type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="general_diagnosis">
+          <Key>
+            <PropertyRef Name="general_diagnosis_Id" />
+          </Key>
+          <Property Name="general_diagnosis_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="general_diagnosis_name" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="IPD_Charge_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IPD_Id" Type="int" />
+          <Property Name="Charge_Id" Type="int" />
+          <Property Name="Days" Type="float" />
+          <Property Name="Rate" Type="int" />
+          <Property Name="Amount" Type="int" />
+        </EntityType>
+        <EntityType Name="IPD_Charges_Master">
+          <Key>
+            <PropertyRef Name="Charge_Id" />
+          </Key>
+          <Property Name="Charge_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Charge_Title" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="medicine_master">
+          <Key>
+            <PropertyRef Name="medicine_typeId" />
+          </Key>
+          <Property Name="medicine_typeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="medicine_name" Type="varchar" MaxLength="50" />
+          <Property Name="medicine_type" Type="int" />
+        </EntityType>
+        <EntityType Name="operation_master">
+          <Key>
+            <PropertyRef Name="operation_typeId" />
+          </Key>
+          <Property Name="operation_typeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="operation_type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_delivery">
+          <Key>
+            <PropertyRef Name="delivery_Id" />
+          </Key>
+          <Property Name="delivery_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ipd_Id" Type="int" />
+          <Property Name="delivery_typeId" Type="varchar" MaxLength="500" />
+          <Property Name="delivery_date" Type="date" />
+          <Property Name="delivery_time" Type="time" Precision="7" />
+          <Property Name="baby_gender" Type="varchar" MaxLength="50" />
+          <Property Name="baby_weight" Type="decimal" Precision="5" Scale="3" />
+          <Property Name="diagnosis" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tbl_general">
+          <Key>
+            <PropertyRef Name="general_Id" />
+          </Key>
+          <Property Name="general_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ipd_Id" Type="int" />
+          <Property Name="general_diagnosis" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tbl_Ipd">
+          <Key>
+            <PropertyRef Name="ipd_Id" />
+          </Key>
+          <Property Name="ipd_Id" Type="int" Nullable="false" />
+          <Property Name="ipd_receipt_id" Type="varchar" MaxLength="10" StoreGeneratedPattern="Computed" />
+          <Property Name="dept_name" Type="varchar" MaxLength="50" />
+          <Property Name="patient_id" Type="int" />
+          <Property Name="room_type" Type="varchar" MaxLength="15" />
+          <Property Name="addmission_date" Type="date" />
+          <Property Name="discharge_date" Type="date" />
+          <Property Name="bill" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="conssesion" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="tbl_medicine_type">
+          <Key>
+            <PropertyRef Name="medicine_Id" />
+          </Key>
+          <Property Name="medicine_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="medicine_type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_opd">
+          <Key>
+            <PropertyRef Name="opd_receipt_id" />
+          </Key>
+          <Property Name="opd_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="opd_receipt_id" Type="varchar" MaxLength="10" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="patient_id" Type="int" />
+          <Property Name="date" Type="date" />
+          <Property Name="case_type" Type="varchar" MaxLength="5" />
+          <Property Name="consult_charge" Type="int" />
+          <Property Name="usg_charge" Type="int" />
+          <Property Name="upt_charge" Type="int" />
+          <Property Name="inj_charge" Type="int" />
+          <Property Name="other_charge" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_operation">
+          <Key>
+            <PropertyRef Name="operation_Id" />
+          </Key>
+          <Property Name="operation_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ipd_Id" Type="int" />
+          <Property Name="diagnosis" Type="varchar" MaxLength="500" />
+          <Property Name="operation_date" Type="date" />
+          <Property Name="operation_type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_patient">
+          <Key>
+            <PropertyRef Name="patient_Id" />
+          </Key>
+          <Property Name="patient_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="full_name" Type="varchar" MaxLength="100" />
+          <Property Name="address" Type="varchar" MaxLength="50" />
+          <Property Name="mobile" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="age" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="opd_id123" Type="varchar" MaxLength="10" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="type" Type="varchar" MaxLength="50" />
+          <Property Name="Layout" Type="varchar" MaxLength="50" />
+          <Property Name="Biometric_Id" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AASTHA.dbo.Tran_MachineRawPunch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tran_MachineRawPunch">
+          <Key>
+            <PropertyRef Name="Tran_MachineRawPunchId" />
+            <PropertyRef Name="CardNo" />
+            <PropertyRef Name="PunchDatetime" />
+            <PropertyRef Name="P_Day" />
+            <PropertyRef Name="ISManual" />
+          </Key>
+          <Property Name="Tran_MachineRawPunchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardNo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PunchDatetime" Type="smalldatetime" Nullable="false" />
+          <Property Name="P_Day" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ISManual" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="PayCode" Type="varchar" MaxLength="50" />
+          <Property Name="MachineNo" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <Association Name="FK__medicine___medic__33D4B598">
+          <End Role="tbl_medicine_type" Type="Self.tbl_medicine_type" Multiplicity="0..1" />
+          <End Role="medicine_master" Type="Self.medicine_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_medicine_type">
+              <PropertyRef Name="medicine_Id" />
+            </Principal>
+            <Dependent Role="medicine_master">
+              <PropertyRef Name="medicine_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__medicine___medic__51300E55">
+          <End Role="tbl_medicine_type" Type="Self.tbl_medicine_type" Multiplicity="0..1" />
+          <End Role="medicine_master" Type="Self.medicine_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_medicine_type">
+              <PropertyRef Name="medicine_Id" />
+            </Principal>
+            <Dependent Role="medicine_master">
+              <PropertyRef Name="medicine_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_opd__patient__4EFDAD20">
+          <End Role="tbl_patient" Type="Self.tbl_patient" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_opd" Type="Self.tbl_opd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_patient">
+              <PropertyRef Name="patient_Id" />
+            </Principal>
+            <Dependent Role="tbl_opd">
+              <PropertyRef Name="patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_opd__patient__6FE99F9F">
+          <End Role="tbl_patient" Type="Self.tbl_patient" Multiplicity="0..1" />
+          <End Role="tbl_opd" Type="Self.tbl_opd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_patient">
+              <PropertyRef Name="patient_Id" />
+            </Principal>
+            <Dependent Role="tbl_opd">
+              <PropertyRef Name="patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IPD_Charge_Details_tbl_Ipd">
+          <End Role="tbl_Ipd" Type="Self.tbl_Ipd" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="IPD_Charge_Details" Type="Self.IPD_Charge_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ipd">
+              <PropertyRef Name="ipd_Id" />
+            </Principal>
+            <Dependent Role="IPD_Charge_Details">
+              <PropertyRef Name="IPD_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_appointment_tbl_patient">
+          <End Role="tbl_patient" Type="Self.tbl_patient" Multiplicity="0..1" />
+          <End Role="tbl_appointment" Type="Self.tbl_appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_patient">
+              <PropertyRef Name="patient_Id" />
+            </Principal>
+            <Dependent Role="tbl_appointment">
+              <PropertyRef Name="Patient_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_delivery_tbl_Ipd">
+          <End Role="tbl_Ipd" Type="Self.tbl_Ipd" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_delivery" Type="Self.tbl_delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ipd">
+              <PropertyRef Name="ipd_Id" />
+            </Principal>
+            <Dependent Role="tbl_delivery">
+              <PropertyRef Name="Ipd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_general_tbl_Ipd">
+          <End Role="tbl_Ipd" Type="Self.tbl_Ipd" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_general" Type="Self.tbl_general" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ipd">
+              <PropertyRef Name="ipd_Id" />
+            </Principal>
+            <Dependent Role="tbl_general">
+              <PropertyRef Name="Ipd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Ipd_tbl_patient">
+          <End Role="tbl_patient" Type="Self.tbl_patient" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_Ipd" Type="Self.tbl_Ipd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_patient">
+              <PropertyRef Name="patient_Id" />
+            </Principal>
+            <Dependent Role="tbl_Ipd">
+              <PropertyRef Name="patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_operation_tbl_Ipd">
+          <End Role="tbl_Ipd" Type="Self.tbl_Ipd" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_operation" Type="Self.tbl_operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ipd">
+              <PropertyRef Name="ipd_Id" />
+            </Principal>
+            <Dependent Role="tbl_operation">
+              <PropertyRef Name="Ipd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_shift_tbl_user">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="0..1" />
+          <End Role="tbl_shift" Type="Self.tbl_shift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_shift">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Add_Appointment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA">
+          <Parameter Name="patient_id" Type="int" Mode="In" />
+          <Parameter Name="date" Type="varchar" Mode="In" />
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Add_Shift" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA">
+          <Parameter Name="User_Id" Type="int" Mode="In" />
+          <Parameter Name="Date" Type="date" Mode="In" />
+          <Parameter Name="Shift" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Biometric_Report" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA">
+          <Parameter Name="report_type" Type="varchar" Mode="In" />
+          <Parameter Name="reportdate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Dynamic_Pivot" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA" />
+        <Function Name="Get_IPD_Monthwise_Collection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA" />
+        <Function Name="Get_Monthwise_Collection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA" />
+        <Function Name="Get_OPD_Monthwise_Collection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA" />
+        <Function Name="GetAllMedicineWithType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA" />
+        <Function Name="GetDashBoardCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA" />
+        <Function Name="GetYearTab" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA" />
+        <Function Name="GetYearTabs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA" />
+        <Function Name="IsAppointed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA">
+          <Parameter Name="patient_id" Type="int" Mode="In" />
+          <Parameter Name="date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Monthly_AttendanceReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA">
+          <Parameter Name="reportdate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="OPDReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="AASTHA">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Add_OPD_Entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patient_id" Type="int" Mode="In" />
+          <Parameter Name="opd_date" Type="varchar" Mode="In" />
+          <Parameter Name="case_type" Type="varchar" Mode="In" />
+          <Parameter Name="consult_charege" Type="int" Mode="In" />
+          <Parameter Name="usg_charge" Type="int" Mode="In" />
+          <Parameter Name="upt_charge" Type="int" Mode="In" />
+          <Parameter Name="inj_charge" Type="int" Mode="In" />
+          <Parameter Name="dress_charge" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Add_OPD_Record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patient_id" Type="int" Mode="In" />
+          <Parameter Name="opd_date" Type="varchar" Mode="In" />
+          <Parameter Name="case_type" Type="varchar" Mode="In" />
+          <Parameter Name="consult_charege" Type="int" Mode="In" />
+          <Parameter Name="usg_charge" Type="int" Mode="In" />
+          <Parameter Name="upt_charge" Type="int" Mode="In" />
+          <Parameter Name="inj_charge" Type="int" Mode="In" />
+          <Parameter Name="dress_charge" Type="int" Mode="In" />
+        </Function>
+        <Function Name="admin_panel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="gen_dia" Type="varchar" Mode="In" />
+          <Parameter Name="del_dia" Type="varchar" Mode="In" />
+          <Parameter Name="del_type" Type="varchar" Mode="In" />
+          <Parameter Name="op_type" Type="varchar" Mode="In" />
+          <Parameter Name="med_type" Type="int" Mode="In" />
+          <Parameter Name="med_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="DateWiseIPD_Collection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="report_type" Type="varchar" Mode="In" />
+          <Parameter Name="date" Type="varchar" Mode="In" />
+          <Parameter Name="fromdate" Type="varchar" Mode="In" />
+          <Parameter Name="todate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="DateWiseOPD_Collection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="report_type" Type="varchar" Mode="In" />
+          <Parameter Name="date" Type="varchar" Mode="In" />
+          <Parameter Name="fromdate" Type="varchar" Mode="In" />
+          <Parameter Name="todate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Delete_Ipd_Charge" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ipd_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delete_ipd_entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delete_opd_entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delete_patient_entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="edit_delivery_entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="room_type" Type="varchar" Mode="In" />
+          <Parameter Name="add_date" Type="varchar" Mode="In" />
+          <Parameter Name="del_date" Type="varchar" Mode="In" />
+          <Parameter Name="del_time" Type="varchar" Mode="In" />
+          <Parameter Name="del_dia" Type="varchar" Mode="In" />
+          <Parameter Name="del_type" Type="varchar" Mode="In" />
+          <Parameter Name="dis_date" Type="varchar" Mode="In" />
+          <Parameter Name="baby_gender" Type="varchar" Mode="In" />
+          <Parameter Name="baby_weight" Type="decimal" Mode="In" />
+          <Parameter Name="bill" Type="int" Mode="In" />
+          <Parameter Name="conssesion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="edit_general_entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="room_type" Type="varchar" Mode="In" />
+          <Parameter Name="add_date" Type="varchar" Mode="In" />
+          <Parameter Name="gen_dia" Type="varchar" Mode="In" />
+          <Parameter Name="dis_date" Type="varchar" Mode="In" />
+          <Parameter Name="bill" Type="int" Mode="In" />
+          <Parameter Name="conssesion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Edit_IPD_Charge_Table" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ipd_id" Type="int" Mode="In" />
+          <Parameter Name="charge_id" Type="int" Mode="In" />
+          <Parameter Name="day" Type="float" Mode="In" />
+          <Parameter Name="rate" Type="int" Mode="In" />
+          <Parameter Name="amt" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Edit_OPD_Entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="opd_date" Type="varchar" Mode="In" />
+          <Parameter Name="consult_charege" Type="int" Mode="In" />
+          <Parameter Name="usg_charge" Type="int" Mode="In" />
+          <Parameter Name="upt_charge" Type="int" Mode="In" />
+          <Parameter Name="inj_charge" Type="int" Mode="In" />
+          <Parameter Name="dress_charge" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Edit_OPD_Record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="opd_id" Type="int" Mode="In" />
+          <Parameter Name="patient_id" Type="int" Mode="In" />
+          <Parameter Name="casetype" Type="varchar" Mode="In" />
+          <Parameter Name="opd_date" Type="varchar" Mode="In" />
+          <Parameter Name="consult_charege" Type="int" Mode="In" />
+          <Parameter Name="usg_charge" Type="int" Mode="In" />
+          <Parameter Name="upt_charge" Type="int" Mode="In" />
+          <Parameter Name="inj_charge" Type="int" Mode="In" />
+          <Parameter Name="dress_charge" Type="int" Mode="In" />
+        </Function>
+        <Function Name="edit_operation_entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="room_type" Type="varchar" Mode="In" />
+          <Parameter Name="add_date" Type="varchar" Mode="In" />
+          <Parameter Name="op_date" Type="varchar" Mode="In" />
+          <Parameter Name="op_dia" Type="varchar" Mode="In" />
+          <Parameter Name="op_type" Type="varchar" Mode="In" />
+          <Parameter Name="dis_date" Type="varchar" Mode="In" />
+          <Parameter Name="bill" Type="int" Mode="In" />
+          <Parameter Name="conssesion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ge_ipd_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_All_IPD_Entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_All_OPD_Entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="get_fullname" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_id_manage_opd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_IPD_Charge_Tabele" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="get_last_fulname" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="get_lastreg_name" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="get_receipt_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetIPD_Charges_Table" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="insert_delivery_entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patient_id" Type="int" Mode="In" />
+          <Parameter Name="delivery_type" Type="int" Mode="In" />
+          <Parameter Name="delivery_date" Type="date" Mode="In" />
+          <Parameter Name="delivery_time" Type="varchar" Mode="In" />
+          <Parameter Name="baby_gender" Type="varchar" Mode="In" />
+          <Parameter Name="baby_weight" Type="float" Mode="In" />
+          <Parameter Name="bill_amt" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insert_ipd_entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ipd_type" Type="varchar" Mode="In" />
+          <Parameter Name="patient_id" Type="int" Mode="In" />
+          <Parameter Name="ipd_id" Type="int" Mode="In" />
+          <Parameter Name="room_type" Type="varchar" Mode="In" />
+          <Parameter Name="addmission_date" Type="varchar" Mode="In" />
+          <Parameter Name="discharge_date" Type="varchar" Mode="In" />
+          <Parameter Name="bill" Type="numeric" Mode="In" />
+          <Parameter Name="conssesion" Type="numeric" Mode="In" />
+          <Parameter Name="general_diagnosis" Type="varchar" Mode="In" />
+          <Parameter Name="operation_diagnosis" Type="varchar" Mode="In" />
+          <Parameter Name="operation_date" Type="varchar" Mode="In" />
+          <Parameter Name="operation_type" Type="varchar" Mode="In" />
+          <Parameter Name="delivery_diagnosis" Type="varchar" Mode="In" />
+          <Parameter Name="delivery_type" Type="varchar" Mode="In" />
+          <Parameter Name="delivery_date" Type="varchar" Mode="In" />
+          <Parameter Name="delivery_time" Type="varchar" Mode="In" />
+          <Parameter Name="baby_gender" Type="varchar" Mode="In" />
+          <Parameter Name="baby_weight" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="Insert_IPDCharge_Table" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ipd_id" Type="int" Mode="In" />
+          <Parameter Name="charge_id" Type="int" Mode="In" />
+          <Parameter Name="day" Type="float" Mode="In" />
+          <Parameter Name="rate" Type="int" Mode="In" />
+          <Parameter Name="amt" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insert_medicine" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="medicine" Type="varchar" Mode="In" />
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Insert_OPD_Entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="patient_id" Type="int" Mode="In" />
+          <Parameter Name="opd_date" Type="varchar" Mode="In" />
+          <Parameter Name="case_type" Type="varchar" Mode="In" />
+          <Parameter Name="consult_charege" Type="int" Mode="In" />
+          <Parameter Name="usg_charge" Type="int" Mode="In" />
+          <Parameter Name="upt_charge" Type="int" Mode="In" />
+          <Parameter Name="inj_charge" Type="int" Mode="In" />
+          <Parameter Name="dress_charge" Type="int" Mode="In" />
+        </Function>
+        <Function Name="inset_medicine" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="medicine" Type="varchar" Mode="In" />
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ipd_invoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="IPD_Report" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="report_type" Type="varchar" Mode="In" />
+          <Parameter Name="addate" Type="varchar" Mode="In" />
+          <Parameter Name="fromdate" Type="varchar" Mode="In" />
+          <Parameter Name="todate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="manage_ipd_entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="manage_opd_entry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="OPD_Report" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="report_type" Type="varchar" Mode="In" />
+          <Parameter Name="opddate" Type="varchar" Mode="In" />
+          <Parameter Name="fromdate" Type="varchar" Mode="In" />
+          <Parameter Name="todate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="opd_report_collection_monthly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="opd_report_collection_monthly1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="opd_report_colletion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="opd_report_colletion_daily" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="opd_report_datewise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="OPD_Report_Monthly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="opd_report_monthwise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="opd_report_monthwise1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="patient_reg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="full_name" Type="varchar" Mode="In" />
+          <Parameter Name="address" Type="varchar" Mode="In" />
+          <Parameter Name="mobile" Type="numeric" Mode="In" />
+          <Parameter Name="age" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Procedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Procedure1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Search_In_OPDGrid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="t" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="t" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="utility" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="view_all_patient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="AASTHAModelStoreContainer">
+          <EntitySet Name="tbl_appointment" EntityType="Self.tbl_appointment" Schema="AASTHA" store:Type="Tables" />
+          <EntitySet Name="tbl_shift" EntityType="Self.tbl_shift" Schema="AASTHA" store:Type="Tables" />
+          <EntitySet Name="delivery_master" EntityType="Self.delivery_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="diagnosis_master" EntityType="Self.diagnosis_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="general_diagnosis" EntityType="Self.general_diagnosis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IPD_Charge_Details" EntityType="Self.IPD_Charge_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IPD_Charges_Master" EntityType="Self.IPD_Charges_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="medicine_master" EntityType="Self.medicine_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="operation_master" EntityType="Self.operation_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_delivery" EntityType="Self.tbl_delivery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_general" EntityType="Self.tbl_general" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Ipd" EntityType="Self.tbl_Ipd" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_medicine_type" EntityType="Self.tbl_medicine_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_opd" EntityType="Self.tbl_opd" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_operation" EntityType="Self.tbl_operation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_patient" EntityType="Self.tbl_patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_user" EntityType="Self.tbl_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tran_MachineRawPunch" EntityType="Self.Tran_MachineRawPunch" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Tran_MachineRawPunch].[Tran_MachineRawPunchId] AS [Tran_MachineRawPunchId], 
+[Tran_MachineRawPunch].[CardNo] AS [CardNo], 
+[Tran_MachineRawPunch].[PunchDatetime] AS [PunchDatetime], 
+[Tran_MachineRawPunch].[P_Day] AS [P_Day], 
+[Tran_MachineRawPunch].[ISManual] AS [ISManual], 
+[Tran_MachineRawPunch].[PayCode] AS [PayCode], 
+[Tran_MachineRawPunch].[MachineNo] AS [MachineNo]
+FROM [dbo].[Tran_MachineRawPunch] AS [Tran_MachineRawPunch]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__medicine___medic__33D4B598" Association="Self.FK__medicine___medic__33D4B598">
+            <End Role="tbl_medicine_type" EntitySet="tbl_medicine_type" />
+            <End Role="medicine_master" EntitySet="medicine_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK__medicine___medic__51300E55" Association="Self.FK__medicine___medic__51300E55">
+            <End Role="tbl_medicine_type" EntitySet="tbl_medicine_type" />
+            <End Role="medicine_master" EntitySet="medicine_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_opd__patient__4EFDAD20" Association="Self.FK__tbl_opd__patient__4EFDAD20">
+            <End Role="tbl_patient" EntitySet="tbl_patient" />
+            <End Role="tbl_opd" EntitySet="tbl_opd" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_opd__patient__6FE99F9F" Association="Self.FK__tbl_opd__patient__6FE99F9F">
+            <End Role="tbl_patient" EntitySet="tbl_patient" />
+            <End Role="tbl_opd" EntitySet="tbl_opd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IPD_Charge_Details_tbl_Ipd" Association="Self.FK_IPD_Charge_Details_tbl_Ipd">
+            <End Role="tbl_Ipd" EntitySet="tbl_Ipd" />
+            <End Role="IPD_Charge_Details" EntitySet="IPD_Charge_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_appointment_tbl_patient" Association="Self.FK_tbl_appointment_tbl_patient">
+            <End Role="tbl_patient" EntitySet="tbl_patient" />
+            <End Role="tbl_appointment" EntitySet="tbl_appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_delivery_tbl_Ipd" Association="Self.FK_tbl_delivery_tbl_Ipd">
+            <End Role="tbl_Ipd" EntitySet="tbl_Ipd" />
+            <End Role="tbl_delivery" EntitySet="tbl_delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_general_tbl_Ipd" Association="Self.FK_tbl_general_tbl_Ipd">
+            <End Role="tbl_Ipd" EntitySet="tbl_Ipd" />
+            <End Role="tbl_general" EntitySet="tbl_general" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Ipd_tbl_patient" Association="Self.FK_tbl_Ipd_tbl_patient">
+            <End Role="tbl_patient" EntitySet="tbl_patient" />
+            <End Role="tbl_Ipd" EntitySet="tbl_Ipd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_operation_tbl_Ipd" Association="Self.FK_tbl_operation_tbl_Ipd">
+            <End Role="tbl_Ipd" EntitySet="tbl_Ipd" />
+            <End Role="tbl_operation" EntitySet="tbl_operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_shift_tbl_user" Association="Self.FK_tbl_shift_tbl_user">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="tbl_shift" EntitySet="tbl_shift" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AASTHAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AASTHAEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="Add_Appointment">
+            <Parameter Name="patient_id" Mode="In" Type="Int32" />
+            <Parameter Name="date" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Add_Shift">
+            <Parameter Name="User_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="Shift" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Biometric_Report" ReturnType="Collection(AASTHAModel.Biometric_Report_Result)">
+            <Parameter Name="report_type" Mode="In" Type="String" />
+            <Parameter Name="reportdate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Dynamic_Pivot" />
+          <FunctionImport Name="Get_IPD_Monthwise_Collection" ReturnType="Collection(AASTHAModel.Get_IPD_Monthwise_Collection_Result)" />
+          <FunctionImport Name="Get_Monthwise_Collection" ReturnType="Collection(AASTHAModel.Get_Monthwise_Collection_Result)" />
+          <FunctionImport Name="Get_OPD_Monthwise_Collection" ReturnType="Collection(AASTHAModel.Get_OPD_Monthwise_Collection_Result)" />
+          <FunctionImport Name="GetAllMedicineWithType" ReturnType="Collection(AASTHAModel.GetAllMedicineWithType_Result)" />
+          <FunctionImport Name="GetDashBoardCount" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="GetYearTab" ReturnType="Collection(AASTHAModel.GetYearTab_Result)" />
+          <FunctionImport Name="GetYearTabs" ReturnType="Collection(AASTHAModel.GetYearTabs_Result)" />
+          <FunctionImport Name="IsAppointed" ReturnType="Collection(AASTHAModel.IsAppointed_Result)">
+            <Parameter Name="patient_id" Mode="In" Type="Int32" />
+            <Parameter Name="date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Monthly_AttendanceReport" ReturnType="Collection(AASTHAModel.Monthly_AttendanceReport_Result)">
+          <Parameter Name="reportdate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="OPDReport" ReturnType="Collection(AASTHAModel.OPDReport_Result)">
+            <Parameter Name="type" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Add_OPD_Entry">
+            <Parameter Name="patient_id" Mode="In" Type="Int32" />
+            <Parameter Name="opd_date" Mode="In" Type="String" />
+            <Parameter Name="case_type" Mode="In" Type="String" />
+            <Parameter Name="consult_charege" Mode="In" Type="Int32" />
+            <Parameter Name="usg_charge" Mode="In" Type="Int32" />
+            <Parameter Name="upt_charge" Mode="In" Type="Int32" />
+            <Parameter Name="inj_charge" Mode="In" Type="Int32" />
+            <Parameter Name="dress_charge" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Add_OPD_Record">
+            <Parameter Name="patient_id" Mode="In" Type="Int32" />
+            <Parameter Name="opd_date" Mode="In" Type="String" />
+            <Parameter Name="case_type" Mode="In" Type="String" />
+            <Parameter Name="consult_charege" Mode="In" Type="Int32" />
+            <Parameter Name="usg_charge" Mode="In" Type="Int32" />
+            <Parameter Name="upt_charge" Mode="In" Type="Int32" />
+            <Parameter Name="inj_charge" Mode="In" Type="Int32" />
+            <Parameter Name="dress_charge" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="admin_panel">
+            <Parameter Name="type" Mode="In" Type="String" />
+            <Parameter Name="gen_dia" Mode="In" Type="String" />
+            <Parameter Name="del_dia" Mode="In" Type="String" />
+            <Parameter Name="del_type" Mode="In" Type="String" />
+            <Parameter Name="op_type" Mode="In" Type="String" />
+            <Parameter Name="med_type" Mode="In" Type="Int32" />
+            <Parameter Name="med_name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Delete_Ipd_Charge">
+          <Parameter Name="ipd_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delete_ipd_entry">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delete_opd_entry">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delete_patient_entry">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="edit_delivery_entry">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="room_type" Mode="In" Type="String" />
+            <Parameter Name="add_date" Mode="In" Type="String" />
+            <Parameter Name="del_date" Mode="In" Type="String" />
+            <Parameter Name="del_time" Mode="In" Type="String" />
+            <Parameter Name="del_dia" Mode="In" Type="String" />
+            <Parameter Name="del_type" Mode="In" Type="String" />
+            <Parameter Name="dis_date" Mode="In" Type="String" />
+            <Parameter Name="baby_gender" Mode="In" Type="String" />
+            <Parameter Name="baby_weight" Mode="In" Type="Decimal" />
+            <Parameter Name="bill" Mode="In" Type="Int32" />
+            <Parameter Name="conssesion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="edit_general_entry">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="room_type" Mode="In" Type="String" />
+            <Parameter Name="add_date" Mode="In" Type="String" />
+            <Parameter Name="gen_dia" Mode="In" Type="String" />
+            <Parameter Name="dis_date" Mode="In" Type="String" />
+            <Parameter Name="bill" Mode="In" Type="Int32" />
+            <Parameter Name="conssesion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Edit_IPD_Charge_Table">
+            <Parameter Name="ipd_id" Mode="In" Type="Int32" />
+            <Parameter Name="charge_id" Mode="In" Type="Int32" />
+            <Parameter Name="day" Mode="In" Type="Double" />
+            <Parameter Name="rate" Mode="In" Type="Int32" />
+            <Parameter Name="amt" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Edit_OPD_Entry">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="opd_date" Mode="In" Type="String" />
+            <Parameter Name="consult_charege" Mode="In" Type="Int32" />
+            <Parameter Name="usg_charge" Mode="In" Type="Int32" />
+            <Parameter Name="upt_charge" Mode="In" Type="Int32" />
+            <Parameter Name="inj_charge" Mode="In" Type="Int32" />
+            <Parameter Name="dress_charge" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Edit_OPD_Record">
+            <Parameter Name="opd_id" Mode="In" Type="Int32" />
+            <Parameter Name="patient_id" Mode="In" Type="Int32" />
+            <Parameter Name="casetype" Mode="In" Type="String" />
+            <Parameter Name="opd_date" Mode="In" Type="String" />
+            <Parameter Name="consult_charege" Mode="In" Type="Int32" />
+            <Parameter Name="usg_charge" Mode="In" Type="Int32" />
+            <Parameter Name="upt_charge" Mode="In" Type="Int32" />
+            <Parameter Name="inj_charge" Mode="In" Type="Int32" />
+            <Parameter Name="dress_charge" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="edit_operation_entry">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="room_type" Mode="In" Type="String" />
+            <Parameter Name="add_date" Mode="In" Type="String" />
+            <Parameter Name="op_date" Mode="In" Type="String" />
+            <Parameter Name="op_dia" Mode="In" Type="String" />
+            <Parameter Name="op_type" Mode="In" Type="String" />
+            <Parameter Name="dis_date" Mode="In" Type="String" />
+            <Parameter Name="bill" Mode="In" Type="Int32" />
+            <Parameter Name="conssesion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ge_ipd_id" ReturnType="Collection(AASTHAModel.ge_ipd_id_Result)" />
+          <FunctionImport Name="Get_All_IPD_Entry" ReturnType="Collection(AASTHAModel.Get_All_IPD_Entry_Result)" />
+          <FunctionImport Name="Get_All_OPD_Entry" ReturnType="Collection(AASTHAModel.Get_All_OPD_Entry_Result)" />
+          <FunctionImport Name="get_fullname" ReturnType="Collection(AASTHAModel.get_fullname_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_id_manage_opd" ReturnType="Collection(AASTHAModel.get_id_manage_opd_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_IPD_Charge_Tabele" ReturnType="Collection(AASTHAModel.Get_IPD_Charge_Tabele_Result)" />
+          <FunctionImport Name="get_last_fulname" ReturnType="Collection(AASTHAModel.get_last_fulname_Result)" />
+          <FunctionImport Name="get_lastreg_name" ReturnType="Collection(AASTHAModel.get_lastreg_name_Result)" />
+          <FunctionImport Name="get_receipt_id" ReturnType="Collection(AASTHAModel.get_receipt_id_Result)" />
+          <FunctionImport Name="GetIPD_Charges_Table" ReturnType="Collection(AASTHAModel.GetIPD_Charges_Table_Result)" />
+          <FunctionImport Name="insert_delivery_entry">
+            <Parameter Name="patient_id" Mode="In" Type="Int32" />
+            <Parameter Name="delivery_type" Mode="In" Type="Int32" />
+            <Parameter Name="delivery_date" Mode="In" Type="DateTime" />
+            <Parameter Name="delivery_time" Mode="In" Type="String" />
+            <Parameter Name="baby_gender" Mode="In" Type="String" />
+            <Parameter Name="baby_weight" Mode="In" Type="Double" />
+            <Parameter Name="bill_amt" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insert_ipd_entry">
+            <Parameter Name="ipd_type" Mode="In" Type="String" />
+            <Parameter Name="patient_id" Mode="In" Type="Int32" />
+            <Parameter Name="ipd_id" Mode="In" Type="Int32" />
+            <Parameter Name="room_type" Mode="In" Type="String" />
+            <Parameter Name="addmission_date" Mode="In" Type="String" />
+            <Parameter Name="discharge_date" Mode="In" Type="String" />
+            <Parameter Name="bill" Mode="In" Type="Decimal" />
+            <Parameter Name="conssesion" Mode="In" Type="Decimal" />
+            <Parameter Name="general_diagnosis" Mode="In" Type="String" />
+            <Parameter Name="operation_diagnosis" Mode="In" Type="String" />
+            <Parameter Name="operation_date" Mode="In" Type="String" />
+            <Parameter Name="operation_type" Mode="In" Type="String" />
+            <Parameter Name="delivery_diagnosis" Mode="In" Type="String" />
+            <Parameter Name="delivery_type" Mode="In" Type="String" />
+            <Parameter Name="delivery_date" Mode="In" Type="String" />
+            <Parameter Name="delivery_time" Mode="In" Type="String" />
+            <Parameter Name="baby_gender" Mode="In" Type="String" />
+            <Parameter Name="baby_weight" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Insert_IPDCharge_Table">
+            <Parameter Name="ipd_id" Mode="In" Type="Int32" />
+            <Parameter Name="charge_id" Mode="In" Type="Int32" />
+            <Parameter Name="day" Mode="In" Type="Double" />
+            <Parameter Name="rate" Mode="In" Type="Int32" />
+            <Parameter Name="amt" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insert_medicine">
+            <Parameter Name="medicine" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Insert_OPD_Entry">
+            <Parameter Name="patient_id" Mode="In" Type="Int32" />
+            <Parameter Name="opd_date" Mode="In" Type="String" />
+            <Parameter Name="case_type" Mode="In" Type="String" />
+            <Parameter Name="consult_charege" Mode="In" Type="Int32" />
+            <Parameter Name="usg_charge" Mode="In" Type="Int32" />
+            <Parameter Name="upt_charge" Mode="In" Type="Int32" />
+            <Parameter Name="inj_charge" Mode="In" Type="Int32" />
+            <Parameter Name="dress_charge" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="inset_medicine">
+            <Parameter Name="medicine" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ipd_invoice" ReturnType="Collection(AASTHAModel.ipd_invoice_Result)">
+          <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="IPD_Report" ReturnType="Collection(AASTHAModel.IPD_Report_Result)">
+            <Parameter Name="report_type" Mode="In" Type="String" />
+            <Parameter Name="addate" Mode="In" Type="String" />
+            <Parameter Name="fromdate" Mode="In" Type="String" />
+            <Parameter Name="todate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="login" ReturnType="Collection(AASTHAModel.login_Result)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="manage_ipd_entry" ReturnType="Collection(AASTHAModel.manage_ipd_entry_Result)" />
+          <FunctionImport Name="manage_opd_entry" ReturnType="Collection(AASTHAModel.manage_opd_entry_Result)" />
+          <FunctionImport Name="OPD_Report" ReturnType="Collection(AASTHAModel.OPD_Report_Result)">
+            <Parameter Name="report_type" Mode="In" Type="String" />
+            <Parameter Name="opddate" Mode="In" Type="String" />
+            <Parameter Name="fromdate" Mode="In" Type="String" />
+            <Parameter Name="todate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="opd_report_collection_monthly" ReturnType="Collection(AASTHAModel.opd_report_collection_monthly_Result)">
+          <Parameter Name="date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="opd_report_collection_monthly1" ReturnType="Collection(AASTHAModel.opd_report_collection_monthly1_Result)">
+          <Parameter Name="date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="opd_report_colletion" ReturnType="Collection(AASTHAModel.opd_report_colletion_Result)">
+          <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="opd_report_colletion_daily" ReturnType="Collection(AASTHAModel.opd_report_colletion_daily_Result)">
+          <Parameter Name="date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="opd_report_datewise" ReturnType="Collection(AASTHAModel.opd_report_datewise_Result)">
+          <Parameter Name="date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="OPD_Report_Monthly" ReturnType="Collection(AASTHAModel.OPD_Report_Monthly_Result)">
+          <Parameter Name="date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="opd_report_monthwise" ReturnType="Collection(AASTHAModel.opd_report_monthwise_Result)">
+          <Parameter Name="date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="opd_report_monthwise1" ReturnType="Collection(AASTHAModel.opd_report_monthwise1_Result)">
+          <Parameter Name="date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="patient_reg">
+            <Parameter Name="full_name" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="mobile" Mode="In" Type="Decimal" />
+            <Parameter Name="age" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Procedure" ReturnType="Collection(String)" />
+          <FunctionImport Name="Procedure1" ReturnType="Collection(AASTHAModel.Procedure1_Result)" />
+          <FunctionImport Name="Search_In_OPDGrid" ReturnType="Collection(AASTHAModel.Search_In_OPDGrid_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="t" ReturnType="Collection(Time)">
+          <Parameter Name="t" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="utility" ReturnType="Collection(AASTHAModel.utility_Result)">
+          <Parameter Name="date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="view_all_patient" ReturnType="Collection(AASTHAModel.view_all_patient_Result)" />
+          <FunctionImport Name="DateWiseIPD_Collection" ReturnType="Collection(AASTHAModel.DateWiseIPD_Collection_Result)">
+            <Parameter Name="report_type" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="String" />
+            <Parameter Name="fromdate" Mode="In" Type="String" />
+            <Parameter Name="todate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DateWiseOPD_Collection" ReturnType="Collection(AASTHAModel.DateWiseOPD_Collection_Result)">
+            <Parameter Name="report_type" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="String" />
+            <Parameter Name="fromdate" Mode="In" Type="String" />
+            <Parameter Name="todate" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tbl_appointment" EntityType="AASTHAModel.tbl_appointment" />
+          <EntitySet Name="tbl_shift" EntityType="AASTHAModel.tbl_shift" />
+          <EntitySet Name="delivery_master" EntityType="AASTHAModel.delivery_master" />
+          <EntitySet Name="diagnosis_master" EntityType="AASTHAModel.diagnosis_master" />
+          <EntitySet Name="general_diagnosis" EntityType="AASTHAModel.general_diagnosis" />
+          <EntitySet Name="IPD_Charge_Details" EntityType="AASTHAModel.IPD_Charge_Details" />
+          <EntitySet Name="IPD_Charges_Master" EntityType="AASTHAModel.IPD_Charges_Master" />
+          <EntitySet Name="medicine_master" EntityType="AASTHAModel.medicine_master" />
+          <EntitySet Name="operation_master" EntityType="AASTHAModel.operation_master" />
+          <EntitySet Name="tbl_delivery" EntityType="AASTHAModel.tbl_delivery" />
+          <EntitySet Name="tbl_general" EntityType="AASTHAModel.tbl_general" />
+          <EntitySet Name="tbl_Ipd" EntityType="AASTHAModel.tbl_Ipd" />
+          <EntitySet Name="tbl_medicine_type" EntityType="AASTHAModel.tbl_medicine_type" />
+          <EntitySet Name="tbl_opd" EntityType="AASTHAModel.tbl_opd" />
+          <EntitySet Name="tbl_operation" EntityType="AASTHAModel.tbl_operation" />
+          <EntitySet Name="tbl_patient" EntityType="AASTHAModel.tbl_patient" />
+          <EntitySet Name="tbl_user" EntityType="AASTHAModel.tbl_user" />
+          <EntitySet Name="Tran_MachineRawPunch" EntityType="AASTHAModel.Tran_MachineRawPunch" />
+          <AssociationSet Name="FK_tbl_appointment_tbl_patient" Association="AASTHAModel.FK_tbl_appointment_tbl_patient">
+            <End Role="tbl_patient" EntitySet="tbl_patient" />
+            <End Role="tbl_appointment" EntitySet="tbl_appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_shift_tbl_user" Association="AASTHAModel.FK_tbl_shift_tbl_user">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="tbl_shift" EntitySet="tbl_shift" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IPD_Charge_Details_tbl_Ipd" Association="AASTHAModel.FK_IPD_Charge_Details_tbl_Ipd">
+            <End Role="tbl_Ipd" EntitySet="tbl_Ipd" />
+            <End Role="IPD_Charge_Details" EntitySet="IPD_Charge_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__medicine___medic__33D4B598" Association="AASTHAModel.FK__medicine___medic__33D4B598">
+            <End Role="tbl_medicine_type" EntitySet="tbl_medicine_type" />
+            <End Role="medicine_master" EntitySet="medicine_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK__medicine___medic__51300E55" Association="AASTHAModel.FK__medicine___medic__51300E55">
+            <End Role="tbl_medicine_type" EntitySet="tbl_medicine_type" />
+            <End Role="medicine_master" EntitySet="medicine_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_delivery_tbl_Ipd" Association="AASTHAModel.FK_tbl_delivery_tbl_Ipd">
+            <End Role="tbl_Ipd" EntitySet="tbl_Ipd" />
+            <End Role="tbl_delivery" EntitySet="tbl_delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_general_tbl_Ipd" Association="AASTHAModel.FK_tbl_general_tbl_Ipd">
+            <End Role="tbl_Ipd" EntitySet="tbl_Ipd" />
+            <End Role="tbl_general" EntitySet="tbl_general" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Ipd_tbl_patient" Association="AASTHAModel.FK_tbl_Ipd_tbl_patient">
+            <End Role="tbl_patient" EntitySet="tbl_patient" />
+            <End Role="tbl_Ipd" EntitySet="tbl_Ipd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_operation_tbl_Ipd" Association="AASTHAModel.FK_tbl_operation_tbl_Ipd">
+            <End Role="tbl_Ipd" EntitySet="tbl_Ipd" />
+            <End Role="tbl_operation" EntitySet="tbl_operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_opd__patient__4EFDAD20" Association="AASTHAModel.FK__tbl_opd__patient__4EFDAD20">
+            <End Role="tbl_patient" EntitySet="tbl_patient" />
+            <End Role="tbl_opd" EntitySet="tbl_opd" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_opd__patient__6FE99F9F" Association="AASTHAModel.FK__tbl_opd__patient__6FE99F9F">
+            <End Role="tbl_patient" EntitySet="tbl_patient" />
+            <End Role="tbl_opd" EntitySet="tbl_opd" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="Biometric_Report_Result">
+          <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="No" Nullable="false" />
+          <Property Type="Int32" Name="EnNo" Nullable="true" />
+          <Property Type="DateTime" Name="DateTime" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="Get_IPD_Monthwise_Collection_Result">
+          <Property Type="String" Name="Months" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Dates" Nullable="true" />
+          <Property Type="Int32" Name="No_of_Patients" Nullable="true" />
+          <Property Type="Decimal" Name="Total_Collection" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="Get_Monthwise_Collection_Result">
+          <Property Type="String" Name="Months" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Dates" Nullable="true" />
+          <Property Type="Int32" Name="No_of_Patients" Nullable="true" />
+          <Property Type="Int32" Name="Total_Collection" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Get_OPD_Monthwise_Collection_Result">
+          <Property Type="String" Name="Months" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Dates" Nullable="true" />
+          <Property Type="Int32" Name="No_of_Patients" Nullable="true" />
+          <Property Type="Int32" Name="Total_Collection" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetAllMedicineWithType_Result">
+          <Property Type="Int32" Name="medicine_typeId" Nullable="false" />
+          <Property Type="String" Name="medicine_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="medicine_type" Nullable="true" />
+          <Property Type="String" Name="MedicineType" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetYearTab_Result">
+          <Property Type="Int32" Name="Years" Nullable="true" />
+          <Property Type="Int32" Name="No_of_Patients" Nullable="true" />
+          <Property Type="Int32" Name="Total_Collection" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetYearTabs_Result">
+          <Property Type="Int32" Name="Years" Nullable="true" />
+          <Property Type="Int32" Name="No_of_Patients" Nullable="true" />
+          <Property Type="Int32" Name="Total_Collection" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="IsAppointed_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Patient_Id" Nullable="true" />
+          <Property Type="DateTime" Name="Appointment_Date" Nullable="true" />
+          <Property Type="String" Name="Type" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Monthly_AttendanceReport_Result">
+          <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="C1" Nullable="true" />
+          <Property Type="Int32" Name="C2" Nullable="true" />
+          <Property Type="Int32" Name="C3" Nullable="true" />
+          <Property Type="Int32" Name="C4" Nullable="true" />
+          <Property Type="Int32" Name="C5" Nullable="true" />
+          <Property Type="Int32" Name="C6" Nullable="true" />
+          <Property Type="Int32" Name="C7" Nullable="true" />
+          <Property Type="Int32" Name="C8" Nullable="true" />
+          <Property Type="Int32" Name="C9" Nullable="true" />
+          <Property Type="Int32" Name="C10" Nullable="true" />
+          <Property Type="Int32" Name="C11" Nullable="true" />
+          <Property Type="Int32" Name="C12" Nullable="true" />
+          <Property Type="Int32" Name="C13" Nullable="true" />
+          <Property Type="Int32" Name="C14" Nullable="true" />
+          <Property Type="Int32" Name="C15" Nullable="true" />
+          <Property Type="Int32" Name="C16" Nullable="true" />
+          <Property Type="Int32" Name="C17" Nullable="true" />
+          <Property Type="Int32" Name="C18" Nullable="true" />
+          <Property Type="Int32" Name="C19" Nullable="true" />
+          <Property Type="Int32" Name="C20" Nullable="true" />
+          <Property Type="Int32" Name="C21" Nullable="true" />
+          <Property Type="Int32" Name="C22" Nullable="true" />
+          <Property Type="Int32" Name="C23" Nullable="true" />
+          <Property Type="Int32" Name="C24" Nullable="true" />
+          <Property Type="Int32" Name="C25" Nullable="true" />
+          <Property Type="Int32" Name="C26" Nullable="true" />
+          <Property Type="Int32" Name="C27" Nullable="true" />
+          <Property Type="Int32" Name="C28" Nullable="true" />
+          <Property Type="Int32" Name="C29" Nullable="true" />
+          <Property Type="Int32" Name="C30" Nullable="true" />
+          <Property Type="Int32" Name="C31" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="OPDReport_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="Consult_Charge" Nullable="false" />
+          <Property Type="Int32" Name="USG_Charge" Nullable="false" />
+          <Property Type="Int32" Name="UPT_Charge" Nullable="false" />
+          <Property Type="Int32" Name="Inj_Charge" Nullable="false" />
+          <Property Type="Int32" Name="Other_Charge" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Total" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ge_ipd_id_Result">
+          <Property Type="Int32" Name="ipd_Id" Nullable="false" />
+          <Property Type="String" Name="ipd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="dept_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="String" Name="room_type" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="addmission_date" Nullable="true" />
+          <Property Type="DateTime" Name="discharge_date" Nullable="true" />
+          <Property Type="Decimal" Name="bill" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="conssesion" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="patient_Id1" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="Get_All_IPD_Entry_Result">
+          <Property Type="Int32" Name="ipd_Id" Nullable="false" />
+          <Property Type="String" Name="ipd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="dept_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="String" Name="room_type" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="addmission_date" Nullable="true" />
+          <Property Type="DateTime" Name="discharge_date" Nullable="true" />
+          <Property Type="Decimal" Name="bill" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="conssesion" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="Get_All_OPD_Entry_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="Consult_Charge" Nullable="false" />
+          <Property Type="Int32" Name="USG_Charge" Nullable="false" />
+          <Property Type="Int32" Name="UPT_Charge" Nullable="false" />
+          <Property Type="Int32" Name="Inj_Charge" Nullable="false" />
+          <Property Type="Int32" Name="Other_Charge" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Total" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_fullname_Result">
+          <Property Type="Int32" Name="patient_Id" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="get_id_manage_opd_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="consult_charge" Nullable="true" />
+          <Property Type="Int32" Name="usg_charge" Nullable="true" />
+          <Property Type="Int32" Name="upt_charge" Nullable="true" />
+          <Property Type="Int32" Name="inj_charge" Nullable="true" />
+          <Property Type="Int32" Name="other_charge" Nullable="true" />
+          <Property Type="Int32" Name="patient_Id1" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id2" Nullable="true" />
+          <Property Type="Int32" Name="opd_Id1" Nullable="false" />
+          <Property Type="String" Name="opd_date" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="Get_IPD_Charge_Tabele_Result">
+          <Property Type="Int32" Name="IPD_Id" Nullable="true" />
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="Int32" Name="Charge_Id" Nullable="true" />
+          <Property Type="Double" Name="Days" Nullable="true" />
+          <Property Type="Int32" Name="Rate" Nullable="true" />
+          <Property Type="Int32" Name="Amount" Nullable="true" />
+          <Property Type="String" Name="Charge_Title" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="get_last_fulname_Result">
+          <Property Type="Int32" Name="patient_Id" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="get_lastreg_name_Result">
+          <Property Type="Int32" Name="patient_Id" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="get_receipt_id_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="consult_charge" Nullable="true" />
+          <Property Type="Int32" Name="usg_charge" Nullable="true" />
+          <Property Type="Int32" Name="upt_charge" Nullable="true" />
+          <Property Type="Int32" Name="inj_charge" Nullable="true" />
+          <Property Type="Int32" Name="other_charge" Nullable="true" />
+          <Property Type="Int32" Name="patient_Id1" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetIPD_Charges_Table_Result">
+          <Property Type="String" Name="Charge_Title" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="Int32" Name="IPD_Id" Nullable="true" />
+          <Property Type="Int32" Name="Charge_Id" Nullable="true" />
+          <Property Type="Double" Name="Days" Nullable="true" />
+          <Property Type="Int32" Name="Rate" Nullable="true" />
+          <Property Type="Int32" Name="Amount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ipd_invoice_Result">
+          <Property Type="Int32" Name="ipd_Id" Nullable="false" />
+          <Property Type="String" Name="ipd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="dept_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="String" Name="room_type" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="addmission_date" Nullable="true" />
+          <Property Type="DateTime" Name="discharge_date" Nullable="true" />
+          <Property Type="Decimal" Name="bill" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="conssesion" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="patient_Id1" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="IPD_Report_Result">
+          <Property Type="Int32" Name="ipd_Id" Nullable="true" />
+          <Property Type="String" Name="ipd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="room_type" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="dept_name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="addmission_date" Nullable="true" />
+          <Property Type="DateTime" Name="discharge_date" Nullable="true" />
+          <Property Type="Decimal" Name="Bill" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Final_Total" Nullable="true" Precision="19" Scale="0" />
+          <Property Type="Decimal" Name="conssesion" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="C1" Nullable="true" />
+          <Property Type="Int32" Name="C2" Nullable="true" />
+          <Property Type="Int32" Name="C3" Nullable="true" />
+          <Property Type="Int32" Name="C4" Nullable="true" />
+          <Property Type="Int32" Name="C5" Nullable="true" />
+          <Property Type="Int32" Name="C6" Nullable="true" />
+          <Property Type="Int32" Name="C7" Nullable="true" />
+          <Property Type="Int32" Name="C8" Nullable="true" />
+          <Property Type="Int32" Name="C9" Nullable="true" />
+          <Property Type="Int32" Name="C10" Nullable="true" />
+          <Property Type="Int32" Name="C11" Nullable="true" />
+          <Property Type="Int32" Name="C12" Nullable="true" />
+          <Property Type="Int32" Name="C13" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="login_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Layout" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Biometric_Id" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="manage_ipd_entry_Result">
+          <Property Type="Int32" Name="ipd_Id" Nullable="false" />
+          <Property Type="String" Name="ipd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="dept_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="String" Name="room_type" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="addmission_date" Nullable="true" />
+          <Property Type="DateTime" Name="discharge_date" Nullable="true" />
+          <Property Type="Decimal" Name="bill" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="conssesion" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="patient_Id1" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id2" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="manage_opd_entry_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="consult_charge" Nullable="true" />
+          <Property Type="Int32" Name="usg_charge" Nullable="true" />
+          <Property Type="Int32" Name="upt_charge" Nullable="true" />
+          <Property Type="Int32" Name="inj_charge" Nullable="true" />
+          <Property Type="Int32" Name="other_charge" Nullable="true" />
+          <Property Type="Int32" Name="patient_Id1" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id2" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="OPD_Report_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="Consult_Charge" Nullable="false" />
+          <Property Type="Int32" Name="USG_Charge" Nullable="false" />
+          <Property Type="Int32" Name="UPT_Charge" Nullable="false" />
+          <Property Type="Int32" Name="Inj_Charge" Nullable="false" />
+          <Property Type="Int32" Name="Other_Charge" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Total" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="opd_report_collection_monthly_Result">
+          <Property Type="Int32" Name="total_consult" Nullable="true" />
+          <Property Type="Int32" Name="total_usg" Nullable="true" />
+          <Property Type="Int32" Name="total_upt" Nullable="true" />
+          <Property Type="Int32" Name="total_inj" Nullable="true" />
+          <Property Type="Int32" Name="toatal_other" Nullable="true" />
+          <Property Type="Int32" Name="grand_total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="opd_report_collection_monthly1_Result">
+          <Property Type="Int32" Name="total_consult" Nullable="true" />
+          <Property Type="Int32" Name="total_usg" Nullable="true" />
+          <Property Type="Int32" Name="total_upt" Nullable="true" />
+          <Property Type="Int32" Name="total_inj" Nullable="true" />
+          <Property Type="Int32" Name="toatal_other" Nullable="true" />
+          <Property Type="Int32" Name="grand_total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="opd_report_colletion_Result">
+          <Property Type="Int32" Name="total_consult" Nullable="true" />
+          <Property Type="Int32" Name="total_usg" Nullable="true" />
+          <Property Type="Int32" Name="total_upt" Nullable="true" />
+          <Property Type="Int32" Name="total_inj" Nullable="true" />
+          <Property Type="Int32" Name="toatal_other" Nullable="true" />
+          <Property Type="Int32" Name="grand_total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="opd_report_colletion_daily_Result">
+          <Property Type="Int32" Name="total_consult" Nullable="true" />
+          <Property Type="Int32" Name="total_usg" Nullable="true" />
+          <Property Type="Int32" Name="total_upt" Nullable="true" />
+          <Property Type="Int32" Name="total_inj" Nullable="true" />
+          <Property Type="Int32" Name="toatal_other" Nullable="true" />
+          <Property Type="Int32" Name="grand_total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="opd_report_datewise_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="consult_charge" Nullable="true" />
+          <Property Type="Int32" Name="usg_charge" Nullable="true" />
+          <Property Type="Int32" Name="upt_charge" Nullable="true" />
+          <Property Type="Int32" Name="inj_charge" Nullable="true" />
+          <Property Type="Int32" Name="other_charge" Nullable="true" />
+          <Property Type="Int32" Name="patient_Id1" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="opd_id1231" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="OPD_Report_Monthly_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="consult_charge" Nullable="true" />
+          <Property Type="Int32" Name="usg_charge" Nullable="true" />
+          <Property Type="Int32" Name="upt_charge" Nullable="true" />
+          <Property Type="Int32" Name="inj_charge" Nullable="true" />
+          <Property Type="Int32" Name="other_charge" Nullable="true" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="opd_report_monthwise_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="consult_charge" Nullable="true" />
+          <Property Type="Int32" Name="usg_charge" Nullable="true" />
+          <Property Type="Int32" Name="upt_charge" Nullable="true" />
+          <Property Type="Int32" Name="inj_charge" Nullable="true" />
+          <Property Type="Int32" Name="other_charge" Nullable="true" />
+          <Property Type="Int32" Name="patient_Id1" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="opd_id1231" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="opd_report_monthwise1_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="consult_charge" Nullable="true" />
+          <Property Type="Int32" Name="usg_charge" Nullable="true" />
+          <Property Type="Int32" Name="upt_charge" Nullable="true" />
+          <Property Type="Int32" Name="inj_charge" Nullable="true" />
+          <Property Type="Int32" Name="other_charge" Nullable="true" />
+          <Property Type="Int32" Name="patient_Id1" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Procedure1_Result">
+          <Property Type="Int32" Name="total_consult" Nullable="true" />
+          <Property Type="Int32" Name="total_usg" Nullable="true" />
+          <Property Type="Int32" Name="total_upt" Nullable="true" />
+          <Property Type="Int32" Name="total_inj" Nullable="true" />
+          <Property Type="Int32" Name="toatal_other" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Search_In_OPDGrid_Result">
+          <Property Type="Int32" Name="opd_Id" Nullable="false" />
+          <Property Type="String" Name="opd_receipt_id" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="patient_id" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="String" Name="case_type" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="consult_charge" Nullable="true" />
+          <Property Type="Int32" Name="usg_charge" Nullable="true" />
+          <Property Type="Int32" Name="upt_charge" Nullable="true" />
+          <Property Type="Int32" Name="inj_charge" Nullable="true" />
+          <Property Type="Int32" Name="other_charge" Nullable="true" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="utility_Result">
+          <Property Type="String" Name="est_duedate" Nullable="true" MaxLength="12" />
+          <Property Type="Int32" Name="gest_age" Nullable="true" />
+          <Property Type="Int32" Name="gest_age1" Nullable="true" />
+          <Property Type="Int32" Name="gest_age2" Nullable="true" />
+          <Property Type="Int32" Name="gest_age3" Nullable="true" />
+          <Property Type="String" Name="best_time" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="best_time1" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="rest_duedate" Nullable="true" MaxLength="12" />
+          <Property Type="Int32" Name="rgest_age" Nullable="true" />
+          <Property Type="Int32" Name="rgest_age1" Nullable="true" />
+          <Property Type="Int32" Name="rgest_age2" Nullable="true" />
+          <Property Type="Int32" Name="rgest_age3" Nullable="true" />
+          <Property Type="String" Name="rbest_time" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="rbest_time1" Nullable="true" MaxLength="12" />
+        </ComplexType>
+        <ComplexType Name="view_all_patient_Result">
+          <Property Type="Int32" Name="patient_Id" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="mobile" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="age" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="opd_id123" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="DateWiseIPD_Collection_Result">
+          <Property Type="Int32" Name="No_of_Patients" Nullable="true" />
+          <Property Type="Decimal" Name="Total_Collection" Nullable="true" Precision="38" Scale="0" />
+          <Property Type="DateTime" Name="discharge_date" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="DateWiseOPD_Collection_Result">
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="Int32" Name="No_of_Patients" Nullable="true" />
+          <Property Type="Int32" Name="Total_Collection" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="tbl_appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Patient_Id" Type="Int32" />
+          <Property Name="Appointment_Date" Type="DateTime" Precision="0" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_patient" Relationship="AASTHAModel.FK_tbl_appointment_tbl_patient" FromRole="tbl_appointment" ToRole="tbl_patient" />
+        </EntityType>
+        <EntityType Name="tbl_shift">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Shift" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_user" Relationship="AASTHAModel.FK_tbl_shift_tbl_user" FromRole="tbl_shift" ToRole="tbl_user" />
+        </EntityType>
+        <EntityType Name="delivery_master">
+          <Key>
+            <PropertyRef Name="delivery_typeId" />
+          </Key>
+          <Property Name="delivery_typeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="delivery" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="diagnosis_master">
+          <Key>
+            <PropertyRef Name="digagnosis_typeId" />
+          </Key>
+          <Property Name="digagnosis_typeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="diagnosis_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="general_diagnosis">
+          <Key>
+            <PropertyRef Name="general_diagnosis_Id" />
+          </Key>
+          <Property Name="general_diagnosis_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="general_diagnosis_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="IPD_Charge_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IPD_Id" Type="Int32" />
+          <Property Name="Charge_Id" Type="Int32" />
+          <Property Name="Days" Type="Double" />
+          <Property Name="Rate" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
+          <NavigationProperty Name="tbl_Ipd" Relationship="AASTHAModel.FK_IPD_Charge_Details_tbl_Ipd" FromRole="IPD_Charge_Details" ToRole="tbl_Ipd" />
+        </EntityType>
+        <EntityType Name="IPD_Charges_Master">
+          <Key>
+            <PropertyRef Name="Charge_Id" />
+          </Key>
+          <Property Name="Charge_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Charge_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="medicine_master">
+          <Key>
+            <PropertyRef Name="medicine_typeId" />
+          </Key>
+          <Property Name="medicine_typeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="medicine_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="medicine_type" Type="Int32" />
+          <NavigationProperty Name="tbl_medicine_type" Relationship="AASTHAModel.FK__medicine___medic__33D4B598" FromRole="medicine_master" ToRole="tbl_medicine_type" />
+          <NavigationProperty Name="tbl_medicine_type1" Relationship="AASTHAModel.FK__medicine___medic__51300E55" FromRole="medicine_master" ToRole="tbl_medicine_type" />
+        </EntityType>
+        <EntityType Name="operation_master">
+          <Key>
+            <PropertyRef Name="operation_typeId" />
+          </Key>
+          <Property Name="operation_typeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="operation_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_delivery">
+          <Key>
+            <PropertyRef Name="delivery_Id" />
+          </Key>
+          <Property Name="delivery_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ipd_Id" Type="Int32" />
+          <Property Name="delivery_typeId" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="delivery_date" Type="DateTime" Precision="0" />
+          <Property Name="delivery_time" Type="Time" Precision="7" />
+          <Property Name="baby_gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="baby_weight" Type="Decimal" Precision="5" Scale="3" />
+          <Property Name="diagnosis" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Ipd" Relationship="AASTHAModel.FK_tbl_delivery_tbl_Ipd" FromRole="tbl_delivery" ToRole="tbl_Ipd" />
+        </EntityType>
+        <EntityType Name="tbl_general">
+          <Key>
+            <PropertyRef Name="general_Id" />
+          </Key>
+          <Property Name="general_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ipd_Id" Type="Int32" />
+          <Property Name="general_diagnosis" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Ipd" Relationship="AASTHAModel.FK_tbl_general_tbl_Ipd" FromRole="tbl_general" ToRole="tbl_Ipd" />
+        </EntityType>
+        <EntityType Name="tbl_Ipd">
+          <Key>
+            <PropertyRef Name="ipd_Id" />
+          </Key>
+          <Property Name="ipd_Id" Type="Int32" Nullable="false" />
+          <Property Name="ipd_receipt_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="dept_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="patient_id" Type="Int32" />
+          <Property Name="room_type" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="addmission_date" Type="DateTime" Precision="0" />
+          <Property Name="discharge_date" Type="DateTime" Precision="0" />
+          <Property Name="bill" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="conssesion" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="IPD_Charge_Details" Relationship="AASTHAModel.FK_IPD_Charge_Details_tbl_Ipd" FromRole="tbl_Ipd" ToRole="IPD_Charge_Details" />
+          <NavigationProperty Name="tbl_delivery" Relationship="AASTHAModel.FK_tbl_delivery_tbl_Ipd" FromRole="tbl_Ipd" ToRole="tbl_delivery" />
+          <NavigationProperty Name="tbl_general" Relationship="AASTHAModel.FK_tbl_general_tbl_Ipd" FromRole="tbl_Ipd" ToRole="tbl_general" />
+          <NavigationProperty Name="tbl_patient" Relationship="AASTHAModel.FK_tbl_Ipd_tbl_patient" FromRole="tbl_Ipd" ToRole="tbl_patient" />
+          <NavigationProperty Name="tbl_operation" Relationship="AASTHAModel.FK_tbl_operation_tbl_Ipd" FromRole="tbl_Ipd" ToRole="tbl_operation" />
+        </EntityType>
+        <EntityType Name="tbl_medicine_type">
+          <Key>
+            <PropertyRef Name="medicine_Id" />
+          </Key>
+          <Property Name="medicine_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="medicine_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="medicine_master" Relationship="AASTHAModel.FK__medicine___medic__33D4B598" FromRole="tbl_medicine_type" ToRole="medicine_master" />
+          <NavigationProperty Name="medicine_master1" Relationship="AASTHAModel.FK__medicine___medic__51300E55" FromRole="tbl_medicine_type" ToRole="medicine_master" />
+        </EntityType>
+        <EntityType Name="tbl_opd">
+          <Key>
+            <PropertyRef Name="opd_receipt_id" />
+          </Key>
+          <Property Name="opd_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="opd_receipt_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="patient_id" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="case_type" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="consult_charge" Type="Int32" />
+          <Property Name="usg_charge" Type="Int32" />
+          <Property Name="upt_charge" Type="Int32" />
+          <Property Name="inj_charge" Type="Int32" />
+          <Property Name="other_charge" Type="Int32" />
+          <NavigationProperty Name="tbl_patient" Relationship="AASTHAModel.FK__tbl_opd__patient__4EFDAD20" FromRole="tbl_opd" ToRole="tbl_patient" />
+          <NavigationProperty Name="tbl_patient1" Relationship="AASTHAModel.FK__tbl_opd__patient__6FE99F9F" FromRole="tbl_opd" ToRole="tbl_patient" />
+        </EntityType>
+        <EntityType Name="tbl_operation">
+          <Key>
+            <PropertyRef Name="operation_Id" />
+          </Key>
+          <Property Name="operation_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ipd_Id" Type="Int32" />
+          <Property Name="diagnosis" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="operation_date" Type="DateTime" Precision="0" />
+          <Property Name="operation_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Ipd" Relationship="AASTHAModel.FK_tbl_operation_tbl_Ipd" FromRole="tbl_operation" ToRole="tbl_Ipd" />
+        </EntityType>
+        <EntityType Name="tbl_patient">
+          <Key>
+            <PropertyRef Name="patient_Id" />
+          </Key>
+          <Property Name="patient_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="full_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="age" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="opd_id123" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="tbl_appointment" Relationship="AASTHAModel.FK_tbl_appointment_tbl_patient" FromRole="tbl_patient" ToRole="tbl_appointment" />
+          <NavigationProperty Name="tbl_Ipd" Relationship="AASTHAModel.FK_tbl_Ipd_tbl_patient" FromRole="tbl_patient" ToRole="tbl_Ipd" />
+          <NavigationProperty Name="tbl_opd" Relationship="AASTHAModel.FK__tbl_opd__patient__4EFDAD20" FromRole="tbl_patient" ToRole="tbl_opd" />
+          <NavigationProperty Name="tbl_opd1" Relationship="AASTHAModel.FK__tbl_opd__patient__6FE99F9F" FromRole="tbl_patient" ToRole="tbl_opd" />
+        </EntityType>
+        <EntityType Name="tbl_user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Layout" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Biometric_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_shift" Relationship="AASTHAModel.FK_tbl_shift_tbl_user" FromRole="tbl_user" ToRole="tbl_shift" />
+        </EntityType>
+        <EntityType Name="Tran_MachineRawPunch">
+          <Key>
+            <PropertyRef Name="Tran_MachineRawPunchId" />
+            <PropertyRef Name="CardNo" />
+            <PropertyRef Name="PunchDatetime" />
+            <PropertyRef Name="P_Day" />
+            <PropertyRef Name="ISManual" />
+          </Key>
+          <Property Name="Tran_MachineRawPunchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PunchDatetime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="P_Day" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ISManual" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="PayCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MachineNo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tbl_appointment_tbl_patient">
+          <End Type="AASTHAModel.tbl_patient" Role="tbl_patient" Multiplicity="0..1" />
+          <End Type="AASTHAModel.tbl_appointment" Role="tbl_appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_patient">
+              <PropertyRef Name="patient_Id" />
+            </Principal>
+            <Dependent Role="tbl_appointment">
+              <PropertyRef Name="Patient_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_shift_tbl_user">
+          <End Type="AASTHAModel.tbl_user" Role="tbl_user" Multiplicity="0..1" />
+          <End Type="AASTHAModel.tbl_shift" Role="tbl_shift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_shift">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IPD_Charge_Details_tbl_Ipd">
+          <End Type="AASTHAModel.tbl_Ipd" Role="tbl_Ipd" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AASTHAModel.IPD_Charge_Details" Role="IPD_Charge_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ipd">
+              <PropertyRef Name="ipd_Id" />
+            </Principal>
+            <Dependent Role="IPD_Charge_Details">
+              <PropertyRef Name="IPD_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__medicine___medic__33D4B598">
+          <End Type="AASTHAModel.tbl_medicine_type" Role="tbl_medicine_type" Multiplicity="0..1" />
+          <End Type="AASTHAModel.medicine_master" Role="medicine_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_medicine_type">
+              <PropertyRef Name="medicine_Id" />
+            </Principal>
+            <Dependent Role="medicine_master">
+              <PropertyRef Name="medicine_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__medicine___medic__51300E55">
+          <End Type="AASTHAModel.tbl_medicine_type" Role="tbl_medicine_type" Multiplicity="0..1" />
+          <End Type="AASTHAModel.medicine_master" Role="medicine_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_medicine_type">
+              <PropertyRef Name="medicine_Id" />
+            </Principal>
+            <Dependent Role="medicine_master">
+              <PropertyRef Name="medicine_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_delivery_tbl_Ipd">
+          <End Type="AASTHAModel.tbl_Ipd" Role="tbl_Ipd" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AASTHAModel.tbl_delivery" Role="tbl_delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ipd">
+              <PropertyRef Name="ipd_Id" />
+            </Principal>
+            <Dependent Role="tbl_delivery">
+              <PropertyRef Name="Ipd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_general_tbl_Ipd">
+          <End Type="AASTHAModel.tbl_Ipd" Role="tbl_Ipd" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AASTHAModel.tbl_general" Role="tbl_general" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ipd">
+              <PropertyRef Name="ipd_Id" />
+            </Principal>
+            <Dependent Role="tbl_general">
+              <PropertyRef Name="Ipd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Ipd_tbl_patient">
+          <End Type="AASTHAModel.tbl_patient" Role="tbl_patient" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AASTHAModel.tbl_Ipd" Role="tbl_Ipd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_patient">
+              <PropertyRef Name="patient_Id" />
+            </Principal>
+            <Dependent Role="tbl_Ipd">
+              <PropertyRef Name="patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_operation_tbl_Ipd">
+          <End Type="AASTHAModel.tbl_Ipd" Role="tbl_Ipd" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AASTHAModel.tbl_operation" Role="tbl_operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ipd">
+              <PropertyRef Name="ipd_Id" />
+            </Principal>
+            <Dependent Role="tbl_operation">
+              <PropertyRef Name="Ipd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_opd__patient__4EFDAD20">
+          <End Type="AASTHAModel.tbl_patient" Role="tbl_patient" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AASTHAModel.tbl_opd" Role="tbl_opd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_patient">
+              <PropertyRef Name="patient_Id" />
+            </Principal>
+            <Dependent Role="tbl_opd">
+              <PropertyRef Name="patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_opd__patient__6FE99F9F">
+          <End Type="AASTHAModel.tbl_patient" Role="tbl_patient" Multiplicity="0..1" />
+          <End Type="AASTHAModel.tbl_opd" Role="tbl_opd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_patient">
+              <PropertyRef Name="patient_Id" />
+            </Principal>
+            <Dependent Role="tbl_opd">
+              <PropertyRef Name="patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AASTHAModelStoreContainer" CdmEntityContainer="AASTHAEntities">
+          <FunctionImportMapping FunctionImportName="Add_Appointment" FunctionName="AASTHAModel.Store.Add_Appointment" />
+          <FunctionImportMapping FunctionImportName="Add_Shift" FunctionName="AASTHAModel.Store.Add_Shift" />
+          <FunctionImportMapping FunctionImportName="Biometric_Report" FunctionName="AASTHAModel.Store.Biometric_Report">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.Biometric_Report_Result">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="EnNo" ColumnName="EnNo" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Dynamic_Pivot" FunctionName="AASTHAModel.Store.Dynamic_Pivot" />
+          <FunctionImportMapping FunctionImportName="Get_IPD_Monthwise_Collection" FunctionName="AASTHAModel.Store.Get_IPD_Monthwise_Collection">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.Get_IPD_Monthwise_Collection_Result">
+                <ScalarProperty Name="Months" ColumnName="Months" />
+                <ScalarProperty Name="Dates" ColumnName="Dates" />
+                <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+                <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Monthwise_Collection" FunctionName="AASTHAModel.Store.Get_Monthwise_Collection">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.Get_Monthwise_Collection_Result">
+                <ScalarProperty Name="Months" ColumnName="Months" />
+                <ScalarProperty Name="Dates" ColumnName="Dates" />
+                <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+                <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_OPD_Monthwise_Collection" FunctionName="AASTHAModel.Store.Get_OPD_Monthwise_Collection">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.Get_OPD_Monthwise_Collection_Result">
+                <ScalarProperty Name="Months" ColumnName="Months" />
+                <ScalarProperty Name="Dates" ColumnName="Dates" />
+                <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+                <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllMedicineWithType" FunctionName="AASTHAModel.Store.GetAllMedicineWithType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.GetAllMedicineWithType_Result">
+                <ScalarProperty Name="medicine_typeId" ColumnName="medicine_typeId" />
+                <ScalarProperty Name="medicine_name" ColumnName="medicine_name" />
+                <ScalarProperty Name="medicine_type" ColumnName="medicine_type" />
+                <ScalarProperty Name="MedicineType" ColumnName="MedicineType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDashBoardCount" FunctionName="AASTHAModel.Store.GetDashBoardCount" />
+          <FunctionImportMapping FunctionImportName="GetYearTab" FunctionName="AASTHAModel.Store.GetYearTab">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.GetYearTab_Result">
+                <ScalarProperty Name="Years" ColumnName="Years" />
+                <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+                <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetYearTabs" FunctionName="AASTHAModel.Store.GetYearTabs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.GetYearTabs_Result">
+                <ScalarProperty Name="Years" ColumnName="Years" />
+                <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+                <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="IsAppointed" FunctionName="AASTHAModel.Store.IsAppointed">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.IsAppointed_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Patient_Id" ColumnName="Patient_Id" />
+                <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Monthly_AttendanceReport" FunctionName="AASTHAModel.Store.Monthly_AttendanceReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.Monthly_AttendanceReport_Result">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="C1" ColumnName="1" />
+                <ScalarProperty Name="C2" ColumnName="2" />
+                <ScalarProperty Name="C3" ColumnName="3" />
+                <ScalarProperty Name="C4" ColumnName="4" />
+                <ScalarProperty Name="C5" ColumnName="5" />
+                <ScalarProperty Name="C6" ColumnName="6" />
+                <ScalarProperty Name="C7" ColumnName="7" />
+                <ScalarProperty Name="C8" ColumnName="8" />
+                <ScalarProperty Name="C9" ColumnName="9" />
+                <ScalarProperty Name="C10" ColumnName="10" />
+                <ScalarProperty Name="C11" ColumnName="11" />
+                <ScalarProperty Name="C12" ColumnName="12" />
+                <ScalarProperty Name="C13" ColumnName="13" />
+                <ScalarProperty Name="C14" ColumnName="14" />
+                <ScalarProperty Name="C15" ColumnName="15" />
+                <ScalarProperty Name="C16" ColumnName="16" />
+                <ScalarProperty Name="C17" ColumnName="17" />
+                <ScalarProperty Name="C18" ColumnName="18" />
+                <ScalarProperty Name="C19" ColumnName="19" />
+                <ScalarProperty Name="C20" ColumnName="20" />
+                <ScalarProperty Name="C21" ColumnName="21" />
+                <ScalarProperty Name="C22" ColumnName="22" />
+                <ScalarProperty Name="C23" ColumnName="23" />
+                <ScalarProperty Name="C24" ColumnName="24" />
+                <ScalarProperty Name="C25" ColumnName="25" />
+                <ScalarProperty Name="C26" ColumnName="26" />
+                <ScalarProperty Name="C27" ColumnName="27" />
+                <ScalarProperty Name="C28" ColumnName="28" />
+                <ScalarProperty Name="C29" ColumnName="29" />
+                <ScalarProperty Name="C30" ColumnName="30" />
+                <ScalarProperty Name="C31" ColumnName="31" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="OPDReport" FunctionName="AASTHAModel.Store.OPDReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.OPDReport_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="Consult_Charge" ColumnName="Consult_Charge" />
+                <ScalarProperty Name="USG_Charge" ColumnName="USG_Charge" />
+                <ScalarProperty Name="UPT_Charge" ColumnName="UPT_Charge" />
+                <ScalarProperty Name="Inj_Charge" ColumnName="Inj_Charge" />
+                <ScalarProperty Name="Other_Charge" ColumnName="Other_Charge" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Add_OPD_Entry" FunctionName="AASTHAModel.Store.Add_OPD_Entry" />
+          <FunctionImportMapping FunctionImportName="Add_OPD_Record" FunctionName="AASTHAModel.Store.Add_OPD_Record" />
+          <FunctionImportMapping FunctionImportName="admin_panel" FunctionName="AASTHAModel.Store.admin_panel" />
+          <FunctionImportMapping FunctionImportName="Delete_Ipd_Charge" FunctionName="AASTHAModel.Store.Delete_Ipd_Charge" />
+          <FunctionImportMapping FunctionImportName="delete_ipd_entry" FunctionName="AASTHAModel.Store.delete_ipd_entry" />
+          <FunctionImportMapping FunctionImportName="delete_opd_entry" FunctionName="AASTHAModel.Store.delete_opd_entry" />
+          <FunctionImportMapping FunctionImportName="delete_patient_entry" FunctionName="AASTHAModel.Store.delete_patient_entry" />
+          <FunctionImportMapping FunctionImportName="edit_delivery_entry" FunctionName="AASTHAModel.Store.edit_delivery_entry" />
+          <FunctionImportMapping FunctionImportName="edit_general_entry" FunctionName="AASTHAModel.Store.edit_general_entry" />
+          <FunctionImportMapping FunctionImportName="Edit_IPD_Charge_Table" FunctionName="AASTHAModel.Store.Edit_IPD_Charge_Table" />
+          <FunctionImportMapping FunctionImportName="Edit_OPD_Entry" FunctionName="AASTHAModel.Store.Edit_OPD_Entry" />
+          <FunctionImportMapping FunctionImportName="Edit_OPD_Record" FunctionName="AASTHAModel.Store.Edit_OPD_Record" />
+          <FunctionImportMapping FunctionImportName="edit_operation_entry" FunctionName="AASTHAModel.Store.edit_operation_entry" />
+          <FunctionImportMapping FunctionImportName="ge_ipd_id" FunctionName="AASTHAModel.Store.ge_ipd_id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.ge_ipd_id_Result">
+                <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+                <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+                <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="room_type" ColumnName="room_type" />
+                <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+                <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+                <ScalarProperty Name="bill" ColumnName="bill" />
+                <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+                <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_All_IPD_Entry" FunctionName="AASTHAModel.Store.Get_All_IPD_Entry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.Get_All_IPD_Entry_Result">
+                <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+                <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+                <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="room_type" ColumnName="room_type" />
+                <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+                <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+                <ScalarProperty Name="bill" ColumnName="bill" />
+                <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_All_OPD_Entry" FunctionName="AASTHAModel.Store.Get_All_OPD_Entry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.Get_All_OPD_Entry_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="Consult_Charge" ColumnName="Consult_Charge" />
+                <ScalarProperty Name="USG_Charge" ColumnName="USG_Charge" />
+                <ScalarProperty Name="UPT_Charge" ColumnName="UPT_Charge" />
+                <ScalarProperty Name="Inj_Charge" ColumnName="Inj_Charge" />
+                <ScalarProperty Name="Other_Charge" ColumnName="Other_Charge" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_fullname" FunctionName="AASTHAModel.Store.get_fullname">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.get_fullname_Result">
+                <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_id_manage_opd" FunctionName="AASTHAModel.Store.get_id_manage_opd">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.get_id_manage_opd_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+                <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+                <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+                <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+                <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+                <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+                <ScalarProperty Name="patient_id2" ColumnName="patient_id2" />
+                <ScalarProperty Name="opd_Id1" ColumnName="opd_Id1" />
+                <ScalarProperty Name="opd_date" ColumnName="opd_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_IPD_Charge_Tabele" FunctionName="AASTHAModel.Store.Get_IPD_Charge_Tabele">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.Get_IPD_Charge_Tabele_Result">
+                <ScalarProperty Name="IPD_Id" ColumnName="IPD_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Charge_Id" ColumnName="Charge_Id" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Charge_Title" ColumnName="Charge_Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_last_fulname" FunctionName="AASTHAModel.Store.get_last_fulname">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.get_last_fulname_Result">
+                <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_lastreg_name" FunctionName="AASTHAModel.Store.get_lastreg_name">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.get_lastreg_name_Result">
+                <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_receipt_id" FunctionName="AASTHAModel.Store.get_receipt_id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.get_receipt_id_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+                <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+                <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+                <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+                <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+                <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetIPD_Charges_Table" FunctionName="AASTHAModel.Store.GetIPD_Charges_Table">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.GetIPD_Charges_Table_Result">
+                <ScalarProperty Name="Charge_Title" ColumnName="Charge_Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IPD_Id" ColumnName="IPD_Id" />
+                <ScalarProperty Name="Charge_Id" ColumnName="Charge_Id" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="insert_delivery_entry" FunctionName="AASTHAModel.Store.insert_delivery_entry" />
+          <FunctionImportMapping FunctionImportName="insert_ipd_entry" FunctionName="AASTHAModel.Store.insert_ipd_entry" />
+          <FunctionImportMapping FunctionImportName="Insert_IPDCharge_Table" FunctionName="AASTHAModel.Store.Insert_IPDCharge_Table" />
+          <FunctionImportMapping FunctionImportName="insert_medicine" FunctionName="AASTHAModel.Store.insert_medicine" />
+          <FunctionImportMapping FunctionImportName="Insert_OPD_Entry" FunctionName="AASTHAModel.Store.Insert_OPD_Entry" />
+          <FunctionImportMapping FunctionImportName="inset_medicine" FunctionName="AASTHAModel.Store.inset_medicine" />
+          <FunctionImportMapping FunctionImportName="ipd_invoice" FunctionName="AASTHAModel.Store.ipd_invoice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.ipd_invoice_Result">
+                <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+                <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+                <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="room_type" ColumnName="room_type" />
+                <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+                <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+                <ScalarProperty Name="bill" ColumnName="bill" />
+                <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+                <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="IPD_Report" FunctionName="AASTHAModel.Store.IPD_Report">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.IPD_Report_Result">
+                <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+                <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+                <ScalarProperty Name="room_type" ColumnName="room_type" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+                <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+                <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
+                <ScalarProperty Name="Final_Total" ColumnName="Final_Total" />
+                <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+                <ScalarProperty Name="C1" ColumnName="1" />
+                <ScalarProperty Name="C2" ColumnName="2" />
+                <ScalarProperty Name="C3" ColumnName="3" />
+                <ScalarProperty Name="C4" ColumnName="4" />
+                <ScalarProperty Name="C5" ColumnName="5" />
+                <ScalarProperty Name="C6" ColumnName="6" />
+                <ScalarProperty Name="C7" ColumnName="7" />
+                <ScalarProperty Name="C8" ColumnName="8" />
+                <ScalarProperty Name="C9" ColumnName="9" />
+                <ScalarProperty Name="C10" ColumnName="10" />
+                <ScalarProperty Name="C11" ColumnName="11" />
+                <ScalarProperty Name="C12" ColumnName="12" />
+                <ScalarProperty Name="C13" ColumnName="13" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="login" FunctionName="AASTHAModel.Store.login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.login_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="Layout" ColumnName="Layout" />
+                <ScalarProperty Name="Biometric_Id" ColumnName="Biometric_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="manage_ipd_entry" FunctionName="AASTHAModel.Store.manage_ipd_entry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.manage_ipd_entry_Result">
+                <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+                <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+                <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="room_type" ColumnName="room_type" />
+                <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+                <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+                <ScalarProperty Name="bill" ColumnName="bill" />
+                <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+                <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+                <ScalarProperty Name="patient_id2" ColumnName="patient_id2" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="manage_opd_entry" FunctionName="AASTHAModel.Store.manage_opd_entry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.manage_opd_entry_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+                <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+                <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+                <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+                <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+                <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+                <ScalarProperty Name="patient_id2" ColumnName="patient_id2" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="OPD_Report" FunctionName="AASTHAModel.Store.OPD_Report">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.OPD_Report_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="Consult_Charge" ColumnName="Consult_Charge" />
+                <ScalarProperty Name="USG_Charge" ColumnName="USG_Charge" />
+                <ScalarProperty Name="UPT_Charge" ColumnName="UPT_Charge" />
+                <ScalarProperty Name="Inj_Charge" ColumnName="Inj_Charge" />
+                <ScalarProperty Name="Other_Charge" ColumnName="Other_Charge" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="opd_report_collection_monthly" FunctionName="AASTHAModel.Store.opd_report_collection_monthly">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.opd_report_collection_monthly_Result">
+                <ScalarProperty Name="total_consult" ColumnName="total_consult" />
+                <ScalarProperty Name="total_usg" ColumnName="total_usg" />
+                <ScalarProperty Name="total_upt" ColumnName="total_upt" />
+                <ScalarProperty Name="total_inj" ColumnName="total_inj" />
+                <ScalarProperty Name="toatal_other" ColumnName="toatal_other" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="opd_report_collection_monthly1" FunctionName="AASTHAModel.Store.opd_report_collection_monthly1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.opd_report_collection_monthly1_Result">
+                <ScalarProperty Name="total_consult" ColumnName="total_consult" />
+                <ScalarProperty Name="total_usg" ColumnName="total_usg" />
+                <ScalarProperty Name="total_upt" ColumnName="total_upt" />
+                <ScalarProperty Name="total_inj" ColumnName="total_inj" />
+                <ScalarProperty Name="toatal_other" ColumnName="toatal_other" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="opd_report_colletion" FunctionName="AASTHAModel.Store.opd_report_colletion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.opd_report_colletion_Result">
+                <ScalarProperty Name="total_consult" ColumnName="total_consult" />
+                <ScalarProperty Name="total_usg" ColumnName="total_usg" />
+                <ScalarProperty Name="total_upt" ColumnName="total_upt" />
+                <ScalarProperty Name="total_inj" ColumnName="total_inj" />
+                <ScalarProperty Name="toatal_other" ColumnName="toatal_other" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="opd_report_colletion_daily" FunctionName="AASTHAModel.Store.opd_report_colletion_daily">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.opd_report_colletion_daily_Result">
+                <ScalarProperty Name="total_consult" ColumnName="total_consult" />
+                <ScalarProperty Name="total_usg" ColumnName="total_usg" />
+                <ScalarProperty Name="total_upt" ColumnName="total_upt" />
+                <ScalarProperty Name="total_inj" ColumnName="total_inj" />
+                <ScalarProperty Name="toatal_other" ColumnName="toatal_other" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="opd_report_datewise" FunctionName="AASTHAModel.Store.opd_report_datewise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.opd_report_datewise_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+                <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+                <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+                <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+                <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+                <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+                <ScalarProperty Name="opd_id1231" ColumnName="opd_id1231" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="OPD_Report_Monthly" FunctionName="AASTHAModel.Store.OPD_Report_Monthly">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.OPD_Report_Monthly_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+                <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+                <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+                <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+                <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="opd_report_monthwise" FunctionName="AASTHAModel.Store.opd_report_monthwise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.opd_report_monthwise_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+                <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+                <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+                <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+                <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+                <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+                <ScalarProperty Name="opd_id1231" ColumnName="opd_id1231" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="opd_report_monthwise1" FunctionName="AASTHAModel.Store.opd_report_monthwise1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.opd_report_monthwise1_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+                <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+                <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+                <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+                <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+                <ScalarProperty Name="patient_Id1" ColumnName="patient_Id1" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="patient_reg" FunctionName="AASTHAModel.Store.patient_reg" />
+          <FunctionImportMapping FunctionImportName="Procedure" FunctionName="AASTHAModel.Store.Procedure" />
+          <FunctionImportMapping FunctionImportName="Procedure1" FunctionName="AASTHAModel.Store.Procedure1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.Procedure1_Result">
+                <ScalarProperty Name="total_consult" ColumnName="total_consult" />
+                <ScalarProperty Name="total_usg" ColumnName="total_usg" />
+                <ScalarProperty Name="total_upt" ColumnName="total_upt" />
+                <ScalarProperty Name="total_inj" ColumnName="total_inj" />
+                <ScalarProperty Name="toatal_other" ColumnName="toatal_other" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Search_In_OPDGrid" FunctionName="AASTHAModel.Store.Search_In_OPDGrid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.Search_In_OPDGrid_Result">
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+                <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+                <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+                <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+                <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="t" FunctionName="AASTHAModel.Store.t" />
+          <FunctionImportMapping FunctionImportName="utility" FunctionName="AASTHAModel.Store.utility">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.utility_Result">
+                <ScalarProperty Name="est_duedate" ColumnName="est_duedate" />
+                <ScalarProperty Name="gest_age" ColumnName="gest_age" />
+                <ScalarProperty Name="gest_age1" ColumnName="gest_age1" />
+                <ScalarProperty Name="gest_age2" ColumnName="gest_age2" />
+                <ScalarProperty Name="gest_age3" ColumnName="gest_age3" />
+                <ScalarProperty Name="best_time" ColumnName="best_time" />
+                <ScalarProperty Name="best_time1" ColumnName="best_time1" />
+                <ScalarProperty Name="rest_duedate" ColumnName="rest_duedate" />
+                <ScalarProperty Name="rgest_age" ColumnName="rgest_age" />
+                <ScalarProperty Name="rgest_age1" ColumnName="rgest_age1" />
+                <ScalarProperty Name="rgest_age2" ColumnName="rgest_age2" />
+                <ScalarProperty Name="rgest_age3" ColumnName="rgest_age3" />
+                <ScalarProperty Name="rbest_time" ColumnName="rbest_time" />
+                <ScalarProperty Name="rbest_time1" ColumnName="rbest_time1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="view_all_patient" FunctionName="AASTHAModel.Store.view_all_patient">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.view_all_patient_Result">
+                <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DateWiseIPD_Collection" FunctionName="AASTHAModel.Store.DateWiseIPD_Collection">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.DateWiseIPD_Collection_Result">
+                <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+                <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+                <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DateWiseOPD_Collection" FunctionName="AASTHAModel.Store.DateWiseOPD_Collection">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AASTHAModel.DateWiseOPD_Collection_Result">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+                <ScalarProperty Name="Total_Collection" ColumnName="Total_Collection" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tbl_appointment">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_appointment">
+              <MappingFragment StoreEntitySet="tbl_appointment">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+                <ScalarProperty Name="Patient_Id" ColumnName="Patient_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_shift">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_shift">
+              <MappingFragment StoreEntitySet="tbl_shift">
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="delivery_master">
+            <EntityTypeMapping TypeName="AASTHAModel.delivery_master">
+              <MappingFragment StoreEntitySet="delivery_master">
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="delivery_typeId" ColumnName="delivery_typeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="diagnosis_master">
+            <EntityTypeMapping TypeName="AASTHAModel.diagnosis_master">
+              <MappingFragment StoreEntitySet="diagnosis_master">
+                <ScalarProperty Name="diagnosis_type" ColumnName="diagnosis_type" />
+                <ScalarProperty Name="digagnosis_typeId" ColumnName="digagnosis_typeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="general_diagnosis">
+            <EntityTypeMapping TypeName="AASTHAModel.general_diagnosis">
+              <MappingFragment StoreEntitySet="general_diagnosis">
+                <ScalarProperty Name="general_diagnosis_name" ColumnName="general_diagnosis_name" />
+                <ScalarProperty Name="general_diagnosis_Id" ColumnName="general_diagnosis_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IPD_Charge_Details">
+            <EntityTypeMapping TypeName="AASTHAModel.IPD_Charge_Details">
+              <MappingFragment StoreEntitySet="IPD_Charge_Details">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="Charge_Id" ColumnName="Charge_Id" />
+                <ScalarProperty Name="IPD_Id" ColumnName="IPD_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IPD_Charges_Master">
+            <EntityTypeMapping TypeName="AASTHAModel.IPD_Charges_Master">
+              <MappingFragment StoreEntitySet="IPD_Charges_Master">
+                <ScalarProperty Name="Charge_Title" ColumnName="Charge_Title" />
+                <ScalarProperty Name="Charge_Id" ColumnName="Charge_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="medicine_master">
+            <EntityTypeMapping TypeName="AASTHAModel.medicine_master">
+              <MappingFragment StoreEntitySet="medicine_master">
+                <ScalarProperty Name="medicine_type" ColumnName="medicine_type" />
+                <ScalarProperty Name="medicine_name" ColumnName="medicine_name" />
+                <ScalarProperty Name="medicine_typeId" ColumnName="medicine_typeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="operation_master">
+            <EntityTypeMapping TypeName="AASTHAModel.operation_master">
+              <MappingFragment StoreEntitySet="operation_master">
+                <ScalarProperty Name="operation_type" ColumnName="operation_type" />
+                <ScalarProperty Name="operation_typeId" ColumnName="operation_typeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_delivery">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_delivery">
+              <MappingFragment StoreEntitySet="tbl_delivery">
+                <ScalarProperty Name="diagnosis" ColumnName="diagnosis" />
+                <ScalarProperty Name="baby_weight" ColumnName="baby_weight" />
+                <ScalarProperty Name="baby_gender" ColumnName="baby_gender" />
+                <ScalarProperty Name="delivery_time" ColumnName="delivery_time" />
+                <ScalarProperty Name="delivery_date" ColumnName="delivery_date" />
+                <ScalarProperty Name="delivery_typeId" ColumnName="delivery_typeId" />
+                <ScalarProperty Name="Ipd_Id" ColumnName="Ipd_Id" />
+                <ScalarProperty Name="delivery_Id" ColumnName="delivery_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_general">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_general">
+              <MappingFragment StoreEntitySet="tbl_general">
+                <ScalarProperty Name="general_diagnosis" ColumnName="general_diagnosis" />
+                <ScalarProperty Name="Ipd_Id" ColumnName="Ipd_Id" />
+                <ScalarProperty Name="general_Id" ColumnName="general_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Ipd">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_Ipd">
+              <MappingFragment StoreEntitySet="tbl_Ipd">
+                <ScalarProperty Name="conssesion" ColumnName="conssesion" />
+                <ScalarProperty Name="bill" ColumnName="bill" />
+                <ScalarProperty Name="discharge_date" ColumnName="discharge_date" />
+                <ScalarProperty Name="addmission_date" ColumnName="addmission_date" />
+                <ScalarProperty Name="room_type" ColumnName="room_type" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+                <ScalarProperty Name="ipd_receipt_id" ColumnName="ipd_receipt_id" />
+                <ScalarProperty Name="ipd_Id" ColumnName="ipd_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_medicine_type">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_medicine_type">
+              <MappingFragment StoreEntitySet="tbl_medicine_type">
+                <ScalarProperty Name="medicine_type" ColumnName="medicine_type" />
+                <ScalarProperty Name="medicine_Id" ColumnName="medicine_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_opd">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_opd">
+              <MappingFragment StoreEntitySet="tbl_opd">
+                <ScalarProperty Name="other_charge" ColumnName="other_charge" />
+                <ScalarProperty Name="inj_charge" ColumnName="inj_charge" />
+                <ScalarProperty Name="upt_charge" ColumnName="upt_charge" />
+                <ScalarProperty Name="usg_charge" ColumnName="usg_charge" />
+                <ScalarProperty Name="consult_charge" ColumnName="consult_charge" />
+                <ScalarProperty Name="case_type" ColumnName="case_type" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="opd_receipt_id" ColumnName="opd_receipt_id" />
+                <ScalarProperty Name="opd_Id" ColumnName="opd_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_operation">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_operation">
+              <MappingFragment StoreEntitySet="tbl_operation">
+                <ScalarProperty Name="operation_type" ColumnName="operation_type" />
+                <ScalarProperty Name="operation_date" ColumnName="operation_date" />
+                <ScalarProperty Name="diagnosis" ColumnName="diagnosis" />
+                <ScalarProperty Name="Ipd_Id" ColumnName="Ipd_Id" />
+                <ScalarProperty Name="operation_Id" ColumnName="operation_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_patient">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_patient">
+              <MappingFragment StoreEntitySet="tbl_patient">
+                <ScalarProperty Name="opd_id123" ColumnName="opd_id123" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_user">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_user">
+              <MappingFragment StoreEntitySet="tbl_user">
+                <ScalarProperty Name="Biometric_Id" ColumnName="Biometric_Id" />
+                <ScalarProperty Name="Layout" ColumnName="Layout" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tran_MachineRawPunch">
+            <EntityTypeMapping TypeName="AASTHAModel.Tran_MachineRawPunch">
+              <MappingFragment StoreEntitySet="Tran_MachineRawPunch">
+                <ScalarProperty Name="MachineNo" ColumnName="MachineNo" />
+                <ScalarProperty Name="PayCode" ColumnName="PayCode" />
+                <ScalarProperty Name="ISManual" ColumnName="ISManual" />
+                <ScalarProperty Name="P_Day" ColumnName="P_Day" />
+                <ScalarProperty Name="PunchDatetime" ColumnName="PunchDatetime" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="Tran_MachineRawPunchId" ColumnName="Tran_MachineRawPunchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
