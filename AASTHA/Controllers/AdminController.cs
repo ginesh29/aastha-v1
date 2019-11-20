@@ -400,10 +400,10 @@ namespace AASTHA.Controllers
         }
         public JsonResult IsAppointed(string Appointment_Date, int? Patient_Id, string Get_View)
         {
-            var data = true;
-            if (Get_View != "Edit")
+            var data = false;
+            if (Patient_Id > 0)
             {
-                data = !db.IsAppointed(Patient_Id, Appointment_Date).Any();
+                data = db.IsAppointed(Patient_Id, Appointment_Date).Any();
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }

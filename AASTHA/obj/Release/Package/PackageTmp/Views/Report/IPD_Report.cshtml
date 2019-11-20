@@ -154,21 +154,21 @@
                     <tr>
                         <td colspan="2">{{patients.length}} Patients</td>
                         <td colspan="2" style="text-align:right">Grand Total</td>
-                        <td>{{total(grpkey,'C1')}}</td>
-                        <td>{{total(grpkey,'C2')}}</td>
-                        <td>{{total(grpkey,'C3')}}</td>
-                        <td>{{total(grpkey,'C4')}}</td>
-                        <td>{{total(grpkey,'C5')}}</td>
-                        <td>{{total(grpkey,'C6')}}</td>
-                        <td>{{total(grpkey,'C7')}}</td>
-                        <td>{{total(grpkey,'C8')}}</td>
-                        <td>{{total(grpkey,'C9')}}</td>
-                        <td>{{total(grpkey,'C10')}}</td>
-                        <td>{{total(grpkey,'C11')}}</td>
-                        <td>{{total(grpkey,'C12')}}</td>
-                        <td>{{total(grpkey,'C13')}}</td>
-                        <td>{{total(grpkey,'Bill')}}</td>
-                        <td>{{total(grpkey,'Final_Total')}}</td>
+                        <td>{{total('C1')}}</td>
+                        <td>{{total('C2')}}</td>
+                        <td>{{total('C3')}}</td>
+                        <td>{{total('C4')}}</td>
+                        <td>{{total('C5')}}</td>
+                        <td>{{total('C6')}}</td>
+                        <td>{{total('C7')}}</td>
+                        <td>{{total('C8')}}</td>
+                        <td>{{total('C9')}}</td>
+                        <td>{{total('C10')}}</td>
+                        <td>{{total('C11')}}</td>
+                        <td>{{total('C12')}}</td>
+                        <td>{{total('C13')}}</td>
+                        <td>{{total('Bill')}}</td>
+                        <td>{{total('Final_Total')}}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -193,6 +193,13 @@
                 <tr ng-if="summary.length == 0">
                     <td colspan="3" style="text-align:left">No Record Found</td>
                 </tr>
+                <tfoot ng-if="summary.length != 0" class="tablefooter">
+                    <tr>
+                        <td>Total</td>
+                        <td>{{summarytotal('No_of_Patients')}}</td>
+                        <td>{{summarytotal('Total_Collection')}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         
@@ -318,7 +325,14 @@
                         unblockui();
                         $scope.patients = response.data;
                         $scope.summary = response.summary;
-                        console.log(response.summary)
+                        $scope.summarytotal = function (key) {
+                            var total = 0;
+                            for (var i = 0; i < $scope.summary.length; i++) {
+                                var opd = $scope.summary[i];
+                                total += (opd[key]);
+                            }
+                            return total;
+                        }
                         $scope.groupcount = function (group) {
                             var total = 0;
                             for (var i = 0; i < $scope.patients.length; i++) {
@@ -329,7 +343,7 @@
                             }
                             return total;
                         }
-                        $scope.total = function (group, key) {
+                        $scope.total = function (key) {
                             var total = 0;
                             for (var i = 0; i < $scope.patients.length; i++) {
                                 var ipd = $scope.patients[i];

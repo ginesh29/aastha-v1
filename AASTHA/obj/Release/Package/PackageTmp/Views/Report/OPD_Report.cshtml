@@ -84,6 +84,13 @@
                 <tr ng-if="summary.length == 0">
                     <td colspan="3" style="text-align:left">No Record Found</td>
                 </tr>
+                <tfoot ng-if="summary.length != 0" class="tablefooter">
+                    <tr>
+                        <td>Total</td>
+                        <td>{{summarytotal('No_of_Patients')}}</td>
+                        <td>{{summarytotal('Total_Collection')}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <div id="report" class="tab-pane fade">
@@ -139,12 +146,12 @@
                     <tr>
                         <td colspan="3">{{patients.length}} Patients</td>
                         <td style="text-align:right">Grand Total</td>
-                        <td>{{total(grpkey,'Consult_Charge')}}</td>
-                        <td>{{total(grpkey,'USG_Charge')}}</td>
-                        <td>{{total(grpkey,'UPT_Charge')}}</td>
-                        <td>{{total(grpkey,'Inj_Charge')}}</td>
-                        <td>{{total(grpkey,'Other_Charge')}}</td>
-                        <td>{{total(grpkey,'Total')}}</td>
+                        <td>{{total('Consult_Charge')}}</td>
+                        <td>{{total('USG_Charge')}}</td>
+                        <td>{{total('UPT_Charge')}}</td>
+                        <td>{{total('Inj_Charge')}}</td>
+                        <td>{{total('Other_Charge')}}</td>
+                        <td>{{total('Total')}}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -233,6 +240,14 @@
                         unblockui();
                         $scope.patients = response.data;
                         $scope.summary = response.summary;
+                        $scope.summarytotal = function (key) {
+                            var total = 0;
+                            for (var i = 0; i < $scope.summary.length; i++) {
+                                var opd = $scope.summary[i];
+                                total += (opd[key]);
+                            }
+                            return total;
+                        }
                         $scope.groupcount = function (group) {
                             var total = 0;
                             for (var i = 0; i < $scope.patients.length; i++) {
@@ -243,7 +258,7 @@
                             }
                             return total;
                         }
-                        $scope.total = function (group, key) {
+                        $scope.total = function (key) {
                             var total = 0;
                             for (var i = 0; i < $scope.patients.length; i++) {
                                 var opd = $scope.patients[i];

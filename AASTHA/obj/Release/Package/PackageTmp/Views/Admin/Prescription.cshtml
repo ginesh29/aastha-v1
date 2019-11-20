@@ -27,7 +27,6 @@
                     <div class="row">
                         <div class="col-xs-6 selectbox">
                             <div class="form-group">
-                                @Html.HiddenFor(m => m.Get_View)
                                 <label class="control-label" for="full_name">Full Name</label>
                                 <input id="Patient_Id" name="Patient_Id" required>
                                 @Html.ValidationMessageFor(m => m.Patient_Id)
@@ -355,8 +354,8 @@
                     Prescription Preview
                 </div>
                 <div class="panel-options">
-                    <a id="btnprint" style="font-size:20px;" class="bg"><i class="entypo-print"></i></a>
-                    <a id="btnsavepresc" style="font-size:20px;" class="bg"><i class="entypo-floppy"></i></a>
+                    @*<a id="btnprint" style="font-size:20px;" class="bg"><i class="entypo-print"></i></a>*@
+                    <a id="btnsavepresc" style="font-size:20px;" class="bg"><i class="entypo-print"></i></a>
                     <a id="btngoto" style="font-size:20px;" class="bg"><i class="entypo-forward"></i></a>
                 </div>
             </div>
@@ -764,17 +763,18 @@
                 $("#Medicine_name").attr('disabled', 'disabled');
             }
         });
-        $("#btnprint").click(function () {
-            if ($("#form").valid()) {
-                $(".printable").print();
-            }
-        });
+        //$("#btnprint").click(function () {
+        //    if ($("#form").valid()) {
+        //        $(".printable").print();
+        //    }
+        //});
         $("#btngoto").click(function () {
             if ($("#form").valid()) {
                 var date = $("#opd_date").val();
                 var patient_id = $("#Patient_Id").select2("data").id;
-                var name = $("#Patient_Id").select2("data").text;             
-                window.location.href = '/OPD/OPD_Entry?date=' + date + '&patient_id=' + patient_id+'&name='+name;
+                var name = $("#Patient_Id").select2("data").text;
+                var url ='@Url.Action("OPD_Entry", "OPD")' +'?date=' + date + '&patient_id=' + patient_id + '&name=' + name;
+                window.open(url, '_blank');
             }
         });
         $("#btnsavepresc").click(function () {
@@ -826,6 +826,7 @@
                         }
                     })
                 }
+                $(".printable").print();
             }
         });
 

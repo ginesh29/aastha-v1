@@ -58,7 +58,7 @@ namespace AASTHA.Models
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Numberic Only ")]
         public int? day { get; set; }
-        [Remote("IsAppointedPatient", "Admin", AdditionalFields = "Patient_Id", ErrorMessage = "Patient Already Appointed")]
+        //[Remote("IsAppointedPatient", "Admin", AdditionalFields = "Patient_Id", ErrorMessage = "Patient Already Appointed")]
         //[RequiredIf("Appointment_Type", "Date", ErrorMessage = "Please Enter Date")]
         public string Followup_date { get; set; }
         //[RequiredIf("IsSonography", "true", ErrorMessage = "Please Enter Date")]
@@ -69,7 +69,7 @@ namespace AASTHA.Models
         public string Appointment_Date { get; set; }
         public string Appoint_Date { get; set; }
         [Required]
-        [Remote("IsAppointed", "Admin", AdditionalFields = "Appointment_Date,Patient_Id,Get_View", ErrorMessage = "Patient Already Appointed")]
+        //[Remote("IsAppointed", "Admin", AdditionalFields = "Appointment_Date,Patient_Id,Get_View", ErrorMessage = "Patient Already Appointed")]
         public string Appointment_Type { get; set; }
         public List<SelectListItem> Appointment_List { get; set; }
 
