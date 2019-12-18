@@ -524,7 +524,7 @@ namespace AASTHA.Controllers
             return View(db.diagnosis_master.OrderBy(m => m.diagnosis_type).ToList().ToPagedList(page ?? 1, 10));
         }
         [HttpPost]
-        public ActionResult AddEdit_OperationDiagnosis(AdminModel model, int? id, string a)
+        public ActionResult AddEdit_OperationDiagnosis(AdminModel model, int? id)
         {
             if (id != null)
             {
@@ -654,6 +654,7 @@ namespace AASTHA.Controllers
         }
         public JsonResult IsOperationDiagnosisExist(string Operation_Diagnosis)
         {
+            var a = !db.diagnosis_master.Any(m => m.diagnosis_type == Operation_Diagnosis);
             return Json(!db.diagnosis_master.Any(m => m.diagnosis_type == Operation_Diagnosis), JsonRequestBehavior.AllowGet);
         }
 

@@ -59,12 +59,12 @@
     <hr />
 
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#summary">OPD Summary</a></li>
-        <li><a data-toggle="tab" href="#report">OPD Report</a></li>
+        <li><a data-toggle="tab" href="#summary">OPD Summary</a></li>
+        <li class="active"><a data-toggle="tab" href="#report">OPD Report</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="summary" class="tab-pane fade in active">
+        <div id="summary" class="tab-pane fade">
             <h3 style="text-align:center">OPD Report Summary</h3>
             <table class="table table-bordered">
                 <thead>
@@ -93,7 +93,7 @@
                 </tfoot>
             </table>
         </div>
-        <div id="report" class="tab-pane fade">
+        <div id="report" class="tab-pane fade in active">
             <h3 style="text-align:center">OPD Report</h3>
 
             <table class="table table-bordered">
@@ -203,7 +203,7 @@
     $('input.icheck-11').iCheck({
         radioClass: 'iradio_square-blue'
     });
-    var activeTab = "#summary";
+    var activeTab = "#report";
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         activeTab = $(e.target).attr('href');
     });

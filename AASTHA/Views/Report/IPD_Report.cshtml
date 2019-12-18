@@ -74,8 +74,37 @@
 
     <div class="tab-content">
         <div id="summary" class="tab-pane fade in active">
+            <h3 style="text-align:center">IPD Report Summary</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>No of Patients</th>
+                        <th>Total Collection</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in summary">
+                        <td>{{item.discharge_date}}</td>
+                        <td>{{item.No_of_Patients}}</td>
+                        <td>{{item.Total_Collection}}</td>
+                    </tr>
+                </tbody>
+                <tr ng-if="summary.length == 0">
+                    <td colspan="3" style="text-align:left">No Record Found</td>
+                </tr>
+                <tfoot ng-if="summary.length != 0" class="tablefooter">
+                    <tr>
+                        <td>Total</td>
+                        <td>{{summarytotal('No_of_Patients')}}</td>
+                        <td>{{summarytotal('Total_Collection')}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div id="report" class="tab-pane fade">
             <h3 style="text-align:center">IPD Report</h3>
-
+            
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -173,36 +202,6 @@
                 </tfoot>
             </table>
         </div>
-        <div id="report" class="tab-pane fade">
-            <h3 style="text-align:center">IPD Report Summary</h3>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>No of Patients</th>
-                        <th>Total Collection</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in summary">
-                        <td>{{item.discharge_date}}</td>
-                        <td>{{item.No_of_Patients}}</td>
-                        <td>{{item.Total_Collection}}</td>
-                    </tr>
-                </tbody>
-                <tr ng-if="summary.length == 0">
-                    <td colspan="3" style="text-align:left">No Record Found</td>
-                </tr>
-                <tfoot ng-if="summary.length != 0" class="tablefooter">
-                    <tr>
-                        <td>Total</td>
-                        <td>{{summarytotal('No_of_Patients')}}</td>
-                        <td>{{summarytotal('Total_Collection')}}</td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-        
     </div>
 </div>
 
@@ -400,4 +399,3 @@
         text-decoration: underline;
     }
 </style>
-
