@@ -5,14 +5,13 @@ using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Net.Mime;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -165,25 +164,10 @@ namespace AASTHA.Controllers
             {
                 opddate = Convert.ToDateTime(DateTime.Now).ToString("dd/MM/yy");
             }
-            var data = db.OPD_Report(report, opddate, fromdate, todate).Select(temp => new
-            {
-                temp.opd_Id,
-                temp.opd_receipt_id,
-                temp.full_name,
-                temp.date,
-                temp.case_type,
-                temp.Consult_Charge,
-                temp.USG_Charge,
-                temp.UPT_Charge,
-                temp.Inj_Charge,
-                temp.Other_Charge,
-                temp.Total
-            });
+            var data = db.OPD_Report(report, opddate, fromdate, todate).ToList();
             var summary = db.DateWiseOPD_Collection(report, opddate, fromdate, todate);
-
-            // UsersContext u = new UsersContext();           
-
-            return JsonConvert.SerializeObject(new { data = data, summary = summary }, new IsoDateTimeConverter() { DateTimeFormat = "dd/MM/yyyy" });
+            TempData["OPDReportData"] = data;
+            return JsonConvert.SerializeObject(new { summary = summary, data = data }, new IsoDateTimeConverter() { DateTimeFormat = "dd/MM/yyyy" });
         }
         public string GetIPD_Report(string ipddate, string fromdate, string todate, string report)
         {
@@ -191,185 +175,10 @@ namespace AASTHA.Controllers
             {
                 ipddate = Convert.ToDateTime(DateTime.Now).ToString("dd/MM/yy");
             }
-            var data = db.IPD_Report(report, ipddate, fromdate, todate).OrderBy(m => m.discharge_date).Select(temp => new
-            {
-                temp.ipd_receipt_id,
-                temp.ipd_Id,
-                temp.full_name,
-                temp.room_type,
-                temp.address,
-                temp.dept_name,
-                temp.addmission_date,
-                temp.discharge_date,
-                temp.C1,
-                temp.C2,
-                temp.C3,
-                temp.C4,
-                temp.C5,
-                temp.C6,
-                temp.C7,
-                temp.C8,
-                temp.C9,
-                temp.C10,
-                temp.C11,
-                temp.C12,
-                temp.C13,
-                temp.Bill,
-                temp.Final_Total,
-                AmtInWord = NumbersToWords((int)temp.Final_Total),
-                charge = from charge_master in db.IPD_Charges_Master
-                         join charge_detail in db.IPD_Charge_Details on charge_master.Charge_Id equals charge_detail.Charge_Id
-                         where charge_detail.IPD_Id == temp.ipd_Id
-                         select new { charge_detail.Charge_Id, charge_master.Charge_Title, charge_detail.Days, charge_detail.Rate, charge_detail.Amount }
-            });
+            var data = db.IPD_Report(report, ipddate, fromdate, todate).OrderBy(m => m.discharge_date).ToList();
             var summary = db.DateWiseIPD_Collection(report, ipddate, fromdate, todate);
-            return JsonConvert.SerializeObject(new { data = data, summary = summary }, new IsoDateTimeConverter() { DateTimeFormat = "dd/MM/yyyy" });
-        }
-        public string GetAttendance_Report(string ipddate, string fromdate, string todate, string report)
-        {
-            if (ipddate == "")
-            {
-                ipddate = Convert.ToDateTime(DateTime.Now).ToString("dd/MM/yy");
-            }
-            var data = db.IPD_Report(report, ipddate, fromdate, todate).OrderBy(m => m.discharge_date).Select(temp => new
-            {
-                temp.ipd_receipt_id,
-                temp.ipd_Id,
-                temp.full_name,
-                temp.room_type,
-                temp.address,
-                temp.dept_name,
-                temp.addmission_date,
-                temp.discharge_date,
-                temp.C1,
-                temp.C2,
-                temp.C3,
-                temp.C4,
-                temp.C5,
-                temp.C6,
-                temp.C7,
-                temp.C8,
-                temp.C9,
-                temp.C10,
-                temp.C11,
-                temp.C12,
-                temp.C13,
-                temp.Bill,
-                temp.Final_Total,
-                AmtInWord = NumbersToWords((int)temp.Final_Total),
-                charge = from charge_master in db.IPD_Charges_Master
-                         join charge_detail in db.IPD_Charge_Details on charge_master.Charge_Id equals charge_detail.Charge_Id
-                         where charge_detail.IPD_Id == temp.ipd_Id
-                         select new { charge_detail.Charge_Id, charge_master.Charge_Title, charge_detail.Days, charge_detail.Rate, charge_detail.Amount }
-            });
-            return JsonConvert.SerializeObject(data, new IsoDateTimeConverter() { DateTimeFormat = "dd/MM/yyyy" });
-        }
-        public ActionResult Biometric_Report()
-        {
-            return View();
-        }
-        public string Get_BiometricReport(string date, string report)
-        {
-            if (date == "")
-            {
-                date = Convert.ToDateTime(DateTime.Now).ToString("dd/MM/yy");
-            }
-            //var data = (from temp in db.Biometric_Report(report, date)
-            //            select new
-            //            {
-            //                temp.username,
-            //                temp.PunchDatetime
-            //            });
-            var data = db.Biometric_Report(report, date).Select(temp =>
-                new
-                {
-                    temp.username,
-                    PunchDate = temp.DateTime,
-                    PunchTime = temp.DateTime.Value.ToString("hh:mm tt"),
-                    //PunchInTime = db.Tran_MachineRawPunch.FirstOrDefault(m => m.PunchDatetime == temp.PunchDatetime).PunchDatetime.ToString("hh:mm tt"),
-                    //PunchOutTime = db.Tran_MachineRawPunch.OrderBy(m => m.PunchDatetime).FirstOrDefault(m => m.PunchDatetime == temp.PunchDatetime).PunchDatetime.ToString("hh:mm tt")
-
-                });
-            return JsonConvert.SerializeObject(data, new IsoDateTimeConverter() { DateTimeFormat = "dd/MM/yyyy" });
-        }
-        public ActionResult Attendance_Report()
-        {
-            return View();
-        }
-        public string Get_MonthlyAttendance_Report(string date)
-        {
-            if (date == "")
-            {
-                date = Convert.ToDateTime(DateTime.Now).ToString("dd/MM/yy");
-            }
-            var data = db.Monthly_AttendanceReport(date).Select(m => new
-            {
-                m.username,
-                C1 = m.C1 == 0 ? "A" : "P",
-                C2 = m.C2 == 0 ? "A" : "P",
-                C3 = m.C3 == 0 ? "A" : "P",
-                C4 = m.C4 == 0 ? "A" : "P",
-                C5 = m.C5 == 0 ? "A" : "P",
-                C6 = m.C6 == 0 ? "A" : "P",
-                C7 = m.C7 == 0 ? "A" : "P",
-                C8 = m.C8 == 0 ? "A" : "P",
-                C9 = m.C9 == 0 ? "A" : "P",
-                C10 = m.C10 == 0 ? "A" : "P",
-                C11 = m.C11 == 0 ? "A" : "P",
-                C12 = m.C12 == 0 ? "A" : "P",
-                C13 = m.C13 == 0 ? "A" : "P",
-                C14 = m.C14 == 0 ? "A" : "P",
-                C15 = m.C15 == 0 ? "A" : "P",
-                C16 = m.C16 == 0 ? "A" : "P",
-                C17 = m.C17 == 0 ? "A" : "P",
-                C18 = m.C18 == 0 ? "A" : "P",
-                C19 = m.C19 == 0 ? "A" : "P",
-                C20 = m.C20 == 0 ? "A" : "P",
-                C21 = m.C21 == 0 ? "A" : "P",
-                C22 = m.C22 == 0 ? "A" : "P",
-                C23 = m.C23 == 0 ? "A" : "P",
-                C24 = m.C24 == 0 ? "A" : "P",
-                C25 = m.C25 == 0 ? "A" : "P",
-                C26 = m.C26 == 0 ? "A" : "P",
-                C27 = m.C27 == 0 ? "A" : "P",
-                C28 = m.C28 == 0 ? "A" : "P",
-                C29 = m.C29 == 0 ? "A" : "P",
-                C30 = m.C30 == 0 ? "A" : "P",
-                C31 = m.C31 == 0 ? "A" : "P",
-                PresentDays = (m.C1 == 0 ? 0 : m.C1) +
-                (m.C1 != 0 ? 1 : m.C1) +
-                (m.C2 != 0 ? 1 : m.C2) +
-                (m.C3 != 0 ? 1 : m.C3) +
-                (m.C4 != 0 ? 1 : m.C4) +
-                (m.C5 != 0 ? 1 : m.C5) +
-                (m.C6 != 0 ? 1 : m.C6) +
-                (m.C7 != 0 ? 1 : m.C7) +
-                (m.C8 != 0 ? 1 : m.C8) +
-                (m.C9 != 0 ? 1 : m.C9) +
-                (m.C10 != 0 ? 1 : m.C10) +
-                (m.C11 != 0 ? 1 : m.C11) +
-                (m.C12 != 0 ? 1 : m.C12) +
-                (m.C13 != 0 ? 1 : m.C13) +
-                (m.C14 != 0 ? 1 : m.C14) +
-                (m.C15 != 0 ? 1 : m.C15) +
-                (m.C16 != 0 ? 1 : m.C16) +
-                (m.C17 != 0 ? 1 : m.C17) +
-                (m.C18 != 0 ? 1 : m.C18) +
-                (m.C19 != 0 ? 1 : m.C19) +
-                (m.C20 != 0 ? 1 : m.C20) +
-                (m.C21 != 0 ? 1 : m.C21) +
-                (m.C22 != 0 ? 1 : m.C22) +
-                (m.C23 != 0 ? 1 : m.C23) +
-                (m.C24 != 0 ? 1 : m.C24) +
-                (m.C25 != 0 ? 1 : m.C25) +
-                (m.C26 != 0 ? 1 : m.C26) +
-                (m.C27 != 0 ? 1 : m.C27) +
-                (m.C28 != 0 ? 1 : m.C28) +
-                (m.C29 != 0 ? 1 : m.C29) +
-                (m.C30 != 0 ? 1 : m.C30) +
-                (m.C31 != 0 ? 1 : m.C31)
-            });
-            return JsonConvert.SerializeObject(data, new IsoDateTimeConverter() { DateTimeFormat = "dd/MM/yyyy" });
+            TempData["IPDReportData"] = data;
+            return JsonConvert.SerializeObject(new { summary = summary, data = data }, new IsoDateTimeConverter() { DateTimeFormat = "dd/MM/yyyy" });
         }
         public ActionResult InvoicesList()
         {
@@ -494,6 +303,149 @@ namespace AASTHA.Controllers
             }
 
             return View();
+        }
+        //public class OPDReportDataModel
+        //{
+        //    public int OPDReport { get; set; }
+        //}
+        public ActionResult ExportOPD()
+        {
+            var stream = new MemoryStream();
+            var OPDReportData = TempData["OPDReportData"] as List<OPD_Report_Result>;
+            TempData.Keep("OPDReportData");
+            using (var package = new ExcelPackage(stream))
+            {
+                //var workSheet = package.Workbook.Worksheets.Add("Summery");
+                var workSheet2 = package.Workbook.Worksheets.Add("Report");
+                workSheet2.Cells["A1"].Value = "Invoice No";
+                workSheet2.Cells["B1"].Value = "OPD Id";
+                workSheet2.Cells["C1"].Value = "Patient's Name";
+                workSheet2.Cells["D1"].Value = "Case Type";
+                workSheet2.Cells["E1"].Value = "OPD Date";
+                workSheet2.Cells["f1"].Value = "Cons";
+                workSheet2.Cells["G1"].Value = "USG";
+                workSheet2.Cells["H1"].Value = "UPT";
+                workSheet2.Cells["I1"].Value = "Inj";
+                workSheet2.Cells["J1"].Value = "Other";
+                workSheet2.Cells["K1"].Value = "Total";
+                int row1 = 2;
+                foreach (var item in OPDReportData)
+                {
+                    workSheet2.Cells[string.Format("A{0}", row1)].Value = item.opd_Id;
+                    workSheet2.Cells[string.Format("B{0}", row1)].Value = item.opd_receipt_id;
+                    workSheet2.Cells[string.Format("C{0}", row1)].Value = item.full_name;
+                    workSheet2.Cells[string.Format("D{0}", row1)].Value = item.case_type;
+                    workSheet2.Cells[string.Format("E{0}", row1)].Value = item.date;
+                    workSheet2.Cells[string.Format("F{0}", row1)].Value = Convert.ToDecimal(item.Consult_Charge);
+                    workSheet2.Cells[string.Format("G{0}", row1)].Value = Convert.ToDecimal(item.USG_Charge);
+                    workSheet2.Cells[string.Format("H{0}", row1)].Value = Convert.ToDecimal(item.UPT_Charge);
+                    workSheet2.Cells[string.Format("I{0}", row1)].Value = Convert.ToDecimal(item.Inj_Charge);
+                    workSheet2.Cells[string.Format("J{0}", row1)].Value = Convert.ToDecimal(item.Other_Charge);
+                    workSheet2.Cells[string.Format("K{0}", row1)].Value = Convert.ToDecimal(item.Total);
+
+                    workSheet2.Cells[string.Format("E{0}", row1)].Style.Numberformat.Format = "dd/mm/yyyy";
+                    row1++;
+                }
+                workSheet2.Cells[string.Format("A{0}", row1)].Value = "Total";
+                workSheet2.Cells[string.Format("F{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.Consult_Charge));
+                workSheet2.Cells[string.Format("G{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.USG_Charge));
+                workSheet2.Cells[string.Format("H{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.UPT_Charge));
+                workSheet2.Cells[string.Format("I{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.Inj_Charge));
+                workSheet2.Cells[string.Format("J{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.Other_Charge));
+                workSheet2.Cells[string.Format("K{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.Total));
+
+                workSheet2.Column(1).Width = 10;
+                workSheet2.Column(2).Width = 15;
+                workSheet2.Column(3).Width = 30;
+                workSheet2.Column(4).Width = 10;
+                workSheet2.Column(5).Width = 15;
+                package.Save();
+            }
+            stream.Position = 0;
+            string excelName = $"OPDReport.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        }
+        public ActionResult ExportIPD()
+        {
+            var stream = new MemoryStream();
+            var IPDReportData = TempData["IPDReportData"] as List<IPD_Report_Result>;
+            TempData.Keep("IPDReportData");
+            using (var package = new ExcelPackage(stream))
+            {
+                //var workSheet = package.Workbook.Worksheets.Add("Summery");
+                var workSheet2 = package.Workbook.Worksheets.Add("Report");
+                workSheet2.Cells["A1"].Value = "Invoice No";
+                workSheet2.Cells["B1"].Value = "Patient's Name";
+                workSheet2.Cells["C1"].Value = "Ipd Type";
+                workSheet2.Cells["D1"].Value = "Add. Date";
+                workSheet2.Cells["E1"].Value = "Dis. Date";
+                workSheet2.Cells["F1"].Value = "Addmission";
+                workSheet2.Cells["G1"].Value = "Consulting";
+                workSheet2.Cells["H1"].Value = "Delivery/Operation";
+                workSheet2.Cells["I1"].Value = "Labour/Operation Room";
+                workSheet2.Cells["J1"].Value = "Room";
+                workSheet2.Cells["K1"].Value = "Doctor Visting";
+                workSheet2.Cells["L1"].Value = "Nursing";
+                workSheet2.Cells["M1"].Value = "Bio-Medical Waste";
+                workSheet2.Cells["N1"].Value = "Oxygen";
+                workSheet2.Cells["O1"].Value = "Baby Care";
+                workSheet2.Cells["P1"].Value = "Dressing";
+                workSheet2.Cells["Q1"].Value = "Paediatrician";
+                workSheet2.Cells["R1"].Value = "Other";
+                workSheet2.Cells["S1"].Value = "Total";
+                int row1 = 2;
+                foreach (var item in IPDReportData)
+                {
+                    workSheet2.Cells[string.Format("A{0}", row1)].Value = item.ipd_Id;
+                    workSheet2.Cells[string.Format("B{0}", row1)].Value = item.full_name;
+                    workSheet2.Cells[string.Format("C{0}", row1)].Value = item.dept_name;
+                    workSheet2.Cells[string.Format("D{0}", row1)].Value = item.addmission_date.Value;
+                    workSheet2.Cells[string.Format("E{0}", row1)].Value = item.discharge_date.Value;
+                    workSheet2.Cells[string.Format("F{0}", row1)].Value = Convert.ToDecimal(item.C1);
+                    workSheet2.Cells[string.Format("G{0}", row1)].Value = Convert.ToDecimal(item.C2);
+                    workSheet2.Cells[string.Format("H{0}", row1)].Value = Convert.ToDecimal(item.C3);
+                    workSheet2.Cells[string.Format("I{0}", row1)].Value = Convert.ToDecimal(item.C4);
+                    workSheet2.Cells[string.Format("J{0}", row1)].Value = Convert.ToDecimal(item.C5);
+                    workSheet2.Cells[string.Format("K{0}", row1)].Value = Convert.ToDecimal(item.C6);
+                    workSheet2.Cells[string.Format("L{0}", row1)].Value = Convert.ToDecimal(item.C7);
+                    workSheet2.Cells[string.Format("M{0}", row1)].Value = Convert.ToDecimal(item.C8);
+                    workSheet2.Cells[string.Format("N{0}", row1)].Value = Convert.ToDecimal(item.C9);
+                    workSheet2.Cells[string.Format("O{0}", row1)].Value = Convert.ToDecimal(item.C10);
+                    workSheet2.Cells[string.Format("P{0}", row1)].Value = Convert.ToDecimal(item.C11);
+                    workSheet2.Cells[string.Format("Q{0}", row1)].Value = Convert.ToDecimal(item.C12);
+                    workSheet2.Cells[string.Format("R{0}", row1)].Value = Convert.ToDecimal(item.C13);
+                    workSheet2.Cells[string.Format("S{0}", row1)].Value = Convert.ToDecimal(item.Final_Total);
+
+                    workSheet2.Cells[string.Format("D{0}", row1)].Style.Numberformat.Format = "dd/mm/yyyy";
+                    workSheet2.Cells[string.Format("E{0}", row1)].Style.Numberformat.Format = "dd/mm/yyyy";
+                    row1++;
+                }
+                workSheet2.Cells[string.Format("A{0}", row1)].Value = "Total";
+                workSheet2.Cells[string.Format("F{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C1));
+                workSheet2.Cells[string.Format("G{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C2));
+                workSheet2.Cells[string.Format("H{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C3));
+                workSheet2.Cells[string.Format("I{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C4));
+                workSheet2.Cells[string.Format("J{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C5));
+                workSheet2.Cells[string.Format("K{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C6));
+                workSheet2.Cells[string.Format("L{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C7));
+                workSheet2.Cells[string.Format("M{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C8));
+                workSheet2.Cells[string.Format("N{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C9));
+                workSheet2.Cells[string.Format("O{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C10));
+                workSheet2.Cells[string.Format("P{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C11));
+                workSheet2.Cells[string.Format("Q{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C12));
+                workSheet2.Cells[string.Format("R{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.C13));
+                workSheet2.Cells[string.Format("S{0}", row1)].Value = IPDReportData.Sum(m => Convert.ToDecimal(m.Final_Total));
+
+                workSheet2.Column(1).Width = 10;
+                workSheet2.Column(2).Width = 30;
+                workSheet2.Column(3).Width = 15;
+                workSheet2.Column(4).Width = 15;
+                workSheet2.Column(5).Width = 15;
+                package.Save();
+            }
+            stream.Position = 0;
+            string excelName = $"IPDReport.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
     }
 }

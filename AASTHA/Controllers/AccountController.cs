@@ -8,7 +8,6 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using AASTHA.Filters;
 using AASTHA.Models;
 
 namespace AASTHA.Controllers

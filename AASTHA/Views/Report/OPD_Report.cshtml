@@ -21,9 +21,21 @@
                 </ul>
             </div>
         </div>
-        <div class="col-md-1 pull-right" ng-if="patients.length != 0">
+        @*<div class="col-md-1 pull-right" ng-if="patients.length != 0">
             <div class="form-group" style="margin-top:25px;">
                 <input type="button" class="btn btn-info" value="Print" id="btnprint" ng-click="print()" />
+            </div>
+        </div>*@
+        <div class="col-md-2 pull-right" ng-if="patients.length != 0">
+            <div class="form-group" style="margin-top:25px;">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                        Print <span class="caret"></span>
+                    </button> <ul class="dropdown-menu dropdown-blue">
+                        <li><a href="#" ng-click="print()">Report</a></li>
+                        <li><a href="@Url.Action("ExportOPD","Report")">Export Excel</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="col-md-1 pull-right">

@@ -28,10 +28,10 @@
                         Print <span class="caret"></span>
                     </button> <ul class="dropdown-menu dropdown-blue">
                         <li><a href="#" ng-click="print()">Report</a></li>
+                        <li><a href="@Url.Action("ExportIPD","Report")">Export Excel</a></li>
                         <li><a href="#" ng-click="printtable()">Charge Table</a></li>
                     </ul>
                 </div>
-                @*<input type="button" class="btn btn-info" value="Print" id="btnprint" ng-click="print()" />*@
             </div>
         </div>
 
@@ -104,7 +104,7 @@
         </div>
         <div id="report" class="tab-pane fade">
             <h3 style="text-align:center">IPD Report</h3>
-            
+
             <table class="table table-bordered">
                 <thead>
                     <tr>

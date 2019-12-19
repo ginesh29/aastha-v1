@@ -113,23 +113,12 @@ function unblockui_modal() {
 }
 
 $(document).ready(function () {
-    $("a").click(function () {
-        var href = $(this).attr('href');
-        if (href *= "#" || href == null) {
-            blockui();
-        }
-        else {
-            unblockui();
-        }
-    });
     $(".Capitalize").keyup(function () {
         var caps = $(this).val().charAt(0).toUpperCase() + $(this).val().slice(1);
         $(this).val(caps);
     })
 });
-window.onbeforeunload = function () {
-    blockui();
-}
+
 //$(document).on('submit', 'form', function () {
 //    blockui();
 //});
