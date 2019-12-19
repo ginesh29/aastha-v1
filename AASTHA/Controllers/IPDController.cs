@@ -349,7 +349,7 @@ namespace AASTHA.Controllers
                 return RedirectToAction("Login", "Admin");
             }
         }
-        public ActionResult AddEdit_DeliveryType(int? id, string page)
+        public ActionResult AddEdit_DeliveryType(int? id, int? page)
         {
             AdminModel model = new AdminModel();
             model.page = Convert.ToInt32(page);
@@ -447,7 +447,7 @@ namespace AASTHA.Controllers
                 return View(model);
             }
             //
-            return View();
+            return View(model);
         }
         public ActionResult OperationTypeGrid(int? page)
         {
@@ -512,7 +512,7 @@ namespace AASTHA.Controllers
                 return View(model);
             }
             // 
-            return View();
+            return View(model);
 
         }
         public ActionResult OperationDiagnosisGrid(int? page)
@@ -595,7 +595,7 @@ namespace AASTHA.Controllers
                 return View(model);
             }
             // 
-            return View();
+            return View(model);
 
         }
         public ActionResult GeneralDiagnosisGrid(int? page)
