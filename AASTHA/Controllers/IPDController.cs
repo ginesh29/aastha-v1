@@ -17,9 +17,7 @@ namespace AASTHA.Controllers
 {
     public class IPDController : Controller
     {
-
         AASTHAEntities db = new AASTHAEntities();
-
         public void Bind_IPD_Type()
         {
             string[] type = { "Delivery", "Operation", "General" };
@@ -75,7 +73,6 @@ namespace AASTHA.Controllers
                 return View();
             }
         }
-
         public ActionResult Modal_Edit(int? ipd_id)
         {
             Bind_IPD_Type();
@@ -88,7 +85,6 @@ namespace AASTHA.Controllers
             Bind_Operation_Type();
             return View();
         }
-
         public ActionResult Get_IpdType(int? Ipd_Id)
         {
             var type = db.tbl_Ipd.FirstOrDefault(m => m.ipd_Id == Ipd_Id).dept_name;
@@ -212,8 +208,6 @@ namespace AASTHA.Controllers
             };
             return JsonConvert.SerializeObject(result, new IsoDateTimeConverter() { DateTimeFormat = "dd/MM/yyyy" });
         }
-
-
         public ActionResult Charge_Detail()
         {
             return View();
@@ -314,8 +308,6 @@ namespace AASTHA.Controllers
             var charge = db.Get_IPD_Charge_Tabele().Where(m => m.IPD_Id == ipd_id);
             return View(charge);
         }
-
-
         public JsonResult Check_Exist_IPD(int? IPD_Id_Edit)
         {
 
@@ -373,9 +365,8 @@ namespace AASTHA.Controllers
             }
             return View(db.delivery_master.OrderBy(m => m.delivery).ToList().ToPagedList(page ?? 1, 10));
         }
-
         [HttpPost]
-        public ActionResult AddEdit_DeliveryType(AdminModel model, int? id, string c, string a)
+        public ActionResult AddEdit_DeliveryType(AdminModel model, int? id)
         {
             if (id != null)
             {
@@ -388,7 +379,6 @@ namespace AASTHA.Controllers
                 table.delivery = model.Delivery_Type;
                 db.delivery_master.Add(table);
             }
-
             db.SaveChanges();
             return RedirectToAction("DeliveryTypeGrid", "IPD", new { page = model.page });
         }
@@ -459,7 +449,7 @@ namespace AASTHA.Controllers
             return View(type);
         }
         [HttpPost]
-        public ActionResult AddEdit_OperationType(AdminModel model, int? id, string a)
+        public ActionResult AddEdit_OperationType(AdminModel model, int? id)
         {
             if (id != null)
             {
@@ -608,7 +598,7 @@ namespace AASTHA.Controllers
             return View(type);
         }
         [HttpPost]
-        public ActionResult AddEdit_GeneralDiagnosis(AdminModel model, int? id, string a)
+        public ActionResult AddEdit_GeneralDiagnosis(AdminModel model, int? id)
         {
             if (id != null)
             {
@@ -657,13 +647,11 @@ namespace AASTHA.Controllers
             var a = !db.diagnosis_master.Any(m => m.diagnosis_type == Operation_Diagnosis);
             return Json(!db.diagnosis_master.Any(m => m.diagnosis_type == Operation_Diagnosis), JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult demo(int? page)
         {
 
             return View(db.Get_All_OPD_Entry());
         }
-
         public ActionResult get_patient()
         {
             ArrayList result = new ArrayList();

@@ -7,9 +7,14 @@ var JQ_sopt_string = JSON.parse('{"sopt": ["cn","eq"]}');
 var JQ_sopt_bool = JSON.parse('{"sopt": ["eq","ne"], "value": ":All;True:Yes;False:No"}');
 var JQ_sopt_status = JSON.parse('{"sopt": ["eq","ne"], "value": ":All;Active:Active;InActive:InActive"}');
 var JQ_sopt_date = JSON.parse('{"sopt": ["eq","ge","le"]}');
-
 var JQ_DateFormat = 'm/d/Y';
 
+$(document).ready(function () {
+    $(".Capitalize").keyup(function () {
+        var caps = $(this).val().charAt(0).toUpperCase() + $(this).val().slice(1);
+        $(this).val(caps);
+    });
+});
 function ReloadGrid(grid) {
     $("#" + grid).trigger('reloadGrid');
 }
@@ -27,7 +32,6 @@ function SuccessMessage(data) {
         autoClose: true
     });
 }
-
 function ErrorMessage(data) {
     if (data == null || data.length <= 0)
         return;
@@ -46,13 +50,11 @@ function displaysuccessmsg(data) {
     $("#errormsg").hide();
     $("#successmsg").show().delay(2000).hide("200000");
 }
-
 function displayerrormsg(data) {
     $("#errormsg").text(data);
     $("#successmsg").hide();
     $("#errormsg").show().delay(2000).hide("200000");
 }
-
 function blockui() {
     $.blockUI({ message: $('#loader') });
 }
@@ -111,17 +113,6 @@ function blockui_modal() {
 function unblockui_modal() {
     $('div.blockui_div modal').unblock();
 }
-
-$(document).ready(function () {
-    $(".Capitalize").keyup(function () {
-        var caps = $(this).val().charAt(0).toUpperCase() + $(this).val().slice(1);
-        $(this).val(caps);
-    })
-});
-
-//$(document).on('submit', 'form', function () {
-//    blockui();
-//});
 function resetValidation() {
     //Removes validation from input-fields
     $('.input-validation-error').addClass('input-validation-valid');
@@ -150,7 +141,6 @@ function resetmultiselect() {
     $("select.multiselect").multiselect("deselectAll", false);
     $("select.multiselect").multiselect('updateButtonText');
 }
-
 function savemsg(type) {
     setTimeout(function () {
         var opts = {
@@ -171,7 +161,6 @@ function savemsg(type) {
         toastr.success("Record Has Been Saved Successfully", type, opts);
     }, 1000);
 }
-
 function deletemsg(type) {
     setTimeout(function () {
         var opts = {
@@ -192,7 +181,6 @@ function deletemsg(type) {
         toastr.success("Record Has Been Deleted Successfully", type, opts);
     }, 1000);
 }
-
 function datemask() {
     $(".datepicker").inputmask("d/m/y", { "placeholder": "dd/mm/yyyy" });
 }
@@ -201,4 +189,4 @@ function getUrlParameter(name) {
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
     var results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-};
+}
