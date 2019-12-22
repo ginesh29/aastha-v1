@@ -34,6 +34,7 @@
         <AssociationConnector Association="AASTHAModel.FK_tbl_operation_tbl_Ipd" />
         <AssociationConnector Association="AASTHAModel.FK__tbl_opd__patient__4EFDAD20" />
         <AssociationConnector Association="AASTHAModel.FK__tbl_opd__patient__6FE99F9F" />
+        <EntityTypeShape EntityType="AASTHAModel.tbl_advice" Width="1.5" PointX="12.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

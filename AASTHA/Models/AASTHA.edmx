@@ -77,6 +77,13 @@
           <Property Name="operation_typeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="operation_type" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tbl_advice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Advice_Text" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tbl_delivery">
           <Key>
             <PropertyRef Name="delivery_Id" />
@@ -618,6 +625,7 @@ warning 6002: The table/view 'AASTHA.dbo.Tran_MachineRawPunch' does not have a p
           <EntitySet Name="IPD_Charges_Master" EntityType="Self.IPD_Charges_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="medicine_master" EntityType="Self.medicine_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="operation_master" EntityType="Self.operation_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_advice" EntityType="Self.tbl_advice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_delivery" EntityType="Self.tbl_delivery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_general" EntityType="Self.tbl_general" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Ipd" EntityType="Self.tbl_Ipd" Schema="dbo" store:Type="Tables" />
@@ -1029,6 +1037,7 @@ FROM [dbo].[Tran_MachineRawPunch] AS [Tran_MachineRawPunch]</DefiningQuery>
             <End Role="tbl_patient" EntitySet="tbl_patient" />
             <End Role="tbl_opd" EntitySet="tbl_opd" />
           </AssociationSet>
+          <EntitySet Name="tbl_advice" EntityType="AASTHAModel.tbl_advice" />
         </EntityContainer>
         <ComplexType Name="Biometric_Report_Result">
           <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
@@ -1853,6 +1862,13 @@ FROM [dbo].[Tran_MachineRawPunch] AS [Tran_MachineRawPunch]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_advice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Advice_Text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2713,6 +2729,14 @@ FROM [dbo].[Tran_MachineRawPunch] AS [Tran_MachineRawPunch]</DefiningQuery>
                 <ScalarProperty Name="PunchDatetime" ColumnName="PunchDatetime" />
                 <ScalarProperty Name="CardNo" ColumnName="CardNo" />
                 <ScalarProperty Name="Tran_MachineRawPunchId" ColumnName="Tran_MachineRawPunchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_advice">
+            <EntityTypeMapping TypeName="AASTHAModel.tbl_advice">
+              <MappingFragment StoreEntitySet="tbl_advice">
+                <ScalarProperty Name="Advice_Text" ColumnName="Advice_Text" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

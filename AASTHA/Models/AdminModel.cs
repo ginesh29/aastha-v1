@@ -25,6 +25,8 @@ namespace AASTHA.Models
         public IList<SelectListItem> Layout_List { get; set; }
         public bool Remember { get; set; }
         [Required]
+        public string Advice_Text { get; set; }
+        [Required]
         [Remote("IsDeliveryTypeExist", "IPD", ErrorMessage = "Delivery Type is Already Exist")]
         public string Delivery_Type { get; set; }
         [Required]
@@ -48,7 +50,6 @@ namespace AASTHA.Models
         public int? Medicine_TypeId { get; set; }
         public IList<SelectListItem> Medicine_Type_List { get; set; }
         public IList<SelectListItem> Appointment_Type_List { get; set; }
-        public int page { get; set; }
 
         public string Medicine_Fullname { get; set; }
         [Required]
@@ -76,5 +77,7 @@ namespace AASTHA.Models
         public string ViewOperation { get; set; }
         public string Get_View { get; set; }
         public int Appointment_Id { get; set; }
+
+        public int page { get; set; }
     }
 }

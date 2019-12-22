@@ -46,6 +46,7 @@ namespace AASTHA.Models
         public DbSet<tbl_patient> tbl_patient { get; set; }
         public DbSet<tbl_user> tbl_user { get; set; }
         public DbSet<Tran_MachineRawPunch> Tran_MachineRawPunch { get; set; }
+        public DbSet<tbl_advice> tbl_advice { get; set; }
     
         public virtual int Add_Appointment(Nullable<int> patient_id, string date, string type)
         {

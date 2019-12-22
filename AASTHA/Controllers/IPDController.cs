@@ -340,6 +340,14 @@ namespace AASTHA.Controllers
             {
                 return RedirectToAction("Login", "Admin");
             }
+        }        
+        public ActionResult DeliveryTypeGrid(int? page)
+        {
+            if (page == 0)
+            {
+                page = 1;
+            }
+            return View(db.delivery_master.OrderBy(m => m.delivery).ToList().ToPagedList(page ?? 1, 10));
         }
         public ActionResult AddEdit_DeliveryType(int? id, int? page)
         {
@@ -356,14 +364,6 @@ namespace AASTHA.Controllers
             //  
             return View(model);
 
-        }
-        public ActionResult DeliveryTypeGrid(int? page)
-        {
-            if (page == 0)
-            {
-                page = 1;
-            }
-            return View(db.delivery_master.OrderBy(m => m.delivery).ToList().ToPagedList(page ?? 1, 10));
         }
         [HttpPost]
         public ActionResult AddEdit_DeliveryType(AdminModel model, int? id)
@@ -685,6 +685,71 @@ namespace AASTHA.Controllers
                 rows = query.Select(m => new { m.Charge_Id, m.Charge_Title, m.Days, m.Rate, m.Amount })
             };
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult Manage_Advice()
+        {
+            if (Request.Cookies["User"] != null)
+            {
+                if (Request.Cookies["Role"].Value == "Doctor")
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Admin");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+        }
+        public ActionResult AdviceGrid(int? page)
+        {
+            if (page == 0)
+            {
+                page = 1;
+            }
+            return View(db.tbl_advice.OrderBy(m => m.Id).ToList().ToPagedList(page ?? 1, 10));
+        }
+        public ActionResult AddEdit_Advice(int? id, int? page)
+        {
+            AdminModel model = new AdminModel();
+            model.page = Convert.ToInt32(page);
+            if (id != null)
+            {
+                var advice = db.tbl_advice.FirstOrDefault(m => m.Id == id);
+                model.Advice_Text = advice.Advice_Text;
+                return View(model);
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult AddEdit_Advice(AdminModel model, int? id)
+        {
+            if (id != null)
+            {
+                var advise = db.tbl_advice.FirstOrDefault(m => m.Id == id);
+                advise.Advice_Text = model.Advice_Text;
+            }
+            else
+            {
+                tbl_advice table = new tbl_advice();
+                table.Advice_Text = model.Advice_Text;
+                db.tbl_advice.Add(table);
+            }
+            db.SaveChanges();
+            Request. QueryString["id"] = "";
+            return RedirectToAction("AdviceGrid", "IPD", new { page = model.page });
+        }
+        public ActionResult Delete_Advice(int? id, int? page)
+        {
+            var user = db.tbl_advice.FirstOrDefault(m => m.Id == id);
+            db.tbl_advice.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("AdviceGrid", "IPD", new { page = page });
         }
     }
 }

@@ -60,6 +60,9 @@
     <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="GemBox.Spreadsheet, Version=45.0.35.1069, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <HintPath>..\packages\GemBox.Spreadsheet.45.0.0.1069\lib\net35\GemBox.Spreadsheet.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
     </Reference>
@@ -393,6 +396,9 @@
     </Compile>
     <Compile Include="Models\RequireIf.cs" />
     <Compile Include="Models\Search_In_OPDGrid_Result.cs">
+      <DependentUpon>AASTHA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_advice.cs">
       <DependentUpon>AASTHA.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_appointment.cs">
@@ -1932,6 +1938,9 @@
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\IPD\AddEdit_Advice.cshtml" />
+    <Content Include="Views\IPD\AdviceGrid.cshtml" />
+    <Content Include="Views\IPD\Manage_Advice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

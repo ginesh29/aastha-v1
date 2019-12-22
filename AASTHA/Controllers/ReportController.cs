@@ -8,6 +8,7 @@ using Newtonsoft.Json.Converters;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -316,49 +317,91 @@ namespace AASTHA.Controllers
             using (var package = new ExcelPackage(stream))
             {
                 //var workSheet = package.Workbook.Worksheets.Add("Summery");
-                var workSheet2 = package.Workbook.Worksheets.Add("Report");
-                workSheet2.Cells["A1"].Value = "Invoice No";
-                workSheet2.Cells["B1"].Value = "OPD Id";
-                workSheet2.Cells["C1"].Value = "Patient's Name";
-                workSheet2.Cells["D1"].Value = "Case Type";
-                workSheet2.Cells["E1"].Value = "OPD Date";
-                workSheet2.Cells["f1"].Value = "Cons";
-                workSheet2.Cells["G1"].Value = "USG";
-                workSheet2.Cells["H1"].Value = "UPT";
-                workSheet2.Cells["I1"].Value = "Inj";
-                workSheet2.Cells["J1"].Value = "Other";
-                workSheet2.Cells["K1"].Value = "Total";
-                int row1 = 2;
-                foreach (var item in OPDReportData)
+               // var workSheet2 = package.Workbook.Worksheets.Add("Report");
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Sheet 1");
+                ExcelWorksheet worksheet2 = package.Workbook.Worksheets.Add("Sheet 2");
+
+                //set the calculation mode to manual
+                package.Workbook.CalcMode = ExcelCalcMode.Manual;
+
+                //fill cell data with a loop, note that row and column indexes start at 1
+                for (int i = 1; i <= 25; i++)
                 {
-                    workSheet2.Cells[string.Format("A{0}", row1)].Value = item.opd_Id;
-                    workSheet2.Cells[string.Format("B{0}", row1)].Value = item.opd_receipt_id;
-                    workSheet2.Cells[string.Format("C{0}", row1)].Value = item.full_name;
-                    workSheet2.Cells[string.Format("D{0}", row1)].Value = item.case_type;
-                    workSheet2.Cells[string.Format("E{0}", row1)].Value = item.date;
-                    workSheet2.Cells[string.Format("F{0}", row1)].Value = Convert.ToDecimal(item.Consult_Charge);
-                    workSheet2.Cells[string.Format("G{0}", row1)].Value = Convert.ToDecimal(item.USG_Charge);
-                    workSheet2.Cells[string.Format("H{0}", row1)].Value = Convert.ToDecimal(item.UPT_Charge);
-                    workSheet2.Cells[string.Format("I{0}", row1)].Value = Convert.ToDecimal(item.Inj_Charge);
-                    workSheet2.Cells[string.Format("J{0}", row1)].Value = Convert.ToDecimal(item.Other_Charge);
-                    workSheet2.Cells[string.Format("K{0}", row1)].Value = Convert.ToDecimal(item.Total);
-
-                    workSheet2.Cells[string.Format("E{0}", row1)].Style.Numberformat.Format = "dd/mm/yyyy";
-                    row1++;
+                    for (int j = 1; j <= 10; j++)
+                    {
+                        worksheet.Cells[i, j].Value = (i + j) - 1;
+                        worksheet2.Cells[i, j].Value = (i + j) - 1;
+                    }
                 }
-                workSheet2.Cells[string.Format("A{0}", row1)].Value = "Total";
-                workSheet2.Cells[string.Format("F{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.Consult_Charge));
-                workSheet2.Cells[string.Format("G{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.USG_Charge));
-                workSheet2.Cells[string.Format("H{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.UPT_Charge));
-                workSheet2.Cells[string.Format("I{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.Inj_Charge));
-                workSheet2.Cells[string.Format("J{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.Other_Charge));
-                workSheet2.Cells[string.Format("K{0}", row1)].Value = OPDReportData.Sum(m => Convert.ToDecimal(m.Total));
 
-                workSheet2.Column(1).Width = 10;
-                workSheet2.Column(2).Width = 15;
-                workSheet2.Column(3).Width = 30;
-                workSheet2.Column(4).Width = 10;
-                workSheet2.Column(5).Width = 15;
+                //set the total value of cells in range A1 - A25 into A27
+                worksheet.Cells["A27"].Formula = "=SUM(A1:A25)";
+
+                //set the number of cells with content in range C1 - C25 into C27
+                worksheet.Cells["C27"].Formula = "=COUNT(C1:C25)";
+
+                //fill column K with the sum of each row, range A - J
+                for (int i = 1; i <= 25; i++)
+                {
+                    var cell = worksheet.Cells[i, 12];
+                    cell.Formula = "=SUM(" + worksheet.Cells[i, 1].Address + ":" + worksheet.Cells[i, 10].Address + ")";
+                }
+
+                //calculate the quartile of range E1 - E25 into E27
+                worksheet.Cells[27, 5].Formula = "=QUARTILE(E1:E25,1)";
+
+                //set the total value of all cells in Sheet 2 into G27
+                worksheet.Cells["G27"].Formula = "=SUM('" + worksheet2.Name + "'!" + worksheet2.Dimension.Start.Address + ":" + worksheet2.Dimension.End.Address + ")";
+
+                //set the number of cells with content in Sheet 2, range C1 - C25 into I27
+                worksheet.Cells["I27"].Formula = "=COUNT('" + package.Workbook.Worksheets[2].Name + "'!" + package.Workbook.Worksheets[2].Cells["A1:B25"] + ")";
+
+                //calculate all the values of the formulas in the Excel file
+                package.Workbook.Calculate();
+                //workSheet2.Cells["A1"].Value = "Invoice No";
+                //workSheet2.Cells["B1"].Value = "OPD Id";
+                //workSheet2.Cells["C1"].Value = "Patient's Name";
+                //workSheet2.Cells["D1"].Value = "Case Type";
+                //workSheet2.Cells["E1"].Value = "OPD Date";
+                //workSheet2.Cells["f1"].Value = "Cons";
+                //workSheet2.Cells["G1"].Value = "USG";
+                //workSheet2.Cells["H1"].Value = "UPT";
+                //workSheet2.Cells["I1"].Value = "Inj";
+                //workSheet2.Cells["J1"].Value = "Other";
+                //workSheet2.Cells["K1"].Value = "Total";
+                //int row1 = 2;
+                //foreach (var item in OPDReportData)
+                //{
+                //    workSheet2.Cells[string.Format("A{0}", row1)].Value = item.opd_Id;
+                //    workSheet2.Cells[string.Format("B{0}", row1)].Value = item.opd_receipt_id;
+                //    workSheet2.Cells[string.Format("C{0}", row1)].Value = item.full_name;
+                //    workSheet2.Cells[string.Format("D{0}", row1)].Value = item.case_type;
+                //    workSheet2.Cells[string.Format("E{0}", row1)].Value = item.date;
+                //    workSheet2.Cells[string.Format("F{0}", row1)].Value = Convert.ToDecimal(item.Consult_Charge);
+                //    workSheet2.Cells[string.Format("G{0}", row1)].Value = Convert.ToDecimal(item.USG_Charge);
+                //    workSheet2.Cells[string.Format("H{0}", row1)].Value = Convert.ToDecimal(item.UPT_Charge);
+                //    workSheet2.Cells[string.Format("I{0}", row1)].Value = Convert.ToDecimal(item.Inj_Charge);
+                //    workSheet2.Cells[string.Format("J{0}", row1)].Value = Convert.ToDecimal(item.Other_Charge);
+                //    workSheet2.Cells[string.Format("K{0}", row1)].Value = Convert.ToDecimal(item.Total);
+                //    workSheet2.Cells[string.Format("E{0}", row1)].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                //    row1++;
+                //}
+                //workSheet2.Cells[string.Format("F2:K{0}", row1)].Style.Numberformat.Format = "#";
+
+                //workSheet2.Cells[string.Format("A{0}", row1)].Value = "Total";
+                //workSheet2.Cells[string.Format("F{0}", row1)].Style.Numberformat.Format = "0";
+                //workSheet2.Cells[string.Format("F{0}", row1)].Formula = "SUM(F2:F" + row1 + ")";
+                //workSheet2.Cells[string.Format("G{0}", row1)].Formula = "SUM(G2:G" + row1 + ")";
+                //workSheet2.Cells[string.Format("H{0}", row1)].Formula = "SUM(H2:H" + row1 + ")";
+                //workSheet2.Cells[string.Format("I{0}", row1)].Formula = "SUM(I2:I" + row1 + ")";
+                //workSheet2.Cells[string.Format("J{0}", row1)].Formula = "SUM(J2:J" + row1 + ")";
+                //workSheet2.Cells[string.Format("K{0}", row1)].Formula = "SUM(K2:K" + row1 + ")";
+                //workSheet2.Column(1).Width = 10;
+                //workSheet2.Column(2).Width = 15;
+                //workSheet2.Column(3).Width = 30;
+                //workSheet2.Column(4).Width = 10;
+                //workSheet2.Column(5).Width = 15;
+                ////workSheet2.Calculate();
                 package.Save();
             }
             stream.Position = 0;
@@ -416,8 +459,8 @@ namespace AASTHA.Controllers
                     workSheet2.Cells[string.Format("R{0}", row1)].Value = Convert.ToDecimal(item.C13);
                     workSheet2.Cells[string.Format("S{0}", row1)].Value = Convert.ToDecimal(item.Final_Total);
 
-                    workSheet2.Cells[string.Format("D{0}", row1)].Style.Numberformat.Format = "dd/mm/yyyy";
-                    workSheet2.Cells[string.Format("E{0}", row1)].Style.Numberformat.Format = "dd/mm/yyyy";
+                    workSheet2.Cells[string.Format("D{0}", row1)].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+                    workSheet2.Cells[string.Format("E{0}", row1)].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
                     row1++;
                 }
                 workSheet2.Cells[string.Format("A{0}", row1)].Value = "Total";
