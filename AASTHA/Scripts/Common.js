@@ -101,6 +101,12 @@ function unblockui_rightgrid() {
 function OnSuccess() {
     $("input[type='text']").val("");
     $("select").val("");
+    $("form").each(function(){
+    var url=$(this).attr('action');
+    var id=url.match(/\d+/);
+    if(id>0)
+       $(this).attr('action',url.replace(id,""));
+ });
 }
 function unblockui_grid() {
     $('div.blockui_grid').unblock();
