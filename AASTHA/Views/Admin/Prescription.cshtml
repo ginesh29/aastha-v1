@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Patient_Entry";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
+    var Advices = (List<AASTHA.Models.tbl_advice>)ViewBag.Advices;
+    int cnt = 1;
 }
 <link rel="stylesheet" href="~/Content/js/select2/select2-bootstrap.css" id="style-resource-1">
 <link rel="stylesheet" href="~/Content/js/selectboxit/jquery.selectBoxIt.css" id="style-resource-3">
@@ -67,30 +69,14 @@
                                 <div id="advice">
 
                                     <ul class="icheck-list">
-                                        <li>
-                                            <input type="checkbox" class="icheck-12" value="Plenty of liquids orally" id="advice1">
-                                            <label for="advice1">Plenty of liquids orally</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" class="icheck-12" value="USG Pelvis (SOS)" id="advice2">
-                                            <label for="advice2">USG Pelvis (SOS)</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" class="icheck-12" value="ANC Profile" id="advice3">
-                                            <label for="advice3">ANC Profile</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" class="icheck-12" value="Timed Intercourse on Date" id="advice4">
-                                            <label for="advice4">Timed Intercourse on Date</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" class="icheck-12" value="Abstinece/Condom use for next 7 days" id="advice5">
-                                            <label for="advice5">Abstinece/Condom use for next 7 days</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" class="icheck-12" value="Infertility work-up" id="advice6">
-                                            <label for="advice6">Infertility work-up</label>
-                                        </li>
+                                        @foreach (var item in Advices)
+                                        {
+                                            <li>
+                                                <input type="checkbox" class="icheck-12" value="Plenty of liquids orally" id="@("advice"+cnt)">
+                                                <label for="@("advice"+cnt)">@item.Advice_Text</label>
+                                            </li>
+                                            cnt++;
+                                        }
                                     </ul>
 
                                 </div>

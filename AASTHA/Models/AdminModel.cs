@@ -25,6 +25,7 @@ namespace AASTHA.Models
         public IList<SelectListItem> Layout_List { get; set; }
         public bool Remember { get; set; }
         [Required]
+        [Remote("IsAdviceExist", "IPD", ErrorMessage = "Advice is Already Exist")]
         public string Advice_Text { get; set; }
         [Required]
         [Remote("IsDeliveryTypeExist", "IPD", ErrorMessage = "Delivery Type is Already Exist")]

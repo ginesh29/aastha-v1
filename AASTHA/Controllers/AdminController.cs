@@ -130,6 +130,7 @@ namespace AASTHA.Controllers
             {
                 Bind_Medicine_Type(model);
                 // 
+                ViewBag.Advices = db.tbl_advice.ToList();
                 return View(model);
             }
             else
@@ -374,7 +375,7 @@ namespace AASTHA.Controllers
         public JsonResult IsUserExist(string Username)
         {
             return Json(!db.tbl_user.Any(m => m.username == Username), JsonRequestBehavior.AllowGet);
-        }
+        }       
         public JsonResult IsMedicineTypeExist(string Medicine_Type, string ViewOperation)
         {
             if (ViewOperation == "Add")

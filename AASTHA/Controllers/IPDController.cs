@@ -353,7 +353,7 @@ namespace AASTHA.Controllers
         {
             AdminModel model = new AdminModel();
             model.page = Convert.ToInt32(page);
-            if (id != null)
+            if (id > 0)
             {
                 var user = db.delivery_master.FirstOrDefault(m => m.delivery_typeId == id);
                 model.Delivery_Type = user.delivery;
@@ -368,7 +368,7 @@ namespace AASTHA.Controllers
         [HttpPost]
         public ActionResult AddEdit_DeliveryType(AdminModel model, int? id)
         {
-            if (id != null)
+            if (id > 0)
             {
                 var user = db.delivery_master.FirstOrDefault(m => m.delivery_typeId == id);
                 user.delivery = model.Delivery_Type;
@@ -428,7 +428,7 @@ namespace AASTHA.Controllers
         public ActionResult AddEdit_OperationType(int? id, int? page)
         {
             AdminModel model = new AdminModel();
-            if (id != null)
+            if (id > 0)
             {
                 var user = db.operation_master.FirstOrDefault(m => m.operation_typeId == id);
                 model.Operation_Type = user.operation_type;
@@ -451,7 +451,7 @@ namespace AASTHA.Controllers
         [HttpPost]
         public ActionResult AddEdit_OperationType(AdminModel model, int? id)
         {
-            if (id != null)
+            if (id > 0)
             {
                 var user = db.operation_master.FirstOrDefault(m => m.operation_typeId == id);
                 user.operation_type = model.Operation_Type;
@@ -493,7 +493,7 @@ namespace AASTHA.Controllers
         public ActionResult AddEdit_OperationDiagnosis(int? id, int? page)
         {
             AdminModel model = new AdminModel();
-            if (id != null)
+            if (id > 0)
             {
                 var user = db.diagnosis_master.FirstOrDefault(m => m.digagnosis_typeId == id);
                 model.Operation_Diagnosis = user.diagnosis_type;
@@ -516,7 +516,7 @@ namespace AASTHA.Controllers
         [HttpPost]
         public ActionResult AddEdit_OperationDiagnosis(AdminModel model, int? id)
         {
-            if (id != null)
+            if (id > 0)
             {
                 var user = db.diagnosis_master.FirstOrDefault(m => m.digagnosis_typeId == id);
                 user.diagnosis_type = model.Operation_Diagnosis;
@@ -576,7 +576,7 @@ namespace AASTHA.Controllers
         public ActionResult AddEdit_GeneralDiagnosis(int? id, int? page)
         {
             AdminModel model = new AdminModel();
-            if (id != null)
+            if (id > 0)
             {
                 var user = db.general_diagnosis.FirstOrDefault(m => m.general_diagnosis_Id == id);
                 model.General_Diagnosis = user.general_diagnosis_name;
@@ -600,7 +600,7 @@ namespace AASTHA.Controllers
         [HttpPost]
         public ActionResult AddEdit_GeneralDiagnosis(AdminModel model, int? id)
         {
-            if (id != null)
+            if (id > 0)
             {
                 var user = db.general_diagnosis.FirstOrDefault(m => m.general_diagnosis_Id == id);
                 user.general_diagnosis_name = model.General_Diagnosis;
@@ -646,6 +646,10 @@ namespace AASTHA.Controllers
         {
             var a = !db.diagnosis_master.Any(m => m.diagnosis_type == Operation_Diagnosis);
             return Json(!db.diagnosis_master.Any(m => m.diagnosis_type == Operation_Diagnosis), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult IsAdviceExist(string Advice_Text)
+        {
+            return Json(!db.tbl_advice.Any(m => m.Advice_Text == Advice_Text), JsonRequestBehavior.AllowGet);
         }
         public ActionResult demo(int? page)
         {
@@ -718,7 +722,7 @@ namespace AASTHA.Controllers
         {
             AdminModel model = new AdminModel();
             model.page = Convert.ToInt32(page);
-            if (id != null)
+            if (id > 0)
             {
                 var advice = db.tbl_advice.FirstOrDefault(m => m.Id == id);
                 model.Advice_Text = advice.Advice_Text;
@@ -729,7 +733,7 @@ namespace AASTHA.Controllers
         [HttpPost]
         public ActionResult AddEdit_Advice(AdminModel model, int? id)
         {
-            if (id != null)
+            if (id > 0)
             {
                 var advise = db.tbl_advice.FirstOrDefault(m => m.Id == id);
                 advise.Advice_Text = model.Advice_Text;
@@ -741,7 +745,6 @@ namespace AASTHA.Controllers
                 db.tbl_advice.Add(table);
             }
             db.SaveChanges();
-            Request. QueryString["id"] = "";
             return RedirectToAction("AdviceGrid", "IPD", new { page = model.page });
         }
         public ActionResult Delete_Advice(int? id, int? page)
